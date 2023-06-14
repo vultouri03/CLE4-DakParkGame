@@ -57,10 +57,4 @@ export class Player extends Character {
 
         }
     }
-
-    playerDeath() {
-        if(this.hp <= 0) {
-            this.kill();
-        }
-    }
 }
