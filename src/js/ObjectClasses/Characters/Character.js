@@ -18,11 +18,11 @@ export class Character extends Actor {
         this.graphics.use(resource.toSprite());
     }
 
-    movement() {
+    movement(_engine) {
         throw new Error("Movement is an abstract function and must be implemented.");
     }
 
-    _onPostUpdate(_engine, _delta) {
+    onPostUpdate(_engine, _delta) {
         this.movement(_engine);
     }
 }

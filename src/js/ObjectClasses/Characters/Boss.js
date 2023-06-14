@@ -7,7 +7,7 @@ export class Boss extends Character {
         console.log("boss: " + resource)
     }
 
-    movement() {
+    movement(_engine) {
         this.vel = new Vector(-20, 20);
     }
 

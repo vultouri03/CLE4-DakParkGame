@@ -1,12 +1,10 @@
-import { Actor, Input, Vector } from "excalibur";
+import {Input} from "excalibur";
 import { Character } from "./Character";
-import { Resources } from "../../resources";
 
 export class Player extends Character {
 
-    constructor(name, hp, width, height, spriteWidth, spriteHeight, resource, collisionType) {
-        super(name, hp, width, height, spriteWidth, spriteHeight, resource, collisionType)
-            this.graphics.use(resource.toSprite());
+    constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
+        super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType)
     }
 
     onInitialize(engine) {
@@ -14,13 +12,13 @@ export class Player extends Character {
     }
 
     onPostUpdate(_engine, _delta) {
-        super._onPostUpdate(_engine, _delta)
+        super.onPostUpdate(_engine, _delta)
     }
     
-    movement(engine) {
+    movement(_engine) {
         console.log('hello')
-        this.horizontalMovement(engine);
-         this.verticalMovement(engine);
+        this.horizontalMovement(_engine);
+         this.verticalMovement(_engine);
     }
 
     //handles horzontal movement
