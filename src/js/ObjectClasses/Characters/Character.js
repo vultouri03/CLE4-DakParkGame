@@ -1,5 +1,6 @@
 import {Actor, Vector} from "excalibur";
 
+
 export class Character extends Actor {
     name;
     hp;
@@ -16,11 +17,11 @@ export class Character extends Actor {
         this.scale = new Vector(width / (resource.width / spriteWidth), height / (resource.height / spriteHeight));
     }
 
-    movement() {
+    movement(engine) {
         throw new Error("Movement is an abstract function and must be implemented.");
     }
 
-    _onPostupdate() {
-        this.movement();
+    _onPostUpdate(_engine, _delta) {
+        this.movement(_engine);
     }
 }
