@@ -1,6 +1,6 @@
 import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import { Engine } from "excalibur"
+import { ResourceLoader } from './resources.js'
 import { GameScene } from './GameScene'
 
 
