@@ -12,22 +12,24 @@ export class Game extends Engine {
     sling
 
     constructor() {
-        super({width: 800, height: 600})
+        super({
+            width: visualViewport.width,
+            height: visualViewport.height,
+        })
         this.start(ResourceLoader).then(() => this.startGame())
-        this.showDebug(true);
-        this.debug.transform.showAll = true;
+        this.showDebug(false);
     }
 
     startGame() {
         this.addScene('gameScene', new GameScene());
-        this.goToScene('gameScene');
+        this.addScene('BossScene', new BossScene())
+        this.goToScene('BossScene');
 
         const stone = new Shooter()
         this.add(stone)
 
         this.sling = new SlingShot()
         this.add(this.sling)
-
     }
 
     onPreUpdate(engine, delta) {
