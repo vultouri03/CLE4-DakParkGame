@@ -53,7 +53,7 @@ export class Player extends Character {
     
     playerAttacks(engine) {
         if(engine.input.keyboard.wasPressed(Input.Keys.Space)) {
-            
+          //todo add an attack and use the slingshot 
         }
     }
 }
