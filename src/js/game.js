@@ -2,18 +2,24 @@ import '../css/style.css'
 import { Engine } from "excalibur"
 import { ResourceLoader } from './resources.js'
 import { GameScene } from './ObjectClasses/Scenes/GameScene.js'
+import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
 
 
 export class Game extends Engine {
 
     constructor() {
-        super({ width: 800, height: 600 })
+        super({
+            width: visualViewport.width,
+            height: visualViewport.height,
+        })
         this.start(ResourceLoader).then(() => this.startGame())
+        this.showDebug(false);
     }
 
     startGame() {
         this.addScene('gameScene', new GameScene());
-        this.goToScene('gameScene');
+        this.addScene('BossScene', new BossScene())
+        this.goToScene('BossScene');
     }
 }
 

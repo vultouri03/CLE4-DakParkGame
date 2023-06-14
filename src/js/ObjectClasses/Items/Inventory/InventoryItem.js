@@ -1,10 +1,9 @@
 import {Actor, Vector} from "excalibur";
 
-export class Character extends Actor {
-    name;
-    hp;
+export class InventoryItem extends Actor {
+   name;
 
-    constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
+    constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super({
             pos: position,
             height: resource.height/verticalSpriteAmount,
@@ -13,16 +12,13 @@ export class Character extends Actor {
         });
 
         this.name = name;
-        this.hp = hp;
         this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
         this.graphics.use(resource.toSprite());
     }
 
-    movement(_engine) {
-        throw new Error("Movement is an abstract function and must be implemented.");
-    }
-
     onPostUpdate(_engine, _delta) {
-        this.movement(_engine);
+        if (localStorage.getItem(this.name) === "false") {
+            this.kill();
+        }
     }
 }
