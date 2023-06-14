@@ -1,5 +1,5 @@
 import {Actor, Input, Vector} from "excalibur";
-import {Character} from "./ObjectClasses/Characters/Character.js";
+import {Character} from "../../Characters/Character.js";
 
 export class Collectable extends Actor {
     name;
