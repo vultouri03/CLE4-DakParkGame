@@ -1,18 +1,18 @@
-import {Actor, CollisionType, Input, Vector} from "excalibur";
+import {Actor, Input, Vector} from "excalibur";
 import {Character} from "./ObjectClasses/Characters/Character.js";
 
 export class Collectable extends Actor {
     name;
 
-    constructor(name, position, width, height, spriteWidth, spriteHeight, resource) {
+    constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super({
-            height: resource.height/spriteHeight,
-            width: resource.width/spriteWidth,
+            height: resource.height/verticalSpriteAmount,
+            width: resource.width/horizontalSpriteAmount,
+            collisionType: collisionType,
         });
 
-        this.body.collisionType = CollisionType.Passive;
         this.name = name;
-        this.scale = new Vector(width / (resource.width / spriteWidth), height / (resource.height / spriteHeight));
+        this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
         this.graphics.use(resource.toSprite());
     }
 
@@ -25,7 +25,7 @@ export class Collectable extends Actor {
         })
     }
 
-    interAct(engine, event) {
+    interAct(_engine, _event) {
         localStorage.setItem(this.name, "true");
         this.kill();
     }

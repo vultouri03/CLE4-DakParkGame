@@ -17,12 +17,11 @@ export class Player extends Character {
     }
     
     movement(_engine) {
-        console.log('hello')
         this.horizontalMovement(_engine);
          this.verticalMovement(_engine);
     }
 
-    //handles horzontal movement
+    //handles horizontal movement
     horizontalMovement(engine) {
         //sets the vars for movement
         let xSpeed = 0;
@@ -33,7 +32,7 @@ export class Player extends Character {
       } else if(engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
         xSpeed = -200;
       }
-      //aplies the speed to the object
+      //applies the speed to the object
       this.vel.x = xSpeed;
     }
 
