@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Engine } from "excalibur"
+import {Engine, Physics} from "excalibur"
 import { ResourceLoader } from './resources.js'
 import { GameScene } from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
@@ -14,6 +14,7 @@ export class Game extends Engine {
         })
         this.start(ResourceLoader).then(() => this.startGame())
         this.showDebug(false);
+        Physics.useRealisticPhysics();
     }
 
     startGame() {
