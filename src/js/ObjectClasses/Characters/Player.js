@@ -56,7 +56,13 @@ export class Player extends Character {
     
     playerAttacks(engine) {
         if(engine.input.keyboard.wasPressed(Input.Keys.Space)) {
-            
+
+        }
+    }
+
+    playerDeath() {
+        if(this.hp <= 0) {
+            this.kill();
         }
     }
 }
