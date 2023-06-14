@@ -11,8 +11,8 @@ export class Shooter extends Actor {
     onInitialize(engine) {
 
         this.graphics.use(Resources.Stone.toSprite())
-        this.pos= new Vector(100, 100)
-        this.vel= new Vector(50 , 0)
+        this.scale = new Vector(2, 2)
+        this.vel= new Vector(500 , 0)
         this.on('collisionstart', (event) => this.hitSomething(event,engine))
 
 

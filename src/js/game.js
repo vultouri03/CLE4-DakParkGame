@@ -3,9 +3,13 @@ import { Engine, Input } from "excalibur"
 import { ResourceLoader, Resources } from './resources.js'
 import { GameScene } from './GameScene.js'
 import {Shooter} from "./Shooter.js";
+import {SlingShot} from "./SlingShot.js";
+
 
 
 export class Game extends Engine {
+
+    sling
 
     constructor() {
         super({width: 800, height: 600})
@@ -20,18 +24,21 @@ export class Game extends Engine {
 
         const stone = new Shooter()
         this.add(stone)
+
+        this.sling = new SlingShot()
+        this.add(this.sling)
+
     }
 
     onPreUpdate(engine, delta) {
-
-
         if (
-            engine.input.keyboard.wasPressed(
-                Input.Keys.Space)) {
-            console.log('klik');
-            engine.add(new Shooter)
+                engine.input.keyboard.wasPressed(
+                    Input.Keys.Space)) {
+                console.log('klik');
+                engine.add(new Shooter(this.sling.pos.x + 10, this.sling.pos.y - 85))
+            }
         }
-    }
+
 
 }
 new Game()
