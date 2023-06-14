@@ -19,6 +19,9 @@ const Resources = {
     ToolBar: new ImageSource(toolBarImage),
     Wood: new ImageSource(woodImage)
 }
-const ResourceLoader = new Loader([Resources.Boss, Resources.Fish, Resources.Hammer, Resources.Nail, Resources.Rock, Resources.Slingshot, Resources.ToolBar, Resources.Wood])
-
+const resourceArray = []
+for (const key in Resources) {
+    resourceArray.push(Resources[key])
+}
+const ResourceLoader = new Loader(resourceArray)
 export {Resources, ResourceLoader}
