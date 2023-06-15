@@ -1,6 +1,5 @@
-import {Actor, Engine, Vector, Input} from "excalibur";
-import { ResourceLoader,Resources } from './resources.js'
-import {Shooter} from "./Shooter.js";
+import {Actor, Vector} from "excalibur";
+import { Resources } from '../../../resources.js'
 
 export class SlingShot extends Actor {
 
@@ -9,8 +8,8 @@ export class SlingShot extends Actor {
     }
 
     onInitialize(engine) {
-        const sling = Resources.Slingshot.toSprite()
-        this.enableCapturePointer = true;
+        // const sling = Resources.Slingshot.toSprite()
+        // this.enableCapturePointer = true;
         this.pointer.useGraphicsBounds = true;
         this.graphics.use(Resources.Slingshot.toSprite());
         this.pos = new Vector(150, 150);

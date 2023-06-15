@@ -1,10 +1,10 @@
 import '../css/style.css'
-import { Engine, Input } from "excalibur"
-import { ResourceLoader, Resources } from './resources.js'
-import { GameScene } from './GameScene.js'
-import {Shooter} from "./Shooter.js";
-import {SlingShot} from "./SlingShot.js";
-
+import {Engine, Physics, Input} from "excalibur"
+import {ResourceLoader} from './resources.js'
+import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
+import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
+import {Shooter} from "./ObjectClasses/Items/Shooter/Shooter.js";
+import {SlingShot} from "./ObjectClasses/Items/Shooter/SlingShot.js";
 
 
 export class Game extends Engine {
@@ -18,6 +18,7 @@ export class Game extends Engine {
         })
         this.start(ResourceLoader).then(() => this.startGame())
         this.showDebug(false);
+        Physics.useRealisticPhysics();
     }
 
     startGame() {
@@ -33,14 +34,10 @@ export class Game extends Engine {
     }
 
     onPreUpdate(engine, delta) {
-        if (
-                engine.input.keyboard.wasPressed(
-                    Input.Keys.Space)) {
-                console.log('klik');
-                engine.add(new Shooter(this.sling.pos.x + 10, this.sling.pos.y - 85))
-            }
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+            engine.add(new Shooter(this.sling.pos.x + 10, this.sling.pos.y - 85))
         }
-
-
+    }
 }
+
 new Game()

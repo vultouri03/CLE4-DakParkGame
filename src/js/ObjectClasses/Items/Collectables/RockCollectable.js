@@ -1,8 +1,8 @@
 import {Vector} from "excalibur";
-import {Collectable} from "../../Collectable.js";
-import {Resources, ResourceLoader} from '../../resources.js';
+import {Collectable} from "./Collectable.js";
+import {Resources} from '../../../resources.js';
 
-export class Rock extends Collectable {
+export class RockCollectable extends Collectable {
     constructor() {
         super({
             name: "rock",
