@@ -22,6 +22,12 @@ export class Character extends Actor {
         throw new Error("Movement is an abstract function and must be implemented.");
     }
 
+    death() {
+        if(this.hp <= 0) {
+            this.kill();
+        }
+    }
+
     onPostUpdate(_engine, _delta) {
         this.movement(_engine);
     }
