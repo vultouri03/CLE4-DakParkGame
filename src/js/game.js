@@ -5,11 +5,13 @@ import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
 import {Shooter} from "./ObjectClasses/Items/Shooter/Shooter.js";
 import {SlingShot} from "./ObjectClasses/Items/Shooter/SlingShot.js";
+import { Player } from './ObjectClasses/Characters/Player';
 
 
 export class Game extends Engine {
 
     sling
+    player
 
     constructor() {
         super({
@@ -22,6 +24,7 @@ export class Game extends Engine {
     }
 
     startGame() {
+        this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
         this.addScene('gameScene', new GameScene());
         this.addScene('BossScene', new BossScene())
         this.goToScene('BossScene');
