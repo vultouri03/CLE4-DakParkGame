@@ -17,11 +17,12 @@ export class Player extends Character {
         //sets which way the player is facing, 1 is right 2 is down 3 is left and 4 is up;
         this.diretion = 1;
         this.slingShot = new SlingShot();
-        this.addChild(this.slingShot);
+        this.playerSlingshot();
     }
 
     onPostUpdate(_engine, _delta) {
         super.onPostUpdate(_engine, _delta)
+        
     }
     
     movement(_engine) {
@@ -64,17 +65,16 @@ export class Player extends Character {
           this.vel.y = ySpeed;
     }
     
+    // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
-      if(engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+      if(engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true") {
         this.game.currentScene.add(new Shooter(this.pos.x, this.pos.y));
-      }
-          //todo add an attack and use the slingshot 
-          
-        
+      }        
     }
 
+    //adds the slingshot to the player when it is picked up
     playerSlingshot() {
-      if(localStorage.get('slingshot') === true) {
+      if(localStorage.getItem('slingshot') === "true") {
         this.addChild(this.slingShot);
     }
     }
