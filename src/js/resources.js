@@ -1,5 +1,5 @@
 import {ImageSource, Loader} from 'excalibur'
-import bossImage from '../images/boss.png'
+import bossImage from '../images/chicken.png'
 import eggPositionBossImage from '../images/egg drop attack.png'
 import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
