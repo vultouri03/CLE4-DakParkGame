@@ -1,9 +1,12 @@
 import {Input} from "excalibur";
 import { Character } from "./Character";
+import { SlingShot } from "../Items/Shooter/SlingShot";
+import { Shooter } from "../Items/Shooter/Shooter";
 
 export class Player extends Character {
     game;
     direction;
+    slingshot;
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType)
@@ -13,6 +16,8 @@ export class Player extends Character {
         this.game = engine
         //sets which way the player is facing, 1 is right 2 is down 3 is left and 4 is up;
         this.diretion = 1;
+        this.slingShot = new SlingShot();
+        this.addChild(this.slingShot);
     }
 
     onPostUpdate(_engine, _delta) {
@@ -21,7 +26,8 @@ export class Player extends Character {
     
     movement(_engine) {
         this.horizontalMovement(_engine);
-         this.verticalMovement(_engine);
+        this.verticalMovement(_engine);
+        this.playerAttacks(_engine);
     }
 
     //handles horizontal movement
@@ -59,11 +65,17 @@ export class Player extends Character {
     }
     
     playerAttacks(engine) {
-        if(engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+      if(engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+        this.game.currentScene.add(new Shooter(this.pos.x, this.pos.y));
+      }
           //todo add an attack and use the slingshot 
-          if(localStorage.get) {
+          
+        
+    }
 
-          }
-        }
+    playerSlingshot() {
+      if(localStorage.get('slingshot') === true) {
+        this.addChild(this.slingShot);
+    }
     }
 }
