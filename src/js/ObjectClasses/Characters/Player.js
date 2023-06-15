@@ -3,6 +3,7 @@ import { Character } from "./Character";
 
 export class Player extends Character {
     game;
+    direction;
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType)
@@ -10,6 +11,8 @@ export class Player extends Character {
 
     onInitialize(engine) {
         this.game = engine
+        //sets which way the player is facing, 1 is right 2 is down 3 is left and 4 is up;
+        this.diretion = 1;
     }
 
     onPostUpdate(_engine, _delta) {
@@ -29,8 +32,10 @@ export class Player extends Character {
     //checks which key is pressed and sets the velocity to the right amount
       if (engine.input.keyboard.isHeld(Input.Keys.Right) || engine.input.keyboard.isHeld(Input.Keys.D)) {
         xSpeed = 200;
+        this.direction = 1;
       } else if(engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
         xSpeed = -200;
+        this.direction = 3;
       }
       //applies the speed to the object
       this.vel.x = xSpeed;
@@ -44,8 +49,10 @@ export class Player extends Character {
         //checks which key is pressed and sets the velocity to the right amount
         if(engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
             ySpeed = -200;
+            this.direction = 4;
           } else if(engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
             ySpeed = 200;
+            this.direction = 2;
           }
           //applies the speed to the object
           this.vel.y = ySpeed;
