@@ -4,7 +4,7 @@ import {ResourceLoader} from './resources.js'
 import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
 import {Shooter} from "./ObjectClasses/Items/Shooter/Shooter.js";
-import {SlingShot} from "./ObjectClasses/Items/Shooter/SlingShot.js";
+// import {SlingShot} from "./ObjectClasses/Items/Shooter/SlingShot.js";
 
 
 export class Game extends Engine {
@@ -26,11 +26,11 @@ export class Game extends Engine {
         this.addScene('BossScene', new BossScene())
         this.goToScene('BossScene');
 
-        const stone = new Shooter()
-        this.add(stone)
-
-        this.sling = new SlingShot()
-        this.add(this.sling)
+        // const stone = new Shooter()
+        // this.add(stone)
+        //
+        // this.sling = new SlingShot()
+        // this.add(this.sling)
     }
 
     onPreUpdate(engine, delta) {

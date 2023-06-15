@@ -5,9 +5,6 @@ import {IdleAttackPattern} from "./AttackPatterns/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/JumpAttackPattern.js";
 
 export class Boss extends Character {
-    width;
-    height;
-
     actionSequence;
     idleAttackPattern;
     jumpAttackPattern;
