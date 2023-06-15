@@ -12,7 +12,6 @@ export class SlingShot extends Actor {
         // this.enableCapturePointer = true;
         this.pointer.useGraphicsBounds = true;
         this.graphics.use(Resources.Slingshot.toSprite());
-        this.pos = new Vector(150, 150);
     }
 
 
