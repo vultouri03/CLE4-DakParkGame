@@ -12,17 +12,17 @@ export class Player extends Character {
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType)
-    }
-
-    onInitialize(engine) {
-        this.game = engine
         this.direction = {
           Up: 1,
           Down: 2,
           Left: 3,
           Right: 4,
         };
-        this.directionFacing = this.direction.Left
+
+    }
+
+    onInitialize(engine) {
+        this.game = engine
         this.slingShot = new SlingShot();
         this.playerSlingshot();
     }
@@ -76,7 +76,7 @@ export class Player extends Character {
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
       if(engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true") {
-        this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1,  Resources.Rock, "Passive"));
+        this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1,  Resources.Rock, "Passive", this.directionFacing));
       }        
     }
 

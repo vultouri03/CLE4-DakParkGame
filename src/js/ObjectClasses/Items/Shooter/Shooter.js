@@ -4,17 +4,18 @@ import {Entity} from "../../Entity.js";
 
 export class Shooter extends Entity {
     game;
-
-    constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
+    direction;
+    constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType, direction) {
         super(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
+        this.direction = direction;
     }
 
     onInitialize(engine) {
         this.game = engine;
         this.graphics.use(Resources.Rock.toSprite())
         this.scale = new Vector(2, 2)
-
-        switch (this.game.player.directionFacing) {
+        console.log(this.game.player.directionFacing)
+        switch (this.direction) {
             case this.game.player.direction.Right:
                 this.vel = new Vector(500 , 0);
                 break;
@@ -28,7 +29,7 @@ export class Shooter extends Entity {
                 this.vel = new Vector(0, -500);
                 break;
         }
-
+        
         this.on('collisionstart', (event) => this.hitSomething(event,engine))
     }
 
