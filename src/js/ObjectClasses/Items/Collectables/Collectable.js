@@ -10,7 +10,7 @@ export class Collectable extends Actor {
             width: resource.width/horizontalSpriteAmount,
             collisionType: collisionType,
         });
-
+        this.pos = position;
         this.name = name;
         this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
         this.graphics.use(resource.toSprite());
