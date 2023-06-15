@@ -1,11 +1,13 @@
 import '../css/style.css'
-import {Engine, Physics} from "excalibur"
-import {ResourceLoader} from './resources.js'
+import {CollisionType, Engine, Physics, Vector} from "excalibur"
+import {ResourceLoader, Resources} from './resources.js'
 import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
+import {Player} from "./ObjectClasses/Characters/Player.js";
 
 
 export class Game extends Engine {
+    player
 
     constructor() {
         super({
@@ -19,9 +21,18 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
+        let testScene = "Boss";
+
+        this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
+
         this.addScene('gameScene', new GameScene());
-        this.addScene('BossScene', new BossScene())
-        this.goToScene('BossScene');
+        this.addScene('BossScene', new BossScene());
+
+        if (testScene === "Boss") {
+            this.goToScene('BossScene');
+        } else {
+            this.goToScene('gameScene');
+        }
     }
 
     onPreUpdate(engine, delta) {

@@ -1,19 +1,10 @@
-import {Actor, Vector} from "excalibur";
+import {Entity} from "../../Entity.js";
 
-export class InventoryItem extends Actor {
-   name;
+export class InventoryItem extends Entity {
 
     constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
-        super({
-            pos: position,
-            height: resource.height/verticalSpriteAmount,
-            width: resource.width/horizontalSpriteAmount,
-            collisionType: collisionType,
-        });
+        super(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
 
-        this.name = name;
-        this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
-        this.graphics.use(resource.toSprite());
     }
 
     onPostUpdate(_engine, _delta) {

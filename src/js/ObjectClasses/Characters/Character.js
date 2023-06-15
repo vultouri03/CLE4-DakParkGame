@@ -1,21 +1,11 @@
-import {Actor, Vector} from "excalibur";
+import {Entity} from "../Entity.js";
 
-export class Character extends Actor {
-    name;
+export class Character extends Entity {
     hp;
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
-        super({
-            pos: position,
-            height: resource.height/verticalSpriteAmount,
-            width: resource.width/horizontalSpriteAmount,
-            collisionType: collisionType,
-        });
-
-        this.name = name;
+        super(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
         this.hp = hp;
-        this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
-        this.graphics.use(resource.toSprite());
     }
 
     movement(_engine) {
