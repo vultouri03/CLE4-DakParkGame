@@ -1,11 +1,13 @@
-import {Input} from "excalibur";
+import {Input, Vector} from "excalibur";
 import { Character } from "./Character";
 import { SlingShot } from "../Items/Shooter/SlingShot";
 import { Shooter } from "../Items/Shooter/Shooter";
+import { Resources } from "../../resources";
 
 export class Player extends Character {
     game;
     direction;
+    directionFacing;
     slingshot;
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
@@ -14,8 +16,13 @@ export class Player extends Character {
 
     onInitialize(engine) {
         this.game = engine
-        //sets which way the player is facing, 1 is right 2 is down 3 is left and 4 is up;
-        this.diretion = 1;
+        this.direction = {
+          Up: 1,
+          Down: 2,
+          Left: 3,
+          Right: 4,
+        };
+        this.directionFacing = this.direction.Left
         this.slingShot = new SlingShot();
         this.playerSlingshot();
     }
@@ -39,10 +46,10 @@ export class Player extends Character {
     //checks which key is pressed and sets the velocity to the right amount
       if (engine.input.keyboard.isHeld(Input.Keys.Right) || engine.input.keyboard.isHeld(Input.Keys.D)) {
         xSpeed = 200;
-        this.direction = 1;
+        this.directionFacing = this.direction.Right;
       } else if(engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
         xSpeed = -200;
-        this.direction = 3;
+        this.directionFacing = this.direction.Left;
       }
       //applies the speed to the object
       this.vel.x = xSpeed;
@@ -55,11 +62,12 @@ export class Player extends Character {
 
         //checks which key is pressed and sets the velocity to the right amount
         if(engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
-            ySpeed = -200;
-            this.direction = 4;
+          this.directionFacing = this.direction.Up;  
+          ySpeed = -200;
+            
           } else if(engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
             ySpeed = 200;
-            this.direction = 2;
+            this.directionFacing = this.direction.Down;
           }
           //applies the speed to the object
           this.vel.y = ySpeed;
@@ -68,7 +76,7 @@ export class Player extends Character {
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
       if(engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true") {
-        this.game.currentScene.add(new Shooter(this.pos.x, this.pos.y));
+        this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1,  Resources.Rock, "Passive"));
       }        
     }
 

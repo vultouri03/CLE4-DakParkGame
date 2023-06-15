@@ -3,23 +3,36 @@ import { Resources } from '../../../resources.js'
 import {Player} from "../../Characters/Player.js";
 
 
+
 export class Shooter extends Actor {
-    constructor(x,y) {
-        super({width: 25, height: 25})
-        this.pos= new Vector(x, y)
+    game;
+    name;
+
+    constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
+        super({
+            pos: position,
+            height: resource.height/verticalSpriteAmount,
+            width: resource.width/horizontalSpriteAmount,
+            collisionType: collisionType,
+        });
+
+        this.name = name;
+        this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
+        this.graphics.use(resource.toSprite());
+        this.pos= position
     }
 
     onInitialize(engine) {
-        this.game=engine
+        this.game = engine;
         this.graphics.use(Resources.Rock.toSprite())
         this.scale = new Vector(2, 2)
-        if(this.game.player.direction === 1){
-        this.vel= new Vector(500 , 0)
-        }else if (this.game.player.direction === 2){
+        if(this.game.player.directionFacing === this.game.player.direction.Right){
+            this.vel= new Vector(500 , 0)
+        }else if (this.game.player.directionFacing === this.game.player.direction.Down){
             this.vel= new Vector(0 , 500)
-        } else if (this.game.player.direction === 3) {
+        } else if (this.game.player.directionFacing === this.game.player.direction.Left) {
             this.vel = new Vector(-500, 0)
-        }else if (this.game.player.direction === 4) {
+        }else if (this.game.player.directionFacing === this.game.player.direction.Up) {
             this.vel = new Vector(0, -500)
         }
 
