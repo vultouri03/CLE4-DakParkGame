@@ -22,6 +22,7 @@ export class Game extends Engine {
     }
 
     startGame() {
+        localStorage.clear();
         this.addScene('gameScene', new GameScene());
         this.addScene('BossScene', new BossScene())
         this.goToScene('BossScene');

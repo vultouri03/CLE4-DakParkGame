@@ -1,5 +1,3 @@
-import {Vector} from "excalibur";
-import {Resources} from '../../../resources.js';
 import {Collectable} from "./Collectable.js";
 
 export class WoodCollectable extends Collectable {
