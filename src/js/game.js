@@ -1,16 +1,12 @@
 import '../css/style.css'
-import {Engine, Physics, Input, Vector, CollisionType} from "excalibur"
+import {CollisionType, Engine, Physics, Vector} from "excalibur"
 import {ResourceLoader, Resources} from './resources.js'
 import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
-import {Shooter} from "./ObjectClasses/Items/Shooter/Shooter.js";
-import {SlingShot} from "./ObjectClasses/Items/Shooter/SlingShot.js";
-import { Player } from './ObjectClasses/Characters/Player';
+import {Player} from "./ObjectClasses/Characters/Player.js";
 
 
 export class Game extends Engine {
-
-    sling
     player
 
     constructor() {
@@ -24,14 +20,23 @@ export class Game extends Engine {
     }
 
     startGame() {
+        localStorage.clear();
+        let testScene = "Boss";
+
         this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
+
         this.addScene('gameScene', new GameScene());
-        this.addScene('BossScene', new BossScene())
-        this.goToScene('gameScene');
+        this.addScene('BossScene', new BossScene());
+
+        if (testScene === "Boss") {
+            this.goToScene('BossScene');
+        } else {
+            this.goToScene('gameScene');
+        }
     }
 
     onPreUpdate(engine, delta) {
-        
+
     }
 }
 

@@ -1,41 +1,65 @@
-import {Actor, CollisionType, SpriteSheet, Input} from "excalibur";
+import {Actor, CollisionType, SpriteSheet, Input, Vector} from "excalibur";
 import {Resources} from "../../../resources.js";
+import {InventoryItem} from "./InventoryItem.js";
 
 const INPUT_KEY_ONE = Input.Keys.Digit1;
 const INPUT_KEY_TWO = Input.Keys.Digit2;
 const INPUT_KEY_THREE = Input.Keys.Digit3;
 const INPUT_KEY_FOUR = Input.Keys.Digit4;
+const INPUT_KEY_FIVE = Input.Keys.Digit5;
 
-let inventorySlot1Highlighted, inventorySlot2Highlighted, inventorySlot3Highlighted, inventorySlot4Highlighted;
+const INVENTORY_SLOT_WIDTH = 48.25;
+const INVENTORY_WIDTH = 241.25;
+const INVENTORY_HEIGHT = 50;
+const INVENTORY_SLOTS = 5;
+
 export class Inventory extends Actor {
     inventory;
+    inventorySlots = [];
     inventoryActors;
+
+    hammerInventoryItem;
+    nailInventoryItem;
+    rockInventoryItem;
+    slingShotInventoryItem;
+    woodInventoryItem;
 
     constructor(position) {
         super({
             pos: position,
-            height: 50,
-            width: 193,
+            height: INVENTORY_HEIGHT,
+            width: INVENTORY_WIDTH,
             collisionType: CollisionType.Passive,
         })
-        this.inventory = [];
+        this.inventory = [["hammer", false], ["nail", false], ["rock", false], ["slingshot", false], ["wood", false]];
+
+        this.hammerInventoryItem = new InventoryItem("hammer", new Vector(this.pos.x - 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
+        this.nailInventoryItem = new InventoryItem("nail", new Vector(this.pos.x - 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
+        this.rockInventoryItem = new InventoryItem("rock", new Vector(this.pos.x, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock, CollisionType.Passive);
+        this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(this.pos.x + 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
+        this.woodInventoryItem = new InventoryItem('wood', new Vector(this.pos.x + 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
+
         this.initGraphics();
-        this.graphics.use(inventorySlot1Highlighted);
+        this.graphics.use(this.inventorySlots[0]);
     }
 
     onPostUpdate(engine, delta) {
         if (engine.input.keyboard.wasPressed(INPUT_KEY_ONE)) {
-            this.graphics.use(inventorySlot1Highlighted);
+            console.log(this.inventorySlots[0]);
+            this.graphics.use(this.inventorySlots[0]);
             localStorage.setItem("inventorySlot", "1");
         } else if (engine.input.keyboard.wasPressed(INPUT_KEY_TWO)) {
-            this.graphics.use(inventorySlot2Highlighted);
+            this.graphics.use(this.inventorySlots[1]);
             localStorage.setItem("inventorySlot", "2");
         } else if (engine.input.keyboard.wasPressed(INPUT_KEY_THREE)) {
-            this.graphics.use(inventorySlot3Highlighted);
+            this.graphics.use(this.inventorySlots[2]);
             localStorage.setItem("inventorySlot", "3");
         } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FOUR)) {
-            this.graphics.use(inventorySlot4Highlighted);
+            this.graphics.use(this.inventorySlots[3]);
             localStorage.setItem("inventorySlot", "4");
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FIVE)) {
+            this.graphics.use(this.inventorySlots[4]);
+            localStorage.setItem("inventorySlot", "5");
         }
 
         for (let i = 0; i < this.inventory.length; i++) {
@@ -50,33 +74,22 @@ export class Inventory extends Actor {
         const spriteSheet = SpriteSheet.fromImageSource({
             image: Resources.ToolBar,
             grid: {
-                rows: 4,
+                rows: INVENTORY_SLOTS,
                 columns: 1,
-                spriteWidth: 193,
-                spriteHeight: 50.5,
+                spriteWidth: INVENTORY_WIDTH,
+                spriteHeight: INVENTORY_HEIGHT,
             }
         });
-        inventorySlot4Highlighted = spriteSheet.getSprite(0, 0);
-        if (!inventorySlot4Highlighted) return;
-        inventorySlot4Highlighted.width = 193;
-        inventorySlot4Highlighted.height = 50.5;
 
-        inventorySlot3Highlighted = spriteSheet.getSprite(0, 1);
-        if (!inventorySlot3Highlighted) return;
-        inventorySlot3Highlighted.width = 193;
-        inventorySlot3Highlighted.height = 50.5;
+        for (let i = 0; i < INVENTORY_SLOTS; i++) {
+            this.inventorySlots[i] = spriteSheet.getSprite(0, INVENTORY_SLOTS - i - 1);
+            this.inventorySlots[i].width = INVENTORY_WIDTH;
+            this.inventorySlots[i].height = INVENTORY_HEIGHT;
 
-        inventorySlot2Highlighted = spriteSheet.getSprite(0, 2);
-        if (!inventorySlot2Highlighted) return;
-        inventorySlot2Highlighted.width = 193;
-        inventorySlot2Highlighted.height = 50.5;
+            if (!this.inventorySlots[i]) return;
+        }
+        this.inventoryActors = [this.hammerInventoryItem, this.nailInventoryItem, this.rockInventoryItem, this.slingShotInventoryItem, this.woodInventoryItem];
 
-        inventorySlot1Highlighted = spriteSheet.getSprite(0, 3);
-        if (!inventorySlot1Highlighted) return;
-        inventorySlot1Highlighted.width = 193;
-        inventorySlot1Highlighted.height = 50.5;
-
-        this.inventoryActors = [];
 
     }
 }

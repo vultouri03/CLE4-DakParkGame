@@ -12,6 +12,6 @@ export class BossScene extends Scene {
         this.add(new WoodCollectable('wood', new Vector(300, 500), 50, 50, 1, 1, Resources.Wood, CollisionType.Passive))
         this.add(new Boss("chicken boss", 10,  new Vector(300, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive));
         this.add(new Player("player", 25, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Passive));
-        this.add(new Inventory(new Vector(visualViewport.width/2, (screen.height - 200))));
+        this.add(new Inventory(new Vector(visualViewport.width/2, (visualViewport.height - 100))));
     }
 }
