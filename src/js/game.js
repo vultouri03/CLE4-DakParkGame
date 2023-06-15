@@ -1,6 +1,6 @@
 import '../css/style.css'
-import {Engine, Physics, Input} from "excalibur"
-import {ResourceLoader} from './resources.js'
+import {Engine, Physics, Input, Vector, CollisionType} from "excalibur"
+import {ResourceLoader, Resources} from './resources.js'
 import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
 import {Shooter} from "./ObjectClasses/Items/Shooter/Shooter.js";
@@ -27,7 +27,7 @@ export class Game extends Engine {
         this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
         this.addScene('gameScene', new GameScene());
         this.addScene('BossScene', new BossScene())
-        this.goToScene('BossScene');
+        this.goToScene('gameScene');
 
         const stone = new Shooter()
         this.add(stone)
