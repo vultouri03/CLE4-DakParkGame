@@ -1,7 +1,9 @@
-import {CollisionType, Scene, Vector} from "excalibur"
+import {CollisionType, Input, Scene, Vector} from "excalibur"
 import { Player } from "../Characters/Player"
 import { Resources } from "../../resources"
 import {Inventory} from "../Items/Inventory/Inventory.js";
+import {SlingShot} from "../Items/Shooter/SlingShot.js";
+import {Shooter} from "../Items/Shooter/Shooter.js";
 
 export class GameScene extends Scene {
 
@@ -16,5 +18,19 @@ export class GameScene extends Scene {
     onInitialize(engine) {
         this.game = engine;
         this.add(this.game.player)
+
+        this.sling = new SlingShot()
+        this.add(this.sling)
     }
+
+
+
+onPreUpdate(engine, delta) {
+    if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+        engine.add(new Shooter(this.sling.pos.x + 10, this.sling.pos.y - 85))
+    }
+
+}
+
+
 }
