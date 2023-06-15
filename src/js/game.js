@@ -1,7 +1,8 @@
 import '../css/style.css'
 import { Engine, Input } from "excalibur"
 import { ResourceLoader, Resources } from './resources.js'
-import { GameScene } from './GameScene.js'
+import { GameScene } from './ObjectClasses/Scenes/GameScene'
+import { BossScene} from './ObjectClasses/Scenes/BossScene'
 import {Shooter} from "./Shooter.js";
 import {SlingShot} from "./SlingShot.js";
 

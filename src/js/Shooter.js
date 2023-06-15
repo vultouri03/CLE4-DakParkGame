@@ -10,7 +10,7 @@ export class Shooter extends Actor {
 
     onInitialize(engine) {
 
-        this.graphics.use(Resources.Stone.toSprite())
+        this.graphics.use(Resources.Rock.toSprite())
         this.scale = new Vector(2, 2)
         this.vel= new Vector(500 , 0)
         this.on('collisionstart', (event) => this.hitSomething(event,engine))
