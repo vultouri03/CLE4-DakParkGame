@@ -3,24 +3,25 @@ export class AttackPattern {
     duration;
     bossAnimation;
     actionSequence;
+    sprites = [];
 
-    constructor(enemy) {
+    constructor(enemy, _engine) {
         this.enemy = enemy;
         this.initGraphics();
-        this.initAnimations(this.enemy);
+        // this.initAnimations(this.enemy, _engine);
     }
 
     initGraphics() {
         throw new Error("initGraphics is an abstract function and must be implemented.");
     }
 
-    initAnimations(enemy) {
+    initAnimations(enemy, _engine) {
         throw new Error("initAnimations is an abstract function and must be implemented.");
     }
 
-    start(enemy) {
+    start(enemy, _engine) {
         this.enemy.graphics.use(this.bossAnimation);
-        this.initAnimations(enemy);
+        this.initAnimations(enemy, _engine);
         this.enemy.actions.runAction(this.actionSequence);
     }
 }

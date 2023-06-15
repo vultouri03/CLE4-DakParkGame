@@ -5,8 +5,6 @@ import {AttackPattern} from "./AttackPattern.js";
 export class JumpAttackPattern extends AttackPattern {
     constructor(enemy) {
         super(enemy);
-        this.initGraphics();
-        this.initAnimations(this.enemy);
     }
 
     initGraphics() {

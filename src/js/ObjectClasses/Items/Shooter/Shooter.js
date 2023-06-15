@@ -1,8 +1,8 @@
 import {Vector} from "excalibur";
 import { Resources } from '../../../resources.js'
-import {Entity} from "../../Entity.js";
+import {Weapon} from "./Weapon.js";
 
-export class Shooter extends Entity {
+export class Shooter extends Weapon {
     game;
 
     constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
@@ -31,12 +31,4 @@ export class Shooter extends Entity {
 
         this.on('collisionstart', (event) => this.hitSomething(event,engine))
     }
-
-
-    hitSomething(event){
-        if (event.other instanceof Shooter) {
-            event.other.kill()
-        }
-    }
-
 }
