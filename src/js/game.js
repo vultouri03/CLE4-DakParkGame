@@ -1,5 +1,5 @@
 import '../css/style.css'
-import {CollisionType, Engine, Physics, Vector} from "excalibur"
+import {CollisionType, Engine, Vector} from "excalibur"
 import {ResourceLoader, Resources} from './resources.js'
 import {StartScene} from "./ObjectClasses/Scenes/StartScene.js";
 import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
@@ -17,8 +17,8 @@ export class Game extends Engine {
             height: visualViewport.height,
         })
         this.start(ResourceLoader).then(() => this.startGame())
-        this.showDebug(false);
-        Physics.useRealisticPhysics();
+        this.showDebug(true);
+
     }
 
     startGame() {

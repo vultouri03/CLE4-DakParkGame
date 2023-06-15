@@ -1,5 +1,6 @@
 import {ImageSource, Loader} from 'excalibur'
 import bossImage from '../images/chicken.png'
+import eggImage from '../images/egg.png'
 import eggPositionBossImage from '../images/egg drop attack.png'
 import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
@@ -12,6 +13,7 @@ import woodImage from '../images/wood.png'
 
 const Resources = {
     Boss: new ImageSource(bossImage),
+    Egg: new ImageSource(eggImage),
     EggPositionBoss: new ImageSource(eggPositionBossImage),
     Fish: new ImageSource(fishImage),
     Hammer: new ImageSource(hammerImage),

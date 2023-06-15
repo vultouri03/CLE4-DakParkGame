@@ -6,8 +6,6 @@ export class IdleAttackPattern extends AttackPattern {
 
     constructor(enemy) {
         super(enemy);
-        this.initGraphics();
-        this.initAnimations(this.enemy);
     }
 
     initGraphics() {

@@ -12,16 +12,20 @@ export class Boss extends Character {
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
+    }
+
+    onInitialize(_engine) {
         this.idleAttackPattern = new IdleAttackPattern(this);
         this.jumpAttackPattern = new JumpAttackPattern(this);
-        this.eggDropAttackPattern = new EggDropAttackPattern(this);
-        this.initAnimations();
+        this.eggDropAttackPattern = new EggDropAttackPattern(this, _engine);
+
+        this.initAnimations(_engine);
         this.actions.runAction(this.actionSequence);
     }
 
     movement(_engine) {
         if (this.actionSequence.isComplete()) {
-            this.initAnimations();
+            // this.initAnimations(_engine);
             this.actions.runAction(this.actionSequence);
         }
     }
@@ -30,16 +34,16 @@ export class Boss extends Character {
         super.onPostUpdate(_engine, _delta);
     }
 
-    initAnimations() {
+    initAnimations(_engine) {
         this.actionSequence = new ActionSequence(this, ctx => {
             let rand = randomIntInRange(1, 3);
 
-            // rand = 3;
+            // rand = 2;
             if (rand === 1) {
                 this.idleAttackPattern.start(this);
                 ctx.delay(this.idleAttackPattern.duration);
             } else if (rand === 2) {
-                this.eggDropAttackPattern.start(this);
+                this.eggDropAttackPattern.start(this, _engine);
                 ctx.delay(this.eggDropAttackPattern.duration);
             } else {
                 this.jumpAttackPattern.start(this);
