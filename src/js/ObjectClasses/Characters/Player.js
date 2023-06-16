@@ -47,9 +47,11 @@ export class Player extends Character {
       if (engine.input.keyboard.isHeld(Input.Keys.Right) || engine.input.keyboard.isHeld(Input.Keys.D)) {
         xSpeed = 200;
         this.directionFacing = this.direction.Right;
+        this.graphics.use(Resources.PlayerRight.toSprite());
       } else if(engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
         xSpeed = -200;
         this.directionFacing = this.direction.Left;
+        this.graphics.use(Resources.PlayerLeft.toSprite())
       }
       //applies the speed to the object
       this.vel.x = xSpeed;
@@ -64,10 +66,11 @@ export class Player extends Character {
         if(engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
           this.directionFacing = this.direction.Up;  
           ySpeed = -200;
-            
+            this.graphics.use(Resources.PlayerBack.toSprite());
           } else if(engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
             ySpeed = 200;
             this.directionFacing = this.direction.Down;
+            this.graphics.use(Resources.PlayerFront.toSprite());
           }
           //applies the speed to the object
           this.vel.y = ySpeed;
