@@ -11,7 +11,7 @@ export class Weapon extends Entity {
     }
 
     hitSomething(event, engine){
-        if (event.other instanceof Character()) {
+        if (event.other instanceof Character) {
             event.other.kill()
         }
     }
