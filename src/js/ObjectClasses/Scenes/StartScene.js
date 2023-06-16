@@ -1,8 +1,11 @@
 import {Scene, Vector, Label, Font, FontUnit, Color, Input} from "excalibur";
+import {Resources} from "../../resources.js";
+import {StartSceneBackground} from "../StaticComponents/StartSceneBackground.js";
 
 
 
 export class StartScene extends Scene {
+    game
     constructor() {
         super({ width: visualViewport.width,
             height: visualViewport.height,})
@@ -10,18 +13,9 @@ export class StartScene extends Scene {
     }
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.title = new Label({
-            text: 'Het Dak Park spel',
-            font: new Font({
-                unit: FontUnit.Px,
-                style:'oblique',
-                family: 'Impact',
-                size: 100,
-                color: Color.Yellow,
-            }),
-            pos: new Vector(700, 100)
-        })
-        this.add(this.title);
+        this.game = engine;
+        const background = new StartSceneBackground()
+        this.add(background)
 
         this.subtitle = new Label({
             text: 'Druk op ENTER om te beginnen!',
@@ -30,7 +24,7 @@ export class StartScene extends Scene {
                 family: 'Impact',
                 style:'italic',
                 size: 28,
-                color: Color.LightGray,
+                color: Color.White,
             }),
             pos: new Vector(825, 600)
         })
@@ -41,8 +35,14 @@ export class StartScene extends Scene {
         if (
             engine.input.keyboard.wasPressed(
                 Input.Keys.Enter)) {
-            console.log('start');
-            engine.goToScene('gameScene')
+            this.selectCorrectScene()
+        }
+    }
+    selectCorrectScene() {
+        if(this.game.scene === "game") {
+            this.game.goToScene('gameScene');
+        } else {
+            this.game.goToScene('BossScene')
         }
     }
 }
