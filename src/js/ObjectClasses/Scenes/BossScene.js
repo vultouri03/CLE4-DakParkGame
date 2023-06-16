@@ -15,4 +15,9 @@ export class BossScene extends Scene {
         this.add(this.player);
         this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
     }
+    onInitialize(engine) {
+        this.game = engine
+        this.game.scene = "Boss"
+    }
+
 }
