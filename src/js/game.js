@@ -24,7 +24,7 @@ export class Game extends Engine {
     startGame() {
         localStorage.clear();
         let testScene = "Boss";
-        this.scene =  'game';
+        this.scene = "boss";
 
         this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
 

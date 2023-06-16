@@ -46,6 +46,11 @@ export class GameScene extends Scene {
 
     }
 
+    onActivate(ctx) {
+        this.game.scene = "game";
+        localStorage.clear()
+    }
+
     onPostUpdate(engine, _delta) {
         if(this.game.player.isKilled()){
             engine.goToScene('endScene')

@@ -18,6 +18,7 @@ export class BossScene extends Scene {
     }
 
     onInitialize(engine) {
+        this.game = engine
         this.camera.strategy.elasticToActor(this.player, 0.1, 0.3);
     }
 }
