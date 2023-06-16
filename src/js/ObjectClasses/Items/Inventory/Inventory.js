@@ -1,4 +1,4 @@
-import {Actor, CollisionType, SpriteSheet, Input, Vector} from "excalibur";
+import {CollisionType, SpriteSheet, Input, Vector, ScreenElement} from "excalibur";
 import {Resources} from "../../../resources.js";
 import {InventoryItem} from "./InventoryItem.js";
 
@@ -13,7 +13,7 @@ const INVENTORY_WIDTH = 241.25;
 const INVENTORY_HEIGHT = 50;
 const INVENTORY_SLOTS = 5;
 
-export class Inventory extends Actor {
+export class Inventory extends ScreenElement {
     inventory;
     inventorySlots = [];
     inventoryActors;

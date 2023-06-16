@@ -1,15 +1,14 @@
-import {UIElement} from "../UIElement.js";
+import {Weapon} from "./Weapon.js";
+import {Player} from "../../Characters/Player.js";
 
-export class InventoryItem extends UIElement {
-
+export class BossWeapon extends Weapon {
     constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
-
     }
 
-    onPostUpdate(_engine, _delta) {
-        if (localStorage.getItem(this.name) === "false") {
-            this.kill();
+    hitSomething(event) {
+        if (event.other instanceof Player) {
+            event.other.kill()
         }
     }
 }
