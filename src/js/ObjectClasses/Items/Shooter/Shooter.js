@@ -31,6 +31,12 @@ export class Shooter extends Weapon {
                 break;
         }
         
-        this.on('collisionstart', (event) => this.hitSomething(event, Boss))
+        this.on('collisionstart', (event) => this.hitSomething(event, engine))
+    }
+
+    hitSomething(event, engine) {
+        if (event.other instanceof Boss) {
+            event.other.kill()
+        }
     }
 }

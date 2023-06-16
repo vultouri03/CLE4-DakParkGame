@@ -7,11 +7,11 @@ export class Weapon extends Entity {
     }
 
     onInitialize(engine) {
-        this.on('collisionstart', (event) => this.hitSomething(event,Character))
+        this.on('collisionstart', (event) => this.hitSomething(event,engine))
     }
 
-    hitSomething(event, hitEntity){
-        if (event.other instanceof hitEntity) {
+    hitSomething(event, engine){
+        if (event.other instanceof Character()) {
             event.other.kill()
         }
     }
