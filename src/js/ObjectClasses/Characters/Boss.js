@@ -3,6 +3,7 @@ import {ActionSequence, randomIntInRange} from "excalibur";
 import {EggDropAttackPattern} from "./AttackPatterns/EggDropAttackPattern.js";
 import {IdleAttackPattern} from "./AttackPatterns/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/JumpAttackPattern.js";
+import {Player} from "./Player.js";
 
 export class Boss extends Character {
     actionSequence;
@@ -21,11 +22,12 @@ export class Boss extends Character {
 
         this.initAnimations(_engine);
         this.actions.runAction(this.actionSequence);
+        this.on('collisionstart', (event) => this.hitSomething(event))
     }
 
     movement(_engine) {
         if (this.actionSequence.isComplete()) {
-            // this.initAnimations(_engine);
+            this.initAnimations(_engine);
             this.actions.runAction(this.actionSequence);
         }
     }
@@ -50,5 +52,11 @@ export class Boss extends Character {
                 ctx.delay(this.jumpAttackPattern.duration);
             }
         })
+    }
+
+    hitSomething(event) {
+        if (event.other instanceof Player) {
+            event.other.kill()
+        }
     }
 }

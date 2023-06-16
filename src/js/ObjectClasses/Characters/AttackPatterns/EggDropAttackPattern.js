@@ -10,11 +10,17 @@ import {
 } from "excalibur";
 import {AttackPattern} from "./AttackPattern.js";
 import {Entity} from "../../Entity.js";
-import {Weapon} from "../../Items/Shooter/Weapon.js";
+import {BossWeapon} from "../../Items/Shooter/BossWeapon.js";
 
 const SPRITE_AMOUNT = 3;
 const SPRITE_DURATION = 500;
 const EGG_FALL_DURATION = 500;
+const EGG_SIZE = 80;
+
+const leftSideOfScreen = EGG_SIZE/2;
+const rightSideOfScreen = visualViewport.width - EGG_SIZE/2;
+const topOfScreen = EGG_SIZE/2;
+const bottomOfScreen = visualViewport.height - EGG_SIZE/2;
 
 export class EggDropAttackPattern extends AttackPattern {
     shadows = [];
@@ -67,8 +73,8 @@ export class EggDropAttackPattern extends AttackPattern {
 
     initAnimations(enemy, _engine) {
         this.actionSequence = new ActionSequence(enemy, ctx => {
-            this.eggDropSequence(_engine);
-            // this.eggCleanUp();
+            this.eggDropSequence(_engine, enemy);
+            this.eggCleanUp();
             ctx.delay(this.duration);
         })
     }
@@ -79,11 +85,19 @@ export class EggDropAttackPattern extends AttackPattern {
         })
     }
 
-    eggDropSequence(_engine) {
+    eggDropSequence(_engine, enemy) {
         let shadowPosition, shadow, egg;
 
         for (let i = 0; i < 5; i++) {
-            shadowPosition = new Vector(randomIntInRange(0, visualViewport.height), randomIntInRange(0, visualViewport.height))
+            shadowPosition = new Vector(randomIntInRange(leftSideOfScreen, rightSideOfScreen), randomIntInRange(topOfScreen, bottomOfScreen));
+
+                for (let j = 0; j < this.shadows.length; j++) {
+                    if (this.areObjectsTooClose(this.shadows[j].pos, shadowPosition, EGG_SIZE) || this.areObjectsTooClose(shadowPosition, enemy.pos, enemy.width)) {
+                        shadowPosition = new Vector(randomIntInRange(leftSideOfScreen, rightSideOfScreen), randomIntInRange(topOfScreen, bottomOfScreen));
+                        j = -1;
+                    }
+                }
+
             shadow = new Entity('eggShadow', shadowPosition, 40, 40, 1, 1, Resources.Target, CollisionType.Passive);
             _engine.add(shadow);
             let rotateShadowSequence = new ActionSequence(shadow, ctx => {
@@ -96,11 +110,10 @@ export class EggDropAttackPattern extends AttackPattern {
 
             shadow.actions.runAction(new ParallelActions([rotateShadowSequence, scaleShadowSequence]));
             this.shadows[i] = shadow;
-
         }
 
         for (let i = 0; i < 5; i++) {
-            egg = new Weapon('egg', new Vector(this.shadows[i].pos.x, 0), 80, 80, 1, 1, Resources.Egg, CollisionType.Active);
+            egg = new BossWeapon('egg', new Vector(this.shadows[i].pos.x, 0), EGG_SIZE, EGG_SIZE, 1, 1, Resources.Egg, CollisionType.Passive);
             this.eggs[i] = egg;
             _engine.add(egg);
             egg.actions.runAction(this.eggActionSequence(egg, this.shadows[i].pos, EGG_FALL_DURATION));
@@ -115,5 +128,8 @@ export class EggDropAttackPattern extends AttackPattern {
         }
     }
 
+    areObjectsTooClose(egg, other, size) {
+        return Math.abs(egg.x - other.x) < size && Math.abs(egg.y - other.y) < size;
+    }
 
 }
