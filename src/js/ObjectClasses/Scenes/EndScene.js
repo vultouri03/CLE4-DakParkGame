@@ -14,7 +14,7 @@ export class EndScene extends Scene {
     }
     onInitialize(engine){
         super.onInitialize(engine);
-
+        this.game = engine
         const background = new EndSceneBackground()
         this.add(background)
 
@@ -30,6 +30,12 @@ export class EndScene extends Scene {
         })
         this.subtitle.actions.blink(500, 100, 500);
         this.add(this.subtitle);
+    }
+
+    onActivate(ctx) {
+        if(this.game.scene === "game") {
+            localStorage.clear()
+        }
     }
 
     onPreUpdate(engine, delta) {
