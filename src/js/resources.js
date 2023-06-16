@@ -1,24 +1,42 @@
 import {ImageSource, Loader} from 'excalibur'
+import aggressiveBunnyImage from '../images/killkillkill.png'
 import bossImage from '../images/chicken.png'
+import calmBunnyImage from '../images/calm bnuy.png'
 import eggImage from '../images/egg.png'
 import eggPositionBossImage from '../images/egg drop attack.png'
 import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
 import nailImage from '../images/nail.png'
 import rockImage from '../images/stone.png'
+import runningBunny1Image from '../images/run 1.png'
+import runningBunny2Image from '../images/run 2.png'
+import runningBunny3Image from '../images/run 3.png'
+import runningBunny4Image from '../images/run 4.png'
+import runningBunny5Image from '../images/run 5.png'
+import runningBunny6Image from '../images/run 6.png'
+import runningBunny7Image from '../images/run 7.png'
 import slingshotImage from '../images/slingshot.png'
 import targetImage from '../images/target.png'
 import toolBarImage from '../images/toolbar.png'
 import woodImage from '../images/wood.png'
 
 const Resources = {
+    AggressiveBunny: new ImageSource(aggressiveBunnyImage),
     Boss: new ImageSource(bossImage),
+    CalmBunny: new ImageSource(calmBunnyImage),
     Egg: new ImageSource(eggImage),
     EggPositionBoss: new ImageSource(eggPositionBossImage),
     Fish: new ImageSource(fishImage),
     Hammer: new ImageSource(hammerImage),
     Nail: new ImageSource(nailImage),
     Rock: new ImageSource(rockImage),
+    RunningBunny1: new ImageSource(runningBunny1Image),
+    RunningBunny2: new ImageSource(runningBunny2Image),
+    RunningBunny3: new ImageSource(runningBunny3Image),
+    RunningBunny4: new ImageSource(runningBunny4Image),
+    RunningBunny5: new ImageSource(runningBunny5Image),
+    RunningBunny6: new ImageSource(runningBunny6Image),
+    RunningBunny7: new ImageSource(runningBunny7Image),
     Slingshot: new ImageSource(slingshotImage),
     Target: new ImageSource(targetImage),
     ToolBar: new ImageSource(toolBarImage),

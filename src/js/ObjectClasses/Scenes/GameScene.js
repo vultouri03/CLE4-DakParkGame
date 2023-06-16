@@ -1,26 +1,31 @@
 import {CollisionType, Input, Scene, Vector} from "excalibur"
-import { Player } from "../Characters/Player"
 import { Resources } from "../../resources"
 import {Inventory} from "../Items/Inventory/Inventory.js";
 import {SlingShot} from "../Items/Shooter/SlingShot.js";
 import {Shooter} from "../Items/Shooter/Shooter.js";
+import {Bunny} from "../Characters/Enemy/Bunny.js";
 
 export class GameScene extends Scene {
+player;
 
-    constructor() {
+    constructor(player) {
         super()
         console.log('this is a game')
+        this.player = player
         
         //this.add(new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active ));
-        this.add(new Inventory(new Vector(visualViewport.width/2, (screen.height - 200))));
+        this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
     }
 
     onInitialize(engine) {
         this.game = engine;
-        this.add(this.game.player)
+        engine.add(this.player)
 
         this.sling = new SlingShot()
-        this.add(this.sling)
+        engine.add(this.sling)
+
+        let bunny = new Bunny("bunny", 10, new Vector(500, 500), 80, 80, 1, 1, Resources.CalmBunny, CollisionType.Passive);
+        engine.add(bunny)
     }
 
 

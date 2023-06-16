@@ -1,11 +1,10 @@
-import {Character} from "./Character.js";
 import {ActionSequence, randomIntInRange} from "excalibur";
-import {EggDropAttackPattern} from "./AttackPatterns/EggDropAttackPattern.js";
-import {IdleAttackPattern} from "./AttackPatterns/IdleAttackPattern.js";
-import {JumpAttackPattern} from "./AttackPatterns/JumpAttackPattern.js";
-import {Player} from "./Player.js";
+import {EggDropAttackPattern} from "./AttackPatterns/Boss/EggDropAttackPattern.js";
+import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
+import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";
+import {Enemy} from "./Enemy.js";
 
-export class Boss extends Character {
+export class Boss extends Enemy {
     actionSequence;
     idleAttackPattern;
     jumpAttackPattern;
@@ -20,20 +19,10 @@ export class Boss extends Character {
         this.jumpAttackPattern = new JumpAttackPattern(this);
         this.eggDropAttackPattern = new EggDropAttackPattern(this, _engine);
 
+        super.onInitialize(_engine);
+
         this.initAnimations(_engine);
         this.actions.runAction(this.actionSequence);
-        this.on('collisionstart', (event) => this.hitSomething(event))
-    }
-
-    movement(_engine) {
-        if (this.actionSequence.isComplete()) {
-            this.initAnimations(_engine);
-            this.actions.runAction(this.actionSequence);
-        }
-    }
-
-    onPostUpdate(_engine, _delta) {
-        super.onPostUpdate(_engine, _delta);
     }
 
     initAnimations(_engine) {
@@ -54,9 +43,10 @@ export class Boss extends Character {
         })
     }
 
-    hitSomething(event) {
-        if (event.other instanceof Player) {
-            event.other.kill()
+    movement(_engine) {
+        if (this.actionSequence.isComplete()) {
+            this.initAnimations(_engine);
+            this.actions.runAction(this.actionSequence);
         }
     }
 }

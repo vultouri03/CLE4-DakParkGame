@@ -1,4 +1,4 @@
-import {Resources} from "../../../resources.js";
+import {Resources} from "../../../../../resources.js";
 import {
     SpriteSheet,
     Animation,
@@ -8,9 +8,9 @@ import {
     CollisionType,
     ParallelActions
 } from "excalibur";
-import {AttackPattern} from "./AttackPattern.js";
-import {Entity} from "../../Entity.js";
-import {BossWeapon} from "../../Items/Shooter/BossWeapon.js";
+import {AttackPattern} from "../AttackPattern.js";
+import {Entity} from "../../../../Entity.js";
+import {BossWeapon} from "../../../../Items/Shooter/BossWeapon.js";
 
 const SPRITE_AMOUNT = 3;
 const SPRITE_DURATION = 500;

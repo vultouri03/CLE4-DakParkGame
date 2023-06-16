@@ -1,5 +1,5 @@
 import {CollisionType, Scene, Vector} from "excalibur"
-import {Boss} from "../Characters/Boss.js";
+import {Boss} from "../Characters/Enemy/Boss.js";
 import {Resources} from "../../resources.js";
 import {Inventory} from "../Items/Inventory/Inventory.js";
 import {WoodCollectable} from "../Items/Collectables/WoodCollectable.js";
