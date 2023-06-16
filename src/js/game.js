@@ -10,7 +10,7 @@ import {EndScene} from "./ObjectClasses/Scenes/EndScene.js";
 
 export class Game extends Engine {
     player
-
+    scene
     constructor() {
         super({
             width: visualViewport.width,
@@ -24,6 +24,7 @@ export class Game extends Engine {
     startGame() {
         localStorage.clear();
         let testScene = "Boss";
+        this.scene =  'game';
 
         this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
 
@@ -32,11 +33,9 @@ export class Game extends Engine {
         this.addScene('BossScene', new BossScene());
         this.addScene('endScene', new EndScene())
 
-        if (testScene === "Boss") {
-            this.goToScene('BossScene');
-        } else {
-            this.goToScene('gameScene');
-        }
+
+        this.goToScene('startScene');
+
     }
 
     onPreUpdate(engine, delta) {
