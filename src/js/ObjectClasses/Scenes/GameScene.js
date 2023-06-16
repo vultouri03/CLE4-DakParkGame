@@ -1,4 +1,4 @@
-import {BoundingBox, CollisionType, Input, Random, Scene, Vector} from "excalibur"
+import {BoundingBox, CollisionType, Input, resetObsoleteCounter, Scene, Vector} from "excalibur"
 import { Player } from "../Characters/Player"
 import { Resources } from "../../resources"
 import {Inventory} from "../Items/Inventory/Inventory.js";
@@ -46,7 +46,6 @@ export class GameScene extends Scene {
 
     onInitialize(engine) {
         this.game = engine;
-        this.add(this.game.player)
         this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
         let boundingBox = new BoundingBox(
             -1500,
@@ -55,8 +54,23 @@ export class GameScene extends Scene {
             1050
           )
           this.camera.strategy.limitCameraBounds(boundingBox);
-        
+
     }
 
+    onPreUpdate(engine, delta) {
+
+        this.add(this.game.player)
+
+    }
+
+    onActivate(ctx) {
+        this.game.scene = "game";
+    }
+
+    onPostUpdate(engine, _delta) {
+        if(this.game.player.isKilled()){
+            engine.goToScene('endScene')
+        }
+    }
 
 }
