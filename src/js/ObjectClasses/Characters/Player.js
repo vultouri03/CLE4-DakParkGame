@@ -10,6 +10,11 @@ export class Player extends Character {
     directionFacing;
     slingshot;
     velocity;
+    backAnimation;
+    frontAnimation;
+    leftAnimation;
+    rightAnimation;
+    animating;
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType)
@@ -27,6 +32,15 @@ export class Player extends Character {
         this.game = engine
         this.slingShot = new SlingShot();
         this.playerSlingshot();
+        this.animationHandler(Resources.PlayerBackAnimation, 1, 4, this.width, this.height, 100);
+        this.backAnimation = this.animation;
+        this.animationHandler(Resources.PlayerFrontAnimation, 1, 4, this.width, this.height, 100);
+        this.frontAnimation = this.animation;
+        this.animationHandler(Resources.PlayerLeftAnimation, 1, 4, this.width, this.height, 100);
+        this.leftAnimation = this.animation;
+        this.animationHandler(Resources.PlayerRightAnimation, 1, 4, this.width, this.height, 100);
+        this.rightAnimation = this.animation;
+        this.animating = false;
         this.slingShot.scale = new Vector(0.3, 0.3);
         if (localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4") {
             this.slingShot.graphics.use(Resources.Slingshot.toSprite());
@@ -39,6 +53,7 @@ export class Player extends Character {
 
     onPostUpdate(_engine, _delta) {
         super.onPostUpdate(_engine, _delta)
+        this.animatingCheck();
 
     }
 
@@ -52,16 +67,19 @@ export class Player extends Character {
     horizontalMovement(engine) {
         //sets the vars for movement
         let xSpeed = 0;
-      
+        this.animating = false;
     //checks which key is pressed and sets the velocity to the right amount
       if (engine.input.keyboard.isHeld(Input.Keys.Right) || engine.input.keyboard.isHeld(Input.Keys.D)) {
         xSpeed = 200;
+        this.animating = true;
         this.directionFacing = this.direction.Right;
-        this.graphics.use(Resources.PlayerRight.toSprite());
+        this.graphics.use(this.rightAnimation);
       } else if(engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
         xSpeed = -200;
+        this.animating = true;
         this.directionFacing = this.direction.Left;
-        this.graphics.use(Resources.PlayerLeft.toSprite())
+        this.graphics.use(this.leftAnimation)
+        
       }
       //applies the speed to the object
       this.vel.x = xSpeed;
@@ -71,17 +89,21 @@ export class Player extends Character {
     verticalMovement(engine) {
         //sets the vars for movement
         let ySpeed = 0;
-
+        
         //checks which key is pressed and sets the velocity to the right amount
 
         if(engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
           this.directionFacing = this.direction.Up;  
           ySpeed = -200;
-            this.graphics.use(Resources.PlayerBack.toSprite());
+          this.animating = true;
+            this.graphics.use(this.backAnimation);
+            
           } else if(engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
             ySpeed = 200;
+            this.animating = true;
             this.directionFacing = this.direction.Down;
-            this.graphics.use(Resources.PlayerFront.toSprite());
+            this.graphics.use(this.frontAnimation);
+            
           }
           //applies the speed to the object
           this.vel.y = ySpeed;
@@ -98,6 +120,26 @@ export class Player extends Character {
     playerSlingshot() {
         if (localStorage.getItem('slingshot') === "true") {
             this.addChild(this.slingShot);
+        }
+    }
+
+    animatingCheck() {
+        if (this.animating === false) {
+            switch (this.directionFacing) {
+                case this.game.player.direction.Right:
+                    this.graphics.use(Resources.PlayerRight.toSprite())
+                    break;
+                case this.game.player.direction.Down:
+                    this.graphics.use(Resources.PlayerFront.toSprite())
+                    break;
+                case this.game.player.direction.Left:
+                    this.graphics.use(Resources.PlayerLeft.toSprite())
+                    break;
+                case this.game.player.direction.Up:
+                    this.graphics.use(Resources.PlayerBack.toSprite())
+                    break;
+            }
+            
         }
     }
 }
