@@ -1,4 +1,4 @@
-import {Input, Vector} from "excalibur";
+import {Vector} from "excalibur";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";
@@ -31,11 +31,15 @@ export class Player extends Character {
         this.slingShot.scale = new Vector(0.3, 0.3);
         if (localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4") {
             this.slingShot.graphics.use(Resources.Slingshot.toSprite());
-        } else {
-            this.slingShot.graphics.use();
         }
         this.slingShot.pos = new Vector(this.pos.x + this.width/2 + 20, this.pos.y);
 
+        document.addEventListener("joystick0up", () => this.moveUp());
+        document.addEventListener("joystick0left", () => this.moveLeft());
+        document.addEventListener("joystick0right", () => this.moveRight());
+        document.addEventListener("joystick0down", () => this.moveDown());
+        document.addEventListener("joystick0neutral", () => this.setNeutral());
+        document.addEventListener("joystick0button5", () => this.shoot());
     }
 
     onPostUpdate(_engine, _delta) {
@@ -44,53 +48,40 @@ export class Player extends Character {
     }
 
     movement(_engine) {
-        this.horizontalMovement(_engine);
-        this.verticalMovement(_engine);
-        this.playerAttacks(_engine);
+
     }
 
-    //handles horizontal movement
-    horizontalMovement(engine) {
-        //sets the vars for movement
-        let xSpeed = 0;
-      
-    //checks which key is pressed and sets the velocity to the right amount
-      if (engine.input.keyboard.isHeld(Input.Keys.Right) || engine.input.keyboard.isHeld(Input.Keys.D)) {
-        xSpeed = 200;
+    moveUp() {
+        this.directionFacing = this.direction.Up;
+        this.vel.y = -200;
+        this.graphics.use(Resources.PlayerBack.toSprite());
+    }
+
+    moveLeft() {
+        this.directionFacing = this.direction.Left;
+        this.vel.x = -200;
+        this.graphics.use(Resources.PlayerLeft.toSprite());
+    }
+
+    moveDown() {
+        this.vel.y = 200;
+        this.directionFacing = this.direction.Down;
+        this.graphics.use(Resources.PlayerFront.toSprite());
+    }
+
+    moveRight() {
+        this.vel.x = 200;
         this.directionFacing = this.direction.Right;
         this.graphics.use(Resources.PlayerRight.toSprite());
-      } else if(engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
-        xSpeed = -200;
-        this.directionFacing = this.direction.Left;
-        this.graphics.use(Resources.PlayerLeft.toSprite())
-      }
-      //applies the speed to the object
-      this.vel.x = xSpeed;
     }
 
-    //handles vertical Movement
-    verticalMovement(engine) {
-        //sets the vars for movement
-        let ySpeed = 0;
-
-        //checks which key is pressed and sets the velocity to the right amount
-
-        if(engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
-          this.directionFacing = this.direction.Up;  
-          ySpeed = -200;
-            this.graphics.use(Resources.PlayerBack.toSprite());
-          } else if(engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
-            ySpeed = 200;
-            this.directionFacing = this.direction.Down;
-            this.graphics.use(Resources.PlayerFront.toSprite());
-          }
-          //applies the speed to the object
-          this.vel.y = ySpeed;
+    setNeutral() {
+        this.vel = new Vector(0,0);
     }
 
-    // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
-    playerAttacks(engine) {
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4") {
+    shoot() {
+        console.log("hello")
+        if (localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4") {
             this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1, Resources.Rock, "Passive", this.directionFacing));
             this.ammunitionAmount--;
         }
