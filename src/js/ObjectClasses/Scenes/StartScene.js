@@ -34,15 +34,8 @@ export class StartScene extends Scene {
         if (
             engine.input.keyboard.wasPressed(
                 Input.Keys.Enter)) {
-            this.selectCorrectScene()
-        }
-    }
-    selectCorrectScene() {
-        if(this.game.scene === "game") {
-            this.game.player.pos = new Vector(150, 150);
-            this.game.goToScene('gameScene');
-        } else {
-            this.game.goToScene('BossScene')
+            console.log('start');
+            engine.goToScene('gameScene')
         }
     }
 }
