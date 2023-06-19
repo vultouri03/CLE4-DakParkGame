@@ -59,7 +59,7 @@ export class Boss extends Enemy {
 
     onPreKill(_scene) {
         localStorage.setItem("bossIsKilled", "true");
-        this.player.pos = new Vector(150, 150);
+        this.game.player.pos = new Vector(150, 150);
         this.game.goToScene(this.nextScene);
     }
 }
