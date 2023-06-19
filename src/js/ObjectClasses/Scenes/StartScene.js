@@ -42,7 +42,6 @@ export class StartScene extends Scene {
             this.game.player.pos = new Vector(150, 150);
             this.game.goToScene('gameScene');
         } else {
-            this.player.pos = new Vector(100, 300);
             this.game.goToScene('BossScene')
         }
     }

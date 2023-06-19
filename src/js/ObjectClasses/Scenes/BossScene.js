@@ -18,4 +18,10 @@ export class BossScene extends Scene {
         this.game.scene = "Boss";
     }
 
+    onPostUpdate(engine, _delta) {
+        if(this.game.player.isKilled()){
+            engine.goToScene('endScene')
+        }
+    }
+
 }
