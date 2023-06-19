@@ -24,8 +24,8 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-        this.scene = "gameScene";
-        let testScene = "gameScene";
+        this.scene = "game";
+        let testScene = "";
         this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
         this.addScene('startScene', new StartScene())
@@ -36,9 +36,17 @@ export class Game extends Engine {
 
         
         if (testScene === "Boss") {
+            localStorage.setItem("wood", "true");
+            localStorage.setItem("nail", "true");
+            localStorage.setItem("hammer", "true");
+            localStorage.setItem("rock", "true");
+            localStorage.setItem("slingshot", "true");
+            localStorage.setItem("inventorySlot", "4");
             this.goToScene('BossScene');
-        } else {
+        } else if (testScene === "gameScene") {
             this.goToScene('gameScene');
+        } else {
+            this.goToScene('startScene');
         }
 
     }
