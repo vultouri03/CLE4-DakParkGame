@@ -66,7 +66,9 @@ export class GameScene extends Scene {
 
         if (localStorage.getItem("hammer") === "true" &&
             localStorage.getItem("nail") === "true" &&
-            localStorage.getItem("wood") === "true") {
+            localStorage.getItem("wood") === "true"
+            && localStorage.getItem("bossIsKilled") !== "true") {
+            this.player.pos = new Vector(100, 300);
             engine.goToScene(this.nextScene);
         }
     }

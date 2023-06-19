@@ -44,20 +44,19 @@ export class Inventory extends ScreenElement {
     }
 
     onPostUpdate(engine, delta) {
-        if (engine.input.keyboard.wasPressed(INPUT_KEY_ONE)) {
-            console.log(this.inventorySlots[0]);
+        if (engine.input.keyboard.wasPressed(INPUT_KEY_ONE) || localStorage.getItem("inventorySlot") === "1") {
             this.graphics.use(this.inventorySlots[0]);
             localStorage.setItem("inventorySlot", "1");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_TWO)) {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_TWO) || localStorage.getItem("inventorySlot") === "2") {
             this.graphics.use(this.inventorySlots[1]);
             localStorage.setItem("inventorySlot", "2");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_THREE)) {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_THREE) || localStorage.getItem("inventorySlot") === "3") {
             this.graphics.use(this.inventorySlots[2]);
             localStorage.setItem("inventorySlot", "3");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FOUR)) {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FOUR) || localStorage.getItem("inventorySlot") === "4") {
             this.graphics.use(this.inventorySlots[3]);
             localStorage.setItem("inventorySlot", "4");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FIVE)) {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FIVE) || localStorage.getItem("inventorySlot") === "5") {
             this.graphics.use(this.inventorySlots[4]);
             localStorage.setItem("inventorySlot", "5");
         }

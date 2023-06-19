@@ -1,4 +1,4 @@
-import {ActionSequence, randomIntInRange} from "excalibur";
+import {ActionSequence, randomIntInRange, Vector} from "excalibur";
 import {EggDropAttackPattern} from "./AttackPatterns/Boss/EggDropAttackPattern.js";
 import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";
@@ -57,8 +57,9 @@ export class Boss extends Enemy {
         }
     }
 
-    onPostKill(_scene) {
-        super.onPostKill(_scene);
+    onPreKill(_scene) {
+        localStorage.setItem("bossIsKilled", "true");
+        this.player.pos = new Vector(150, 150);
         this.game.goToScene(this.nextScene);
     }
 }

@@ -11,12 +11,11 @@ export class BossScene extends Scene {
         this.add(new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene));
         this.player = player;
         this.add(this.player);
-        this.player.pos = new Vector(100, 100);
         this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
     }
     onInitialize(engine) {
-        this.game = engine
-        this.game.scene = "Boss"
+        this.game = engine;
+        this.game.scene = "Boss";
     }
 
 }

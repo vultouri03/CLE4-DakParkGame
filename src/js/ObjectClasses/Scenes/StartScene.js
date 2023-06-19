@@ -1,5 +1,4 @@
 import {Scene, Vector, Label, Font, FontUnit, Color, Input} from "excalibur";
-import {Resources} from "../../resources.js";
 import {StartSceneBackground} from "../StaticComponents/StartSceneBackground.js";
 
 
@@ -40,8 +39,10 @@ export class StartScene extends Scene {
     }
     selectCorrectScene() {
         if(this.game.scene === "game") {
+            this.game.player.pos = new Vector(150, 150);
             this.game.goToScene('gameScene');
         } else {
+            this.player.pos = new Vector(100, 300);
             this.game.goToScene('BossScene')
         }
     }
