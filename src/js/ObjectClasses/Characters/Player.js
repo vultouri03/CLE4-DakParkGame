@@ -1,4 +1,4 @@
-import {Input} from "excalibur";
+import {Input, Vector} from "excalibur";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";
@@ -27,6 +27,14 @@ export class Player extends Character {
         this.game = engine
         this.slingShot = new SlingShot();
         this.playerSlingshot();
+        this.slingShot.scale = new Vector(0.3, 0.3);
+        if (localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4") {
+            this.slingShot.graphics.use(Resources.Slingshot.toSprite());
+        } else {
+            this.slingShot.graphics.use();
+        }
+        this.slingShot.pos = new Vector(this.pos.x + this.width/2 + 20, this.pos.y);
+
     }
 
     onPostUpdate(_engine, _delta) {
@@ -81,7 +89,7 @@ export class Player extends Character {
 
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true") {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4") {
             this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1, Resources.Rock, "Passive", this.directionFacing));
         }
     }
