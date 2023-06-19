@@ -10,11 +10,14 @@ export class Player extends Character {
     directionFacing;
     slingshot;
     velocity;
+
     backAnimation;
     frontAnimation;
     leftAnimation;
     rightAnimation;
     animating;
+    ammunitionAmount = 0;
+
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType)
@@ -113,6 +116,7 @@ export class Player extends Character {
     playerAttacks(engine) {
         if (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4") {
             this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1, Resources.Rock, "Passive", this.directionFacing));
+            this.ammunitionAmount--;
         }
     }
 
