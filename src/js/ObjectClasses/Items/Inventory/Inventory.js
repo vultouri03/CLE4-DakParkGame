@@ -1,6 +1,7 @@
 import {CollisionType, SpriteSheet, Input, Vector, ScreenElement} from "excalibur";
 import {Resources} from "../../../resources.js";
 import {InventoryItem} from "./InventoryItem.js";
+import {RockInventoryItem} from "./RockInventoryItem.js";
 
 const INPUT_KEY_ONE = Input.Keys.Digit1;
 const INPUT_KEY_TWO = Input.Keys.Digit2;
@@ -35,7 +36,6 @@ export class Inventory extends ScreenElement {
 
         this.hammerInventoryItem = new InventoryItem("hammer", new Vector(this.pos.x, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
         this.nailInventoryItem = new InventoryItem("nail", new Vector(this.pos.x + 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
-        this.rockInventoryItem = new InventoryItem("rock", new Vector(this.pos.x + 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock, CollisionType.Passive);
         this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(this.pos.x + 144, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
         this.woodInventoryItem = new InventoryItem('wood', new Vector(this.pos.x + 192, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
 
@@ -62,10 +62,18 @@ export class Inventory extends ScreenElement {
         }
 
         for (let i = 0; i < this.inventory.length; i++) {
-            if (localStorage.getItem(this.inventory[i][0]) === "true" && !this.inventory[i][1]) {
+            if (i === 2 && localStorage.getItem(this.inventory[i][0]) && !this.inventory[i][1]) {
+                this.inventory[i][1] = true;
+                this.rockInventoryItem = new RockInventoryItem("rock", new Vector(this.pos.x + 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock1, CollisionType.Passive);
+                engine.add(this.rockInventoryItem);
+            } else if (localStorage.getItem(this.inventory[i][0]) === "true" && !this.inventory[i][1]) {
                 this.inventory[i][1] = true;
                 engine.add(this.inventoryActors[i]);
             }
+        }
+
+        if (engine.player.ammunitionAmount === 0) {
+            this.inventory[2][1] = false;
         }
     }
 
