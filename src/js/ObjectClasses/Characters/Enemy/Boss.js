@@ -10,16 +10,23 @@ export class Boss extends Enemy {
     jumpAttackPattern;
     eggDropAttackPattern;
 
-    constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
+    nextScene;
+    game;
+
+    constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType, nextScene) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
+        this.nextScene = nextScene;
     }
 
     onInitialize(_engine) {
+        this.game = _engine;
         this.idleAttackPattern = new IdleAttackPattern(this);
         this.jumpAttackPattern = new JumpAttackPattern(this);
         this.eggDropAttackPattern = new EggDropAttackPattern(this, _engine);
 
         super.onInitialize(_engine);
+
+        this.actions.delay(1000);
 
         this.initAnimations(_engine);
         this.actions.runAction(this.actionSequence);
@@ -48,5 +55,10 @@ export class Boss extends Enemy {
             this.initAnimations(_engine);
             this.actions.runAction(this.actionSequence);
         }
+    }
+
+    onPostKill(_scene) {
+        super.onPostKill(_scene);
+        this.game.goToScene(this.nextScene);
     }
 }

@@ -52,14 +52,12 @@ export class BunnyJumpAttackPattern extends AttackPattern {
 
     initAnimations(enemy ,_engine) {
         this.actionSequence = new ActionSequence(enemy, ctx => {
-            console.log("hello2")
             enemy.graphics.use(this.bossAnimation);
             ctx.delay(SPRITE_DURATION);
 
             let movingDirection = new Vector(_engine.player.pos.x - enemy.pos.x, _engine.player.pos.y - enemy.pos.y);
             let distanceToCover = _engine.player.velocity / (enemy.distance * this.sprites_amount);
             for (let i = 0; i < this.sprites_amount; i++) {
-                console.log("hello3")
                 ctx.easeTo(new Vector( i * movingDirection.x * distanceToCover + enemy.pos.x, i * movingDirection.y * distanceToCover + enemy.pos.y), SPRITE_DURATION, EasingFunctions.EaseInQuad);
             }
             this.duration = SPRITE_DURATION * 8;

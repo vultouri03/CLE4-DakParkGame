@@ -33,11 +33,11 @@ export class Inventory extends ScreenElement {
         })
         this.inventory = [["hammer", false], ["nail", false], ["rock", false], ["slingshot", false], ["wood", false]];
 
-        this.hammerInventoryItem = new InventoryItem("hammer", new Vector(this.pos.x - 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
-        this.nailInventoryItem = new InventoryItem("nail", new Vector(this.pos.x - 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
-        this.rockInventoryItem = new InventoryItem("rock", new Vector(this.pos.x, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock, CollisionType.Passive);
-        this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(this.pos.x + 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
-        this.woodInventoryItem = new InventoryItem('wood', new Vector(this.pos.x + 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
+        this.hammerInventoryItem = new InventoryItem("hammer", new Vector(this.pos.x, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
+        this.nailInventoryItem = new InventoryItem("nail", new Vector(this.pos.x + 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
+        this.rockInventoryItem = new InventoryItem("rock", new Vector(this.pos.x + 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock, CollisionType.Passive);
+        this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(this.pos.x + 144, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
+        this.woodInventoryItem = new InventoryItem('wood', new Vector(this.pos.x + 192, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
 
         this.initGraphics();
         this.graphics.use(this.inventorySlots[0]);

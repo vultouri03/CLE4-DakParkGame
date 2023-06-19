@@ -2,17 +2,16 @@ import {CollisionType, Scene, Vector} from "excalibur"
 import {Boss} from "../Characters/Enemy/Boss.js";
 import {Resources} from "../../resources.js";
 import {Inventory} from "../Items/Inventory/Inventory.js";
-import {WoodCollectable} from "../Items/Collectables/WoodCollectable.js";
 
 export class BossScene extends Scene {
     player;
 
-    constructor(player) {
+    constructor(player, nextScene) {
         super()
-        this.add(new WoodCollectable('wood', new Vector(300, 500), 50, 50, 1, 1, Resources.Wood, CollisionType.Passive))
-        this.add(new Boss("chicken boss", 10, new Vector(300, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive));
+        this.add(new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene));
         this.player = player;
         this.add(this.player);
+        this.player.pos = new Vector(100, 100);
         this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
     }
     onInitialize(engine) {

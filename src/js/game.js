@@ -24,13 +24,13 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-        this.scene = "boss";
-        let testScene = "Boss";
-this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+        this.scene = "gameScene";
+        let testScene = "gameScene";
+        this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
         this.addScene('startScene', new StartScene())
-        this.addScene('gameScene', new GameScene(this.player));
-        this.addScene('BossScene', new BossScene(this.player));
+        this.addScene('gameScene', new GameScene(this.player, 'BossScene'));
+        this.addScene('BossScene', new BossScene(this.player, 'gameScene'));
         this.addScene('endScene', new EndScene())
 
 

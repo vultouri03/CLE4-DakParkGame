@@ -1,7 +1,7 @@
 import {Vector} from "excalibur";
 import { Resources } from '../../../resources.js'
 import {Weapon} from "./Weapon.js";
-import {Boss} from "../../Characters/Boss.js";
+import {Enemy} from "../../Characters/Enemy/Enemy.js";
 
 export class Shooter extends Weapon {
     game;
@@ -35,7 +35,7 @@ export class Shooter extends Weapon {
     }
 
     hitSomething(event, engine) {
-        if (event.other instanceof Boss) {
+        if (event.other instanceof Enemy) {
             event.other.kill()
         }
     }
