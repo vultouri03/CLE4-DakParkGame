@@ -11,7 +11,7 @@ import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 
 export class Game extends Engine {
     player
-
+    scene
     constructor() {
         super({
             width: visualViewport.width,
@@ -24,6 +24,8 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
+        this.scene = "boss";
+        let testScene = "Boss";
 
         this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
 
@@ -33,12 +35,13 @@ export class Game extends Engine {
         this.addScene('endScene', new EndScene())
 
 
-        let testScene = "gameScene";
+        
         if (testScene === "Boss") {
             this.goToScene('BossScene');
         } else {
             this.goToScene('gameScene');
         }
+
     }
 }
 
