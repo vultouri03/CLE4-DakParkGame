@@ -18,7 +18,7 @@ export class Game extends Engine {
             height: visualViewport.height,
         })
         this.start(ResourceLoader).then(() => this.startGame())
-        this.showDebug(true);
+        
 
     }
 
@@ -26,8 +26,7 @@ export class Game extends Engine {
         localStorage.clear();
         this.scene = "boss";
         let testScene = "Boss";
-
-        this.player = new Player('player', 10, new Vector(150, 150), 100, 100, 1, 1, Resources.Fish, CollisionType.Active);
+this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
         this.addScene('startScene', new StartScene())
         this.addScene('gameScene', new GameScene(this.player));

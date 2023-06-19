@@ -10,6 +10,10 @@ import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
 import nailImage from '../images/nail.png'
+import playerBackImage from '../images/player_back.png'
+import playerFrontImage from '../images/player_front.png'
+import playerLeftImage from '../images/player_left.png'
+import playerRightImage from '../images/player_right.png'
 import rockImage from '../images/stone.png'
 import runningBunny1Image from '../images/run 1.png'
 import runningBunny2Image from '../images/run 2.png'
@@ -36,6 +40,10 @@ const Resources = {
     Hammer: new ImageSource(hammerImage),
     Hay: new ImageSource(hayImage),
     Nail: new ImageSource(nailImage),
+    PlayerBack: new ImageSource(playerBackImage),
+    PlayerFront: new ImageSource(playerFrontImage),
+    PlayerLeft: new ImageSource(playerLeftImage),
+    PlayerRight: new ImageSource(playerRightImage),
     Rock: new ImageSource(rockImage),
     RunningBunny1: new ImageSource(runningBunny1Image),
     RunningBunny2: new ImageSource(runningBunny2Image),
