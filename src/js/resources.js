@@ -15,6 +15,15 @@ import playerFrontImage from '../images/player_front.png'
 import playerLeftImage from '../images/player_left.png'
 import playerRightImage from '../images/player_right.png'
 import rockImage from '../images/stone.png'
+import rock1Image from '../images/rocks/rock1.png'
+import rock2Image from '../images/rocks/rock2.png'
+import rock3Image from '../images/rocks/rock3.png'
+import rock4Image from '../images/rocks/rock4.png'
+import rock5Image from '../images/rocks/rock5.png'
+import rock6Image from '../images/rocks/rock6.png'
+import rock7Image from '../images/rocks/rock7.png'
+import rock8Image from '../images/rocks/rock8.png'
+import rock9Image from '../images/rocks/rock9.png'
 import runningBunny1Image from '../images/run 1.png'
 import runningBunny2Image from '../images/run 2.png'
 import runningBunny3Image from '../images/run 3.png'
@@ -45,6 +54,15 @@ const Resources = {
     PlayerLeft: new ImageSource(playerLeftImage),
     PlayerRight: new ImageSource(playerRightImage),
     Rock: new ImageSource(rockImage),
+    Rock1: new ImageSource(rock1Image),
+    Rock2: new ImageSource(rock2Image),
+    Rock3: new ImageSource(rock3Image),
+    Rock4: new ImageSource(rock4Image),
+    Rock5: new ImageSource(rock5Image),
+    Rock6: new ImageSource(rock6Image),
+    Rock7: new ImageSource(rock7Image),
+    Rock8: new ImageSource(rock8Image),
+    Rock9: new ImageSource(rock9Image),
     RunningBunny1: new ImageSource(runningBunny1Image),
     RunningBunny2: new ImageSource(runningBunny2Image),
     RunningBunny3: new ImageSource(runningBunny3Image),
