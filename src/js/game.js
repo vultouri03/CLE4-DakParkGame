@@ -6,7 +6,7 @@ import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
 import {Player} from "./ObjectClasses/Characters/Player.js";
 import {EndScene} from "./ObjectClasses/Scenes/EndScene.js";
-import {Boss} from "./ObjectClasses/Characters/Boss.js";
+import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 
 
 export class Game extends Engine {
@@ -24,14 +24,23 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-
-        this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
-        let testScene = "Boss";
         this.scene = "boss";
+        let testScene = "Boss";
+this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+
         this.addScene('startScene', new StartScene())
-        this.addScene('gameScene', new GameScene());
+        this.addScene('gameScene', new GameScene(this.player));
         this.addScene('BossScene', new BossScene(this.player));
         this.addScene('endScene', new EndScene())
+
+
+        
+        if (testScene === "Boss") {
+            this.goToScene('BossScene');
+        } else {
+            this.goToScene('gameScene');
+        }
+
     }
 }
 
