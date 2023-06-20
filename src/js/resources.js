@@ -43,6 +43,7 @@ import startSceneImage from '../images/startscene.png'
 import targetImage from '../images/target.png'
 import toolBarImage from '../images/toolbar.png'
 import treeImage from '../images/tree.png'
+import winnerSceneImage from '../images/winnerscene.png'
 import woodImage from '../images/wood.png'
 
 const Resources = {
@@ -90,7 +91,9 @@ const Resources = {
     Target: new ImageSource(targetImage),
     ToolBar: new ImageSource(toolBarImage),
     Tree: new ImageSource(treeImage),
+    WinScene: new ImageSource(winnerSceneImage),
     Wood: new ImageSource(woodImage)
+
 }
 
 const resourceArray = []
