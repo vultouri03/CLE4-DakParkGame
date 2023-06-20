@@ -14,7 +14,7 @@ import {BossWeapon} from "../../../../Items/Shooter/BossWeapon.js";
 
 const SPRITE_AMOUNT = 3;
 const SPRITE_DURATION = 500;
-const EGG_FALL_DURATION = 500;
+const EGG_FALL_DURATION =900;
 const EGG_SIZE = 80;
 
 const leftSideOfScreen = EGG_SIZE/2;

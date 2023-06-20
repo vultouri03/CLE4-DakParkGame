@@ -15,6 +15,7 @@ export class Collectable extends Entity {
                 this.interAct(engine, event);
             }
         })
+
     }
 
     interAct(_engine, _event) {

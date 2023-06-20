@@ -26,8 +26,8 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-        this.scene = "game";
-        let testScene = "";
+        this.scene = "Boss";
+        let testScene = "Boss";
 
         this.#arcade = new Arcade(this, false, true);
 
@@ -46,7 +46,7 @@ export class Game extends Engine {
             localStorage.setItem("nail", "true");
             localStorage.setItem("hammer", "true");
             localStorage.setItem("rock", "true");
-            localStorage.setItem("slingshot", "true");
+            // localStorage.setItem("slingshot", "true");
             localStorage.setItem("inventorySlot", "4");
             this.goToScene('BossScene');
         } else if (testScene === "gameScene") {
@@ -54,7 +54,6 @@ export class Game extends Engine {
         } else {
             this.goToScene('startScene');
         }
-
     }
 
     #joyStickFound(e) {
