@@ -14,6 +14,7 @@ export class GameScene extends Scene {
     game;
     nextScene;
 
+
     constructor(player, nextScene) {
         super()
         this.player = player;
@@ -47,6 +48,8 @@ export class GameScene extends Scene {
     onInitialize(engine) {
         this.game = engine;
         engine.add(this.player);
+
+
 
 
 

@@ -2,6 +2,8 @@ import {Vector} from "excalibur";
 import { Resources } from '../../../resources.js'
 import {Weapon} from "./Weapon.js";
 import {Enemy} from "../../Characters/Enemy/Enemy.js";
+import {Bunny} from "../../Characters/Enemy/Bunny.js";
+import {Boss} from "../../Characters/Enemy/Boss.js";
 
 export class Shooter extends Weapon {
     game;
@@ -34,9 +36,11 @@ export class Shooter extends Weapon {
         this.on('collisionstart', (event) => this.hitSomething(event, engine))
     }
 
-    hitSomething(event, engine) {
-        if (event.other instanceof Enemy) {
-            event.other.kill()
+    hitSomething(event) {
+        if (event.other instanceof Bunny) {
+            event.other.hp -= 5;
+            console.log(event.other.hp)
+
         }
     }
 }

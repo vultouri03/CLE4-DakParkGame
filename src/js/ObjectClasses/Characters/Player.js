@@ -1,4 +1,5 @@
 import {Input, Vector} from "excalibur";
+import {Bunny} from "./Enemy/Bunny.js";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";
@@ -26,6 +27,7 @@ export class Player extends Character {
             Down: 2,
             Left: 3,
             Right: 4,
+
         };
         this.velocity = 200;
 
@@ -52,13 +54,20 @@ export class Player extends Character {
         }
         this.slingShot.pos = new Vector(this.pos.x + this.width/2 + 20, this.pos.y);
 
+        if(this.hp <= 0) {
+            this.kill();
+        }
+
     }
 
     onPostUpdate(_engine, _delta) {
         super.onPostUpdate(_engine, _delta)
         this.animatingCheck();
+        this.death();
 
     }
+
+
 
     movement(_engine) {
         this.horizontalMovement(_engine);

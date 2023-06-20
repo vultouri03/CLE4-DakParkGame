@@ -4,7 +4,6 @@ import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";
 import {Enemy} from "./Enemy.js";
 
-
 export class Boss extends Enemy {
     actionSequence;
     idleAttackPattern;
