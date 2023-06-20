@@ -11,6 +11,7 @@ import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.j
 
 const BUNNY_WIDTH = 80;
 const BUNNY_HEIGHT = 80
+
 export class GameScene extends Scene {
     random;
     game;
@@ -49,7 +50,6 @@ export class GameScene extends Scene {
             this.add(new NailCollectable('nail', new Vector(this.random.integer(-1500, -500), this.random.integer(350, 1050)), 25, 25, 1, 1, Resources.Nail, CollisionType.Passive));
         }
 
-
         this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
         this.nextScene = nextScene;
     }
@@ -57,7 +57,6 @@ export class GameScene extends Scene {
     onInitialize(engine) {
         this.game = engine;
         engine.add(this.player);
-
 
         this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
         let boundingBox = new BoundingBox(
@@ -87,13 +86,8 @@ export class GameScene extends Scene {
         this.game.scene = "game";
     }
 
-    onPostUpdate(engine, _delta) {
-        if (this.game.player.isKilled()) {
-            engine.goToScene('endScene')
-        }
-
-        this.movement(engine);
-
+    onPostUpdate(_engine, _delta) {
+        this.movement(_engine);
     }
 
     movement(_engine) {
@@ -132,7 +126,7 @@ export class GameScene extends Scene {
         let delay = this.getRandomInt(20, 30);
 
         return new ActionSequence(item, ctx => {
-            ctx.delay(delay*1000);
+            ctx.delay(delay * 1000);
             this.add(item);
 
             console.log(item.name, item.pos);

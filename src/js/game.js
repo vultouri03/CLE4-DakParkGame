@@ -8,6 +8,8 @@ import {Player} from "./ObjectClasses/Characters/Player.js";
 import {EndScene} from "./ObjectClasses/Scenes/EndScene.js";
 import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 import { Arcade } from "arcade-game"
+import {WinnerScene} from "./ObjectClasses/Scenes/WinnerScene.js";
+
 
 
 export class Game extends Engine {
@@ -40,13 +42,14 @@ export class Game extends Engine {
         this.addScene('gameScene', new GameScene(this.player, 'BossScene'));
         this.addScene('BossScene', new BossScene(this.player, 'gameScene'));
         this.addScene('endScene', new EndScene())
+        this.addScene('winScene', new WinnerScene())
 
         if (testScene === "Boss") {
             localStorage.setItem("wood", "true");
             localStorage.setItem("nail", "true");
             localStorage.setItem("hammer", "true");
             localStorage.setItem("rock", "true");
-            // localStorage.setItem("slingshot", "true");
+            localStorage.setItem("slingshot", "true");
             localStorage.setItem("inventorySlot", "4");
             this.goToScene('BossScene');
         } else if (testScene === "gameScene") {

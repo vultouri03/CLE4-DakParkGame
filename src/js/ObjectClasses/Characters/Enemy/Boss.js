@@ -4,6 +4,7 @@ import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";
 import {Enemy} from "./Enemy.js";
 
+
 export class Boss extends Enemy {
     actionSequence;
     idleAttackPattern;
@@ -57,6 +58,6 @@ export class Boss extends Enemy {
     onPreKill(_scene) {
         localStorage.setItem("bossIsKilled", "true");
         this.game.player.pos = new Vector(150, 150);
-        this.game.goToScene(this.nextScene);
+        this.game.goToScene('winScene');
     }
 }
