@@ -2,6 +2,8 @@ import {Enemy} from "./Enemy.js";
 import {Resources} from "../../../resources.js";
 import {ActionSequence} from "excalibur";
 import {BunnyJumpAttackPattern} from "./AttackPatterns/Bunny/BunnyJumpAttackPattern.js";
+import {Player} from "../Player.js";
+import {Character} from "../Character.js";
 
 export class Bunny extends Enemy {
     actionSequence;
@@ -9,6 +11,8 @@ export class Bunny extends Enemy {
     sprites;
     distance = 300;
     actionSequenceHasStarted
+
+
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
         this.sprites = [Resources.RunningBunny1, Resources.RunningBunny2, Resources.RunningBunny3, Resources.RunningBunny4, Resources.RunningBunny5, Resources.RunningBunny6, Resources.RunningBunny7];
@@ -19,17 +23,31 @@ export class Bunny extends Enemy {
         this.jumpAttackPattern = new BunnyJumpAttackPattern(this);
         this.actionSequenceHasStarted = false;
         super.onInitialize(_engine);
+        this.on('collisionstart', (event) => this.hitSomething(event))
+
     }
+
+    hitSomething(event){
+        if (event.other instanceof Player) {
+            event.other.hp -= 1;
+            console.log(event.other.hp)
+        }
+    }
+
 
     onPostUpdate(_engine, _delta) {
         if (this.isPlayerClose(this.pos, _engine.player.pos) && !this.actionSequenceHasStarted) {
             this.actionSequenceHasStarted = true;
             this.initAnimations(_engine);
             this.actions.runAction(this.actionSequence);
+
+
         }
 
         super.onPostUpdate(_engine, _delta)
+        this.death();
     }
+
 
     initAnimations(_engine) {
         this.actionSequence = new ActionSequence(this, ctx => {

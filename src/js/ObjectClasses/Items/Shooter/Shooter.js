@@ -3,6 +3,7 @@ import { Resources } from '../../../resources.js'
 import {Weapon} from "./Weapon.js";
 import {Enemy} from "../../Characters/Enemy/Enemy.js";
 
+
 export class Shooter extends Weapon {
     game;
     direction;
@@ -34,9 +35,11 @@ export class Shooter extends Weapon {
         this.on('collisionstart', (event) => this.hitSomething(event, engine))
     }
 
-    hitSomething(event, engine) {
+    hitSomething(event) {
         if (event.other instanceof Enemy) {
-            event.other.kill()
+            event.other.hp -= 5;
+            console.log(event.other.hp)
+
         }
     }
 }

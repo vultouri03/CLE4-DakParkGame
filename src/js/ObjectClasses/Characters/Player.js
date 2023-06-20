@@ -1,4 +1,5 @@
 import {Input, Vector} from "excalibur";
+import {Bunny} from "./Enemy/Bunny.js";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";
@@ -26,6 +27,7 @@ export class Player extends Character {
             Down: 2,
             Left: 3,
             Right: 4,
+
         };
         this.velocity = 200;
 
@@ -52,13 +54,20 @@ export class Player extends Character {
         }
         this.slingShot.pos = new Vector(this.pos.x + this.width/2 + 20, this.pos.y);
 
+        if(this.hp <= 0) {
+            this.kill();
+        }
+
     }
 
     onPostUpdate(_engine, _delta) {
         super.onPostUpdate(_engine, _delta)
         this.animatingCheck();
+        this.death();
 
     }
+
+
 
     movement(_engine) {
         this.horizontalMovement(_engine);
@@ -114,13 +123,11 @@ export class Player extends Character {
 
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
-        
         if( (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4" && this.ammunitionAmount > 0)){
             this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1, Resources.Rock, "Passive", this.directionFacing));
             this.ammunitionAmount--;
-
-        
     }}
+
 
     //adds the slingshot to the player when it is picked up
     playerSlingshot() {
