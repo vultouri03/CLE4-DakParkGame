@@ -1,4 +1,4 @@
-import {Actor, Vector} from "excalibur";
+import {Actor, Vector, SpriteSheet, Animation} from "excalibur";
 
 export class Entity extends Actor {
     name;
@@ -15,4 +15,30 @@ export class Entity extends Actor {
         this.graphics.use(resource.toSprite());
         this.pos = position;
     }
+
+    animationHandler = (image, rows, collumns, width, heigth, length) => {
+        this.image = image;
+        
+        const spriteSheet = SpriteSheet.fromImageSource({
+          image: this.image,
+          grid: {
+            rows: rows,
+            columns: collumns,
+            spriteWidth: width,
+            spriteHeight: heigth,
+          },
+        });
+        spriteSheet.sprites.forEach((sprite) => {
+          sprite.width = width;
+          sprite.height = heigth;
+        });
+    
+        this.animation = Animation.fromSpriteSheet(
+          spriteSheet,
+          [0, 1, 2,3,4,5,6,7],
+          length,
+          
+        );
+      
+      };
 }

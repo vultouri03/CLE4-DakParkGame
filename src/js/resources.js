@@ -11,9 +11,13 @@ import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
 import nailImage from '../images/nail.png'
 import playerBackImage from '../images/player_back.png'
+import playerBackAnimation from '../images/player back animation.png'
 import playerFrontImage from '../images/player_front.png'
+import playerFrontAnimation from '../images/player front animation.png'
 import playerLeftImage from '../images/player_left.png'
+import playerLeftAnimation from '../images/player left animation.png'
 import playerRightImage from '../images/player_right.png'
+import playerRightAnimation from '../images/player right animation.png'
 import rockImage from '../images/stone.png'
 import rock1Image from '../images/rocks/rock1.png'
 import rock2Image from '../images/rocks/rock2.png'
@@ -51,9 +55,13 @@ const Resources = {
     Hay: new ImageSource(hayImage),
     Nail: new ImageSource(nailImage),
     PlayerBack: new ImageSource(playerBackImage),
+    PlayerBackAnimation: new ImageSource(playerBackAnimation),
     PlayerFront: new ImageSource(playerFrontImage),
+    PlayerFrontAnimation: new ImageSource(playerFrontAnimation),
     PlayerLeft: new ImageSource(playerLeftImage),
+    PlayerLeftAnimation: new ImageSource(playerLeftAnimation),
     PlayerRight: new ImageSource(playerRightImage),
+    PlayerRightAnimation: new ImageSource(playerRightAnimation),
     Rock: new ImageSource(rockImage),
     Rock1: new ImageSource(rock1Image),
     Rock2: new ImageSource(rock2Image),
