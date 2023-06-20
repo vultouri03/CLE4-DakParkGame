@@ -1,6 +1,5 @@
 import {ActionSequence, BoundingBox, CollisionType, Random, Scene, Vector} from "excalibur"
 import {Resources} from "../../resources"
-import {Inventory} from "../Items/Inventory/Inventory.js";
 import {Bunny} from "../Characters/Enemy/Bunny.js";
 import {WoodCollectable} from "../Items/Collectables/WoodCollectable";
 import {BackGround} from "../StaticComponents/background";
@@ -19,11 +18,9 @@ export class GameScene extends Scene {
     bunnySpawn;
     rockSpawn;
 
-    constructor(player, nextScene) {
+    constructor(player, nextScene, inventory) {
         super()
         this.player = player;
-
-        this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
 
         let backgroundAxisX = [-1000, 0, 1000];
         let backgroundAxisY = [-700, 0, 700];
@@ -50,7 +47,7 @@ export class GameScene extends Scene {
             this.add(new NailCollectable('nail', new Vector(this.random.integer(-1500, -500), this.random.integer(350, 1050)), 25, 25, 1, 1, Resources.Nail, CollisionType.Passive));
         }
 
-        this.add(new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100))));
+        this.add(inventory);
         this.nextScene = nextScene;
     }
 
