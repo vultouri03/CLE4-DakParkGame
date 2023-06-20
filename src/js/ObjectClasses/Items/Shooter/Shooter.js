@@ -15,7 +15,6 @@ export class Shooter extends Weapon {
         this.game = engine;
         this.graphics.use(Resources.Rock.toSprite())
         this.scale = new Vector(2, 2)
-        console.log(this.game.player.directionFacing)
         switch (this.direction) {
             case this.game.player.direction.Right:
                 this.vel = new Vector(500 , 0);

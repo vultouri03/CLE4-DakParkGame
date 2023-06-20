@@ -35,6 +35,8 @@ export class Player extends Character {
         this.game = engine
         this.slingShot = new SlingShot();
         this.playerSlingshot();
+        this.addChild(this.slingShot);
+        
         this.animationHandler(Resources.PlayerBackAnimation, 1, 4, this.width, this.height, 100);
         this.backAnimation = this.animation;
         this.animationHandler(Resources.PlayerFrontAnimation, 1, 4, this.width, this.height, 100);
@@ -45,18 +47,21 @@ export class Player extends Character {
         this.rightAnimation = this.animation;
         this.animating = false;
         this.slingShot.scale = new Vector(0.3, 0.3);
-        if (localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4") {
-            this.slingShot.graphics.use(Resources.Slingshot.toSprite());
-        } else {
-            this.slingShot.graphics.use();
-        }
-        this.slingShot.pos = new Vector(this.pos.x + this.width/2 + 20, this.pos.y);
+        this.slingShot.pos = new Vector(0, -85)
+        
+        //this.slingShot.pos = new Vector(this.pos.x + this.width/2 + 20, this.pos.y);
 
     }
 
     onPostUpdate(_engine, _delta) {
         super.onPostUpdate(_engine, _delta)
         this.animatingCheck();
+        if (localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4") {
+            this.slingShot.graphics.visible = true;
+            
+        } else {
+            this.slingShot.graphics.visible = false;
+        }
 
     }
 

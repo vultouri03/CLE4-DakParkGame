@@ -34,7 +34,7 @@ export class EndScene extends Scene {
 
     onActivate(ctx) {
         if(this.game.scene === "game") {
-            localStorage.clear()
+            //localStorage.clear()
         }
     }
 

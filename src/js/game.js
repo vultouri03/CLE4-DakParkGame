@@ -8,7 +8,7 @@ import {Player} from "./ObjectClasses/Characters/Player.js";
 import {EndScene} from "./ObjectClasses/Scenes/EndScene.js";
 import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 import {WinnerScene} from "./ObjectClasses/Scenes/WinnerScene.js";
-
+import { IntroductionScene } from './ObjectClasses/Scenes/IntroductionScene';
 
 
 export class Game extends Engine {
@@ -27,12 +27,13 @@ export class Game extends Engine {
     startGame() {
         localStorage.clear();
         this.scene = "game";
-        let testScene = "";
-        this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+        let testScene = "Intro";
+        this.player = new Player('player', 10, new Vector(0, 0), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
         this.addScene('startScene', new StartScene())
         this.addScene('gameScene', new GameScene(this.player, 'BossScene'));
         this.addScene('BossScene', new BossScene(this.player, 'gameScene'));
+        this.addScene('introductionScene', new IntroductionScene())
         this.addScene('endScene', new EndScene())
         this.addScene('winScene', new WinnerScene())
 
@@ -49,7 +50,9 @@ export class Game extends Engine {
             this.goToScene('BossScene');
         } else if (testScene === "gameScene") {
             this.goToScene('gameScene');
-        } else {
+        } else if(testScene === "Intro") {
+            this.goToScene('introductionScene')
+        }else {
             this.goToScene('startScene');
         }
 
