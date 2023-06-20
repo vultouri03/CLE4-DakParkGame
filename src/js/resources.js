@@ -2,10 +2,13 @@ import {ImageSource, Loader} from 'excalibur'
 import aggressiveBunnyImage from '../images/killkillkill.png'
 import backGroundImage from '../images/background.png'
 import bossImage from '../images/chicken.png'
+import boulderImage from '../images/boulder.png'
+import bushImage from '../images/bush.png'
 import calmBunnyImage from '../images/calm bnuy.png'
 import eggImage from '../images/egg.png'
 import eggPositionBossImage from '../images/egg drop attack.png'
 import endSceneImage from '../images/endscene.png'
+import fenceImage from '../images/fence.png'
 import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
@@ -39,6 +42,7 @@ import slingshotImage from '../images/slingshot.png'
 import startSceneImage from '../images/startscene.png'
 import targetImage from '../images/target.png'
 import toolBarImage from '../images/toolbar.png'
+import treeImage from '../images/tree.png'
 import winnerSceneImage from '../images/winnerscene.png'
 import woodImage from '../images/wood.png'
 
@@ -46,10 +50,13 @@ const Resources = {
     AggressiveBunny: new ImageSource(aggressiveBunnyImage),
     BackGround: new ImageSource(backGroundImage),
     Boss: new ImageSource(bossImage),
+    Boulder: new ImageSource(boulderImage),
+    Bush: new ImageSource(bushImage),
     CalmBunny: new ImageSource(calmBunnyImage),
     Egg: new ImageSource(eggImage),
     EggPositionBoss: new ImageSource(eggPositionBossImage),
     EndScene: new ImageSource(endSceneImage),
+    Fence: new ImageSource(fenceImage),
     Fish: new ImageSource(fishImage),
     Hammer: new ImageSource(hammerImage),
     Hay: new ImageSource(hayImage),
@@ -83,6 +90,7 @@ const Resources = {
     StartScene: new ImageSource(startSceneImage),
     Target: new ImageSource(targetImage),
     ToolBar: new ImageSource(toolBarImage),
+    Tree: new ImageSource(treeImage),
     WinScene: new ImageSource(winnerSceneImage),
     Wood: new ImageSource(woodImage)
 

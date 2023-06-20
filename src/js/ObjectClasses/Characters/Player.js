@@ -123,13 +123,11 @@ export class Player extends Character {
 
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
-        if  (localStorage.getItem('rock') !== 'true') {
-        } else if( (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4")){
+        if( (engine.input.keyboard.wasPressed(Input.Keys.Space) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4" && this.ammunitionAmount > 0)){
             this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1, Resources.Rock, "Passive", this.directionFacing));
             this.ammunitionAmount--;
+    }}
 
-        }
-    }
 
     //adds the slingshot to the player when it is picked up
     playerSlingshot() {
@@ -137,7 +135,6 @@ export class Player extends Character {
             this.addChild(this.slingShot);
         }
     }
-
     animatingCheck() {
         if (this.animating === false) {
             switch (this.directionFacing) {
@@ -158,3 +155,4 @@ export class Player extends Character {
         }
     }
 }
+
