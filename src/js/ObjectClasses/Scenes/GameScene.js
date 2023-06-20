@@ -48,6 +48,8 @@ export class GameScene extends Scene {
         this.game = engine;
         engine.add(this.player);
 
+
+
         let bunny = new Bunny("bunny", 10, new Vector(500, 500), 80, 80, 1, 1, Resources.CalmBunny, CollisionType.Passive);
         engine.add(bunny);
 
@@ -75,6 +77,7 @@ export class GameScene extends Scene {
 
     onActivate(ctx) {
         this.game.scene = "game";
+
     }
 
     onPostUpdate(engine, _delta) {

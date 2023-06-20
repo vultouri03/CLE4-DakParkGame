@@ -39,6 +39,7 @@ import slingshotImage from '../images/slingshot.png'
 import startSceneImage from '../images/startscene.png'
 import targetImage from '../images/target.png'
 import toolBarImage from '../images/toolbar.png'
+import winnerSceneImage from '../images/winnerscene.png'
 import woodImage from '../images/wood.png'
 
 const Resources = {
@@ -82,7 +83,9 @@ const Resources = {
     StartScene: new ImageSource(startSceneImage),
     Target: new ImageSource(targetImage),
     ToolBar: new ImageSource(toolBarImage),
+    WinScene: new ImageSource(winnerSceneImage),
     Wood: new ImageSource(woodImage)
+
 }
 
 const resourceArray = []
