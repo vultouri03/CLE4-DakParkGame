@@ -1,7 +1,5 @@
 import {Scene, Vector, Label, Font, FontUnit, Color, Input} from "excalibur";
-import {StartSceneBackground} from "../StaticComponents/StartSceneBackground.js";
 import {EndSceneBackground} from "../StaticComponents/EndSceneBackground.js";
-
 
 
 export class EndScene extends Scene {
@@ -12,7 +10,8 @@ export class EndScene extends Scene {
         })
 
     }
-    onInitialize(engine){
+
+    onInitialize(engine) {
         super.onInitialize(engine);
         this.game = engine
         const background = new EndSceneBackground()
@@ -33,18 +32,15 @@ export class EndScene extends Scene {
     }
 
     onActivate(ctx) {
-        if(this.game.scene === "game") {
+        if (this.game.scene === "game") {
             localStorage.clear()
         }
     }
 
     onPreUpdate(engine, delta) {
-        if (
-            engine.input.keyboard.wasPressed(
-                Input.Keys.Enter)) {
+        if (engine.input.keyboard.wasPressed(Input.Keys.Enter)) {
             console.log('restart');
-            engine.goToScene('startScene')
+            engine.goToScene('startScene');
         }
     }
-
 }

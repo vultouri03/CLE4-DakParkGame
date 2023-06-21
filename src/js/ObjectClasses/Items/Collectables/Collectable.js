@@ -11,10 +11,12 @@ export class Collectable extends Entity {
     onInitialize(engine) {
         this.on('precollision', (event) => {
             let isPressingInteractionKey = engine.input.keyboard.wasPressed(Input.Keys.E);
-            if (isPressingInteractionKey && event.other instanceof Character) {
+            let isPressingInterActionButton = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face1);
+            if ((isPressingInteractionKey || isPressingInterActionButton) && event.other instanceof Character) {
                 this.interAct(engine, event);
             }
         })
+
     }
 
     interAct(_engine, _event) {

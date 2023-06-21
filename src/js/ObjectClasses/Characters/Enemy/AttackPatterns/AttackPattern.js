@@ -8,7 +8,6 @@ export class AttackPattern {
     constructor(enemy, _engine) {
         this.enemy = enemy;
         this.initGraphics();
-        // this.initAnimations(this.enemy, _engine);
     }
 
     initGraphics() {

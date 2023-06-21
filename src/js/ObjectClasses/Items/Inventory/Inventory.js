@@ -19,6 +19,9 @@ export class Inventory extends ScreenElement {
     inventorySlots = [];
     inventoryActors;
 
+    lastPressedUp = false;
+    lastPressedDown = false;
+
     hammerInventoryItem;
     nailInventoryItem;
     rockInventoryItem;
@@ -32,6 +35,7 @@ export class Inventory extends ScreenElement {
             width: INVENTORY_WIDTH,
             collisionType: CollisionType.Passive,
         })
+        console.log("inventory is constructed")
         this.inventory = [["hammer", false], ["nail", false], ["rock", false], ["slingshot", false], ["wood", false]];
 
         this.hammerInventoryItem = new InventoryItem("hammer", new Vector(this.pos.x, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
@@ -41,6 +45,7 @@ export class Inventory extends ScreenElement {
 
         this.initGraphics();
         this.graphics.use(this.inventorySlots[0]);
+        localStorage.setItem("inventorySlot", "1");
     }
 
     onPostUpdate(engine, delta) {
@@ -60,6 +65,36 @@ export class Inventory extends ScreenElement {
             this.graphics.use(this.inventorySlots[4]);
             localStorage.setItem("inventorySlot", "5");
         }
+
+
+        let justPressedUp = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face3);
+        let justPressedDown = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face2);
+        let currentSlot = Number(localStorage.getItem("inventorySlot"));
+
+        if (!justPressedUp && this.lastPressedUp) {
+            if (currentSlot === 5) {
+                localStorage.setItem("inventorySlot", "1");
+                this.graphics.use(this.inventorySlots[0]);
+            } else {
+                localStorage.setItem("inventorySlot", (++currentSlot).toString());
+                this.graphics.use(this.inventorySlots[currentSlot]);
+            }
+        }
+
+        if (!justPressedDown && this.lastPressedDown) {
+            if (currentSlot === 1) {
+                console.log("hello")
+                localStorage.setItem("inventorySlot", "5");
+                this.graphics.use(this.inventorySlots[4]);
+            } else {
+                localStorage.setItem("inventorySlot", (--currentSlot).toString());
+                this.graphics.use(this.inventorySlots[currentSlot - 2]);
+            }
+        }
+
+        this.lastPressedUp = justPressedUp;
+        this.lastPressedDown = justPressedDown;
+
 
         for (let i = 0; i < this.inventory.length; i++) {
             if (i === 2 && localStorage.getItem(this.inventory[i][0]) && !this.inventory[i][1]) {
