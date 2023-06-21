@@ -7,6 +7,7 @@ import {HammerCollectable} from "../Items/Collectables/HammerCollectable.js";
 import {RockCollectable} from "../Items/Collectables/RockCollectable.js";
 import {NailCollectable} from "../Items/Collectables/NailCollectable.js";
 import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.js";
+import {AppleCollectable} from "../Items/Collectables/AppleCollectable.js";
 
 const BUNNY_WIDTH = 80;
 const BUNNY_HEIGHT = 80
@@ -45,6 +46,10 @@ export class GameScene extends Scene {
 
         for (let i = 0; i < 5; i++) {
             this.add(new NailCollectable('nail', new Vector(this.random.integer(-1500, -500), this.random.integer(350, 1050)), 25, 25, 1, 1, Resources.Nail, CollisionType.Passive));
+        }
+
+        for (let i = 0; i < 3; i++) {
+            this.add(new AppleCollectable('rock', new Vector(this.random.integer(-1300, 1300), this.random.integer(-950, 950)), 60, 60, 1, 1, Resources.Apple, CollisionType.Passive));
         }
 
         this.add(inventory);
