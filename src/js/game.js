@@ -1,5 +1,5 @@
 import '../css/style.css'
-import {CollisionType, Engine, Vector} from "excalibur"
+import {CollisionType, DisplayMode, Engine, Vector} from "excalibur"
 import {ResourceLoader, Resources} from './resources.js'
 import {StartScene} from "./ObjectClasses/Scenes/StartScene.js";
 import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
@@ -24,7 +24,9 @@ export class Game extends Engine {
         super({
             width: visualViewport.width,
             height: visualViewport.height,
+            displayMode: DisplayMode.FillScreen
         })
+        
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
