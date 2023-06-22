@@ -3,7 +3,6 @@ import {Resources} from "../../../resources.js";
 import {ActionSequence} from "excalibur";
 import {BunnyJumpAttackPattern} from "./AttackPatterns/Bunny/BunnyJumpAttackPattern.js";
 import {Player} from "../Player.js";
-import {Character} from "../Character.js";
 
 export class Bunny extends Enemy {
     actionSequence;

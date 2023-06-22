@@ -7,8 +7,17 @@ const SPRITE_DURATION = 500
 export class BunnyJumpAttackPattern extends AttackPattern {
 
     sprites_amount = 7
+    directionFacing;
+    direction;
+
     constructor(enemy) {
         super(enemy);
+        this.direction = {
+            Up: 1,
+            Down: 2,
+            Left: 3,
+            Right: 4,
+        };
     }
 
     initGraphics() {
@@ -60,6 +69,19 @@ export class BunnyJumpAttackPattern extends AttackPattern {
             for (let i = 0; i < this.sprites_amount; i++) {
                 ctx.easeTo(new Vector( i * movingDirection.x * distanceToCover + enemy.pos.x, i * movingDirection.y * distanceToCover + enemy.pos.y), SPRITE_DURATION, EasingFunctions.EaseInQuad);
             }
+
+            if (movingDirection.x < 0) {
+                this.directionFacing = this.direction.Left;
+            } else if (movingDirection.x > 0) {
+                this.directionFacing = this.direction.Right;
+            }
+
+            if (this.directionFacing === this.direction.Left) {
+            this.bossAnimation.flipHorizontal = true;
+            } else if (this.directionFacing === this.direction.Right) {
+                this.bossAnimation.flipHorizontal = false;
+            }
+
             this.duration = SPRITE_DURATION * 8;
         })
     }
