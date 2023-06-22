@@ -9,7 +9,7 @@ export class IntroductionText extends ScreenElement {
     }
 
     onInitialize(engine) {
-        
+        this.game = engine;
         this.dialogueLine = 0;
         this.dialogueText = new Label({
             text: "welcome",
@@ -56,6 +56,8 @@ export class IntroductionText extends ScreenElement {
                 case 7:
                     this.dialogueText.text = "Good luck"
                     break;
+                case 8 :
+                    this.game.goToScene('gameScene')
             }
         }
     }

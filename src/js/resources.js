@@ -9,6 +9,7 @@ import endSceneImage from '../images/endscene.png'
 import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
+import introduction from '../images/introduction.png'
 import nailImage from '../images/nail.png'
 import playerBackImage from '../images/player_back.png'
 import playerBackAnimation from '../images/player back animation.png'
@@ -53,6 +54,7 @@ const Resources = {
     Fish: new ImageSource(fishImage),
     Hammer: new ImageSource(hammerImage),
     Hay: new ImageSource(hayImage),
+    introduction: new ImageSource(introduction),
     Nail: new ImageSource(nailImage),
     PlayerBack: new ImageSource(playerBackImage),
     PlayerBackAnimation: new ImageSource(playerBackAnimation),
