@@ -47,6 +47,9 @@ export class Boss extends Enemy {
             }
         })
     }
+    onPostUpdate(_engine, _delta) {
+        this.death();
+    }
 
     movement(_engine) {
         if (this.actionSequence.isComplete()) {

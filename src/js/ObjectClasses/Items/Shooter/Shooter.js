@@ -38,6 +38,7 @@ export class Shooter extends Weapon {
     hitSomething(event) {
         if (event.other instanceof Enemy) {
             event.other.hp -= 5;
+            this.kill()
             console.log(event.other.hp)
 
         }

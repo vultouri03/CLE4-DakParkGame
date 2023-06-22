@@ -29,7 +29,7 @@ export class Bunny extends Enemy {
 
     hitSomething(event){
         if (event.other instanceof Player) {
-            event.other.hp -= 1;
+            event.other.hp -= 4;
             console.log(event.other.hp)
         }
     }
