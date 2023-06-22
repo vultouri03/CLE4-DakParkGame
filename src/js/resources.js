@@ -2,6 +2,7 @@ import {ImageSource, Loader} from 'excalibur'
 import aggressiveBunnyImage from '../images/killkillkill.png'
 import appleImage from '../images/apple.png'
 import backGroundImage from '../images/background.png'
+import bossBackGroundImage from '../images/bossBackGround.png'
 import bossImage from '../images/chicken.png'
 import boulderImage from '../images/boulder.png'
 import bushImage from '../images/bush.png'
@@ -52,6 +53,7 @@ const Resources = {
     Apple: new ImageSource(appleImage),
     BackGround: new ImageSource(backGroundImage),
     Boss: new ImageSource(bossImage),
+    BossBackGround: new ImageSource(bossBackGroundImage),
     Boulder: new ImageSource(boulderImage),
     Bush: new ImageSource(bushImage),
     CalmBunny: new ImageSource(calmBunnyImage),
