@@ -110,7 +110,9 @@ export class Inventory extends ScreenElement {
             }
         }
 
-        if (engine.player.ammunitionAmount === 0) {
+        if (engine.player.ammunitionAmount === 0 && localStorage.getItem("rock")) {
+            this.removeChild(this.rockInventoryItem);
+            localStorage.setItem("rock", "false");
             this.inventory[2][1] = false;
         }
     }
