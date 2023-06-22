@@ -1,4 +1,5 @@
 import {Input, Vector, CollisionType} from "excalibur";
+import {Bunny} from "./Enemy/Bunny.js";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";
@@ -27,6 +28,7 @@ export class Player extends Character {
             Down: 2,
             Left: 3,
             Right: 4,
+
         };
         this.velocity = 200;
 
@@ -58,6 +60,11 @@ export class Player extends Character {
         this.animationHandler(Resources.PlayerRightAnimation, 1, 4, this.width, this.height, 100);
         this.rightAnimation = this.animation;
         this.animating = false;
+
+        if(this.hp <= 0) {
+            this.kill();
+        }
+
     }
 
     onPostUpdate(_engine, _delta) {
@@ -65,10 +72,13 @@ export class Player extends Character {
             super.onPostUpdate(_engine, _delta)
         }
         this.animatingCheck();
+        this.death();
 
         this.playerAttacks(_engine);
         this.slingShot.graphics.visible = localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4";
     }
+
+
 
     movement(_engine) {
         this.horizontalMovement(_engine);
@@ -168,7 +178,6 @@ export class Player extends Character {
             this.ammunitionAmount--;
         }
     }
-
 
     //adds the slingshot to the player when it is picked up
     playerSlingshot() {
