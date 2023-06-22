@@ -26,7 +26,7 @@ export class Game extends Engine {
         super({
             width: visualViewport.width,
             height: visualViewport.height,
-            displayMode: DisplayMode.FillScreen
+            //displayMode: DisplayMode.FillScreen
         })
         
         this.start(ResourceLoader).then(() => this.startGame())
@@ -35,7 +35,7 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-        this.scene = "gameScene";
+        this.scene = "game";
         let testScene = "";
 
         this.#arcade = new Arcade(this, false, true);

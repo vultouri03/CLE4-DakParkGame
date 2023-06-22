@@ -18,12 +18,8 @@ export class BossScene extends Scene {
         this.boss = new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
 
-        this.player = player;
-        this.add(this.player);
-
         this.add(inventory);
         this.initSpawns(this.game);
-
     }
 
     onInitialize(engine) {
@@ -38,6 +34,16 @@ export class BossScene extends Scene {
     onPostUpdate(_engine, _delta) {
         this.movement(_engine)
     }
+
+    onActivate(ctx) {
+        this.add(this.game.player)
+        this.game.player.pos = new Vector(0, 0);
+
+        if (localStorage.getItem("slingshot") !== "true") {
+            // als er geen slingshot is dan
+            this.add(new SlingshotCollectable('slingshot', new Vector(this.game.player.pos.x + 50, this.game.player.pos.y + 150), 75, 75, 1, 1, Resources.Slingshot, CollisionType.Passive));
+    }
+}
 
     movement(_engine) {
         if (this.rockSpawn.isComplete()) {
