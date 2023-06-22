@@ -60,9 +60,8 @@ export class GameScene extends Scene {
     onInitialize(engine) {
         this.game = engine;
         engine.add(this.player);
-        this.add(this.inventory);
-
         this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
+
         let boundingBox = new BoundingBox(
             -1500,
             -1050,
@@ -70,8 +69,9 @@ export class GameScene extends Scene {
             1050
         )
         this.camera.strategy.limitCameraBounds(boundingBox);
-
         this.initSpawns(engine);
+
+        this.add(this.inventory);
     }
 
     onPreUpdate(engine, delta) {
