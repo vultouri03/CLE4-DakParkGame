@@ -2,7 +2,7 @@ import {Resources} from "../../../../../resources.js";
 import {ActionSequence, Animation, EasingFunctions, Vector} from "excalibur";
 import {AttackPattern} from "../AttackPattern.js";
 
-const SPRITE_DURATION = 500
+const SPRITE_DURATION = 350
 
 export class BunnyJumpAttackPattern extends AttackPattern {
 
@@ -65,7 +65,8 @@ export class BunnyJumpAttackPattern extends AttackPattern {
             ctx.delay(SPRITE_DURATION);
 
             let movingDirection = new Vector(_engine.player.pos.x - enemy.pos.x, _engine.player.pos.y - enemy.pos.y);
-            let distanceToCover = _engine.player.velocity / (enemy.distance * this.sprites_amount);
+            let distanceToCover = 200 / (enemy.distance * this.sprites_amount);
+
             for (let i = 0; i < this.sprites_amount; i++) {
                 ctx.easeTo(new Vector( i * movingDirection.x * distanceToCover + enemy.pos.x, i * movingDirection.y * distanceToCover + enemy.pos.y), SPRITE_DURATION, EasingFunctions.EaseInQuad);
             }
