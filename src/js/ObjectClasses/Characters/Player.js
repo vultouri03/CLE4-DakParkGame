@@ -1,4 +1,4 @@
-import {Input, Vector, CollisionType} from "excalibur";
+import {Input, Vector, CollisionType, ExitViewPortEvent, clamp} from "excalibur";
 import {Bunny} from "./Enemy/Bunny.js";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
@@ -38,10 +38,13 @@ export class Player extends Character {
         this.game = engine
         this.slingShot = new SlingShot();
         this.playerSlingshot();
-
+        this.addChild(this.slingShot);
         this.initGraphics();
+        this.screenExit();
 
+        console.log("GAMEPAD: ",engine.input.gamepads.at(0));
         if (engine.input.gamepads.at(0).connected) {
+            console.log("CON");
             document.addEventListener("joystick0up", () => this.moveUp());
             document.addEventListener("joystick0left", () => this.moveLeft());
             document.addEventListener("joystick0right", () => this.moveRight());
@@ -76,6 +79,8 @@ export class Player extends Character {
 
         this.playerAttacks(_engine);
         this.slingShot.graphics.visible = localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4";
+        this.pos.x = clamp(this.pos.x, -1450, 1450);
+        this.pos.y = clamp(this.pos.y, -1000, 1000);
     }
 
 
@@ -138,7 +143,8 @@ export class Player extends Character {
     }
 
     moveUp() {
-        this.vel.y = -1 * this.velocity;
+        this.vel.y = -this.velocity;
+        console.log(this.vel);
         this.directionFacing = this.direction.Up;
         this.animating = true;
         this.graphics.use(this.backAnimation);
@@ -167,6 +173,7 @@ export class Player extends Character {
 
     setNeutral() {
         this.vel = new Vector(0, 0);
+        this.animating = false;
     }
 
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
@@ -184,8 +191,14 @@ export class Player extends Character {
         if (localStorage.getItem('slingshot') === "true") {
             this.addChild(this.slingShot);
         }
-        this.slingShot.pos = new Vector(this.pos.x + this.width / 2 + 20, this.pos.y);
+        this.slingShot.pos = new Vector(0, -80);
         this.slingShot.scale = new Vector(0.3, 0.3);
+    }
+
+    screenExit() {
+        this.on("exitviewport", (event) => {
+            this.vel = new Vector(0, 0);
+        })
     }
 
     animatingCheck() {
