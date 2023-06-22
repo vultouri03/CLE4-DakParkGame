@@ -83,22 +83,15 @@ export class GameScene extends Scene {
 
     onInitialize(engine) {
         this.game = engine;
-        engine.add(this.player);
+       // engine.add(this.game.player);
 
-        this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
-        let boundingBox = new BoundingBox(
-            -1500,
-            -1050,
-            1500,
-            1050
-        )
-        this.camera.strategy.limitCameraBounds(boundingBox);
+        
 
         this.initSpawns(engine);
     }
 
     onPreUpdate(engine, delta) {
-        this.add(this.game.player)
+        
 
         if (localStorage.getItem("hammer") === "true" &&
             localStorage.getItem("nail") === "true" &&
@@ -110,7 +103,21 @@ export class GameScene extends Scene {
     }
 
     onActivate(ctx) {
+        this.camera.clearAllStrategies
         this.game.scene = "game";
+        this.add(this.game.player)
+        this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
+        let boundingBox = new BoundingBox(
+            -1500,
+            -1050,
+            1500,
+            1050
+        )
+        this.camera.strategy.limitCameraBounds(boundingBox);
+    }
+
+    onDeactivate(ctx) {
+        this.camera.clearAllStrategies()
     }
 
     onPostUpdate(_engine, _delta) {
