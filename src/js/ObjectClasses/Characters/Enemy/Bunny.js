@@ -2,7 +2,6 @@ import {Enemy} from "./Enemy.js";
 import {Resources} from "../../../resources.js";
 import {ActionSequence} from "excalibur";
 import {BunnyJumpAttackPattern} from "./AttackPatterns/Bunny/BunnyJumpAttackPattern.js";
-import {Player} from "../Player.js";
 
 export class Bunny extends Enemy {
     actionSequence;
@@ -31,13 +30,6 @@ export class Bunny extends Enemy {
         super.onInitialize(_engine);
         this.on('collisionstart', (event) => this.hitSomething(event))
 
-    }
-
-    hitSomething(event){
-        if (event.other instanceof Player) {
-            event.other.hp -= 1;
-            console.log(event.other.hp)
-        }
     }
 
 

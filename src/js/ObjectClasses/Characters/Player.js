@@ -1,5 +1,4 @@
 import {Input, Vector, CollisionType, clamp} from "excalibur";
-import {Input, Vector, CollisionType} from "excalibur";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";

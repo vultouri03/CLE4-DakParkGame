@@ -35,7 +35,6 @@ export class Inventory extends ScreenElement {
             width: INVENTORY_WIDTH,
             collisionType: CollisionType.Passive,
         })
-        console.log("inventory is constructed")
         this.inventory = [["hammer", false], ["nail", false], ["rock", false], ["slingshot", false], ["wood", false]];
 
         this.hammerInventoryItem = new InventoryItem("hammer", new Vector(0, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);

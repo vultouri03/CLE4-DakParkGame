@@ -10,9 +10,9 @@ export class Enemy extends Character {
         this.on('collisionstart', (event) => this.hitSomething(event))
     }
 
-    hitSomething(event) {
+    hitSomething(event){
         if (event.other instanceof Player) {
-            event.other.kill()
+            event.other.hp -= 1;
         }
     }
 }
