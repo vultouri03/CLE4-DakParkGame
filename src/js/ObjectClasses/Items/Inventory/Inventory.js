@@ -38,10 +38,10 @@ export class Inventory extends ScreenElement {
         console.log("inventory is constructed")
         this.inventory = [["hammer", false], ["nail", false], ["rock", false], ["slingshot", false], ["wood", false]];
 
-        this.hammerInventoryItem = new InventoryItem("hammer", new Vector(this.pos.x, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
-        this.nailInventoryItem = new InventoryItem("nail", new Vector(this.pos.x + 48, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
-        this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(this.pos.x + 144, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
-        this.woodInventoryItem = new InventoryItem('wood', new Vector(this.pos.x + 192, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
+        this.hammerInventoryItem = new InventoryItem("hammer", new Vector(0, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Hammer, CollisionType.Passive);
+        this.nailInventoryItem = new InventoryItem("nail", new Vector(48, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
+        this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(144, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
+        this.woodInventoryItem = new InventoryItem('wood', new Vector(192, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
 
         this.initGraphics();
         this.graphics.use(this.inventorySlots[0]);
@@ -49,46 +49,49 @@ export class Inventory extends ScreenElement {
     }
 
     onPostUpdate(engine, delta) {
-        if (engine.input.keyboard.wasPressed(INPUT_KEY_ONE) || localStorage.getItem("inventorySlot") === "1") {
+        if (engine.input.keyboard.wasPressed(INPUT_KEY_ONE)) {
             this.graphics.use(this.inventorySlots[0]);
             localStorage.setItem("inventorySlot", "1");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_TWO) || localStorage.getItem("inventorySlot") === "2") {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_TWO)) {
             this.graphics.use(this.inventorySlots[1]);
             localStorage.setItem("inventorySlot", "2");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_THREE) || localStorage.getItem("inventorySlot") === "3") {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_THREE)) {
             this.graphics.use(this.inventorySlots[2]);
             localStorage.setItem("inventorySlot", "3");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FOUR) || localStorage.getItem("inventorySlot") === "4") {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FOUR)) {
             this.graphics.use(this.inventorySlots[3]);
             localStorage.setItem("inventorySlot", "4");
-        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FIVE) || localStorage.getItem("inventorySlot") === "5") {
+        } else if (engine.input.keyboard.wasPressed(INPUT_KEY_FIVE)) {
             this.graphics.use(this.inventorySlots[4]);
             localStorage.setItem("inventorySlot", "5");
         }
+
 
 
         let justPressedUp = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face3);
         let justPressedDown = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face2);
         let currentSlot = Number(localStorage.getItem("inventorySlot"));
 
-        if (!justPressedUp && this.lastPressedUp) {
-            if (currentSlot === 5) {
-                localStorage.setItem("inventorySlot", "1");
-                this.graphics.use(this.inventorySlots[0]);
-            } else {
-                localStorage.setItem("inventorySlot", (++currentSlot).toString());
-                this.graphics.use(this.inventorySlots[currentSlot]);
+        if (engine.input.gamepads.at(0).connected) {
+            if (!justPressedUp && this.lastPressedUp) {
+                if (currentSlot === 5) {
+                    localStorage.setItem("inventorySlot", "1");
+                    this.graphics.use(this.inventorySlots[0]);
+                } else {
+                    localStorage.setItem("inventorySlot", (++currentSlot).toString());
+                    this.graphics.use(this.inventorySlots[currentSlot]);
+                }
             }
-        }
 
-        if (!justPressedDown && this.lastPressedDown) {
-            if (currentSlot === 1) {
-                console.log("hello")
-                localStorage.setItem("inventorySlot", "5");
-                this.graphics.use(this.inventorySlots[4]);
-            } else {
-                localStorage.setItem("inventorySlot", (--currentSlot).toString());
-                this.graphics.use(this.inventorySlots[currentSlot - 2]);
+            if (!justPressedDown && this.lastPressedDown) {
+                if (currentSlot === 1) {
+                    console.log("hello")
+                    localStorage.setItem("inventorySlot", "5");
+                    this.graphics.use(this.inventorySlots[4]);
+                } else {
+                    localStorage.setItem("inventorySlot", (--currentSlot).toString());
+                    this.graphics.use(this.inventorySlots[currentSlot - 2]);
+                }
             }
         }
 
@@ -99,11 +102,11 @@ export class Inventory extends ScreenElement {
         for (let i = 0; i < this.inventory.length; i++) {
             if (i === 2 && localStorage.getItem(this.inventory[i][0]) && !this.inventory[i][1]) {
                 this.inventory[i][1] = true;
-                this.rockInventoryItem = new RockInventoryItem("rock", new Vector(this.pos.x + 96, this.pos.y), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock1, CollisionType.Passive);
-                engine.add(this.rockInventoryItem);
+                this.rockInventoryItem = new RockInventoryItem("rock", new Vector(96, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock1, CollisionType.Passive);
+                this.addChild(this.rockInventoryItem);
             } else if (localStorage.getItem(this.inventory[i][0]) === "true" && !this.inventory[i][1]) {
                 this.inventory[i][1] = true;
-                engine.add(this.inventoryActors[i]);
+                this.addChild(this.inventoryActors[i]);
             }
         }
 
@@ -130,8 +133,7 @@ export class Inventory extends ScreenElement {
 
             if (!this.inventorySlots[i]) return;
         }
+
         this.inventoryActors = [this.hammerInventoryItem, this.nailInventoryItem, this.rockInventoryItem, this.slingShotInventoryItem, this.woodInventoryItem];
-
-
     }
 }

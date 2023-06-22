@@ -9,7 +9,7 @@ export class RockInventoryItem extends UIElement {
 
     onPostUpdate(_engine, _delta) {
         switch (_engine.player.ammunitionAmount) {
-            case 0: {
+            case 0 && localStorage.getItem(this.name) === "true": {
                 this.kill();
                 localStorage.setItem(this.name, "false");
                 break;

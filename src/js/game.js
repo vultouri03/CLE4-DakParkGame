@@ -16,7 +16,7 @@ import {Inventory} from "./ObjectClasses/Items/Inventory/Inventory.js";
 export class Game extends Engine {
     player;
     scene;
-    controller;
+    inventory;
 
     #arcade;
     #joystickListener;
@@ -40,7 +40,7 @@ export class Game extends Engine {
 
         this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
-        let inventory = new Inventory(new Vector(visualViewport.width / 2, (visualViewport.height - 100)));
+        this.inventory = new Inventory(new Vector(visualViewport.width/2, (visualViewport.height - 100)));
 
         if (testScene === "Boss") {
             localStorage.setItem("wood", "true");
@@ -53,8 +53,8 @@ export class Game extends Engine {
         }
 
         this.addScene('startScene', new StartScene());
-        this.addScene('gameScene', new GameScene(this.player, 'BossScene', inventory));
-        this.addScene('BossScene', new BossScene(this.player, 'gameScene', inventory));
+        this.addScene('gameScene', new GameScene(this.player, 'BossScene', this.inventory));
+        this.addScene('BossScene', new BossScene(this.player, 'gameScene', this.inventory));
         this.addScene('endScene', new EndScene());
         this.addScene('winScene', new WinnerScene());
 
