@@ -32,7 +32,7 @@ export class EndScene extends Scene {
     }
 
     onActivate(ctx) {
-        if (this.game.scene === "game") {
+        if (this.game.scene === "gameScene") {
             localStorage.clear()
         }
     }

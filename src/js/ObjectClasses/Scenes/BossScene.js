@@ -14,7 +14,7 @@ export class BossScene extends Scene {
 
     constructor(player, nextScene, inventory) {
         super()
-        this.add(new BackGround('BossBackGround' , new Vector(700,350), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision))
+        this.add(new BackGround('BossBackGround' , new Vector(visualViewport.width/2, visualViewport.height/2), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision))
         this.boss = new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
 
@@ -25,10 +25,6 @@ export class BossScene extends Scene {
     onInitialize(engine) {
         this.game = engine;
         this.game.scene = "Boss";
-
-        if (localStorage.getItem("slingshot") !== "true") {
-            this.add(new SlingshotCollectable('slingshot', new Vector(this.player.pos.x + 50, this.player.pos.y + 150), 75, 75, 1, 1, Resources.Slingshot, CollisionType.Passive));
-        }
     }
 
     onPostUpdate(_engine, _delta) {
