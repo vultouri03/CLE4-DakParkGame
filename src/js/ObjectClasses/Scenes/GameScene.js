@@ -74,7 +74,7 @@ export class GameScene extends Scene {
 
     onActivate(ctx) {
         this.camera.clearAllStrategies();
-        this.game.scene = "game";
+        this.game.scene = "gameScene";
         this.add(this.game.player)
         this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
         let boundingBox = new BoundingBox(
