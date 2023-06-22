@@ -24,7 +24,7 @@ export class Game extends Engine {
         super({
             width: visualViewport.width,
             height: visualViewport.height,
-            displayMode: DisplayMode.FillScreen
+            //displayMode: DisplayMode.FillScreen
         })
         
         this.start(ResourceLoader).then(() => this.startGame())
