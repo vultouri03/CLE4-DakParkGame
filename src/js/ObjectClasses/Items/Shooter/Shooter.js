@@ -41,6 +41,7 @@ export class Shooter extends Weapon {
     hitSomething(event) {
         if (event.other instanceof Enemy) {
             event.other.hp -= 5;
+            event.other.actions.blink(200, 200, 3);
         }
     }
 }

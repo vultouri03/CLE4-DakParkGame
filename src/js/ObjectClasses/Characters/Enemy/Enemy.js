@@ -13,6 +13,7 @@ export class Enemy extends Character {
     hitSomething(event){
         if (event.other instanceof Player) {
             event.other.hp -= 1;
+            event.other.actions.blink(200, 200, 3);
         }
     }
 }
