@@ -1,6 +1,6 @@
 import {Input} from "excalibur";
-import {Character} from "../../Characters/Character.js";
 import {Entity} from "../../Entity.js";
+import {Player} from "../../Characters/Player.js";
 
 export class Collectable extends Entity {
 
@@ -12,7 +12,7 @@ export class Collectable extends Entity {
         this.on('precollision', (event) => {
             let isPressingInteractionKey = engine.input.keyboard.wasPressed(Input.Keys.E);
             let isPressingInterActionButton = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face1);
-            if ((isPressingInteractionKey || isPressingInterActionButton) && event.other instanceof Character) {
+            if ((isPressingInteractionKey || isPressingInterActionButton) && event.other instanceof Player) {
                 this.interAct(engine, event);
             }
         })

@@ -3,6 +3,7 @@ import {EggDropAttackPattern} from "./AttackPatterns/Boss/EggDropAttackPattern.j
 import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";
 import {Enemy} from "./Enemy.js";
+import {Player} from "../Player.js";
 
 
 export class Boss extends Enemy {
@@ -46,6 +47,13 @@ export class Boss extends Enemy {
                 ctx.delay(200);
             }
         })
+    }
+
+    hitSomething(event){
+        if (event.other instanceof Player) {
+            event.other.hp -= 3;
+            event.other.actions.blink(200, 200, 3);
+        }
     }
 
     movement(_engine) {

@@ -1,5 +1,4 @@
-import {Input, Vector, CollisionType, ExitViewPortEvent, clamp} from "excalibur";
-import {Bunny} from "./Enemy/Bunny.js";
+import {Input, Vector, CollisionType, clamp} from "excalibur";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
 import {Shooter} from "../Items/Shooter/Shooter";
@@ -19,6 +18,8 @@ export class Player extends Character {
     leftAnimation;
     rightAnimation;
     animating;
+    slingshotDistanceFromPlayerX;
+    slingshotDistanceFromPlayerY;
 
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
@@ -31,25 +32,24 @@ export class Player extends Character {
 
         };
         this.velocity = 200;
+        this.slingshotDistanceFromPlayerX = 40;
+        this.slingshotDistanceFromPlayerY = 60;
 
     }
 
     onInitialize(engine) {
         this.game = engine
-        this.slingShot = new SlingShot();
         this.playerSlingshot();
-        this.addChild(this.slingShot);
         this.initGraphics();
         this.screenExit();
 
-        console.log("GAMEPAD: ",engine.input.gamepads.at(0));
         if (engine.input.gamepads.at(0).connected) {
-            console.log("CON");
             document.addEventListener("joystick0up", () => this.moveUp());
             document.addEventListener("joystick0left", () => this.moveLeft());
             document.addEventListener("joystick0right", () => this.moveRight());
             document.addEventListener("joystick0down", () => this.moveDown());
             document.addEventListener("joystick0neutral", () => this.setNeutral());
+            this.setSlingShotPos()
         }
     }
 
@@ -83,11 +83,10 @@ export class Player extends Character {
         this.pos.y = clamp(this.pos.y, -1000, 1000);
     }
 
-
-
     movement(_engine) {
         this.horizontalMovement(_engine);
         this.verticalMovement(_engine);
+        this.setSlingShotPos();
     }
 
     //handles horizontal movement
@@ -101,13 +100,15 @@ export class Player extends Character {
             this.animating = true;
             this.directionFacing = this.direction.Right;
             this.graphics.use(this.rightAnimation);
+
         } else if (engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
-            xSpeed = -1 * this.velocity;
+            xSpeed = -this.velocity;
             this.animating = true;
             this.directionFacing = this.direction.Left;
             this.graphics.use(this.leftAnimation)
 
         }
+
         //applies the speed to the object
         this.vel.x = xSpeed;
     }
@@ -121,12 +122,12 @@ export class Player extends Character {
 
         if (engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
             this.directionFacing = this.direction.Up;
-            ySpeed = -200;
+            ySpeed = -this.velocity;
             this.animating = true;
             this.graphics.use(this.backAnimation);
 
         } else if (engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
-            ySpeed = 200;
+            ySpeed = this.velocity;
             this.animating = true;
             this.directionFacing = this.direction.Down;
             this.graphics.use(this.frontAnimation);
@@ -134,6 +135,46 @@ export class Player extends Character {
         }
         //applies the speed to the object
         this.vel.y = ySpeed;
+    }
+
+    setSlingShotPos() {
+        let slingShotPosX;
+        if (this.vel.x < 0) {
+            slingShotPosX = -this.slingshotDistanceFromPlayerX;
+        } else if (this.vel.x > 0) {
+            slingShotPosX = this.slingshotDistanceFromPlayerX;
+        } else {
+            slingShotPosX = 0;
+        }
+
+        let slingShotPosY;
+        if (this.vel.y < 0) {
+            slingShotPosY = -this.slingshotDistanceFromPlayerY;
+        } else if (this.vel.y > 0) {
+            slingShotPosY = this.slingshotDistanceFromPlayerY;
+        } else {
+            slingShotPosY = 0;
+        }
+
+        if (this.vel.x === 0 && this.vel.y === 0) {
+            switch (this.directionFacing) {
+                case this.direction.Up: {
+                    slingShotPosY = -this.slingshotDistanceFromPlayerY;
+                    break;
+                } case this.direction.Down: {
+                    slingShotPosY = this.slingshotDistanceFromPlayerY;
+                    break;
+                } case this.direction.Left: {
+                    slingShotPosX = -this.slingshotDistanceFromPlayerX;
+                    break;
+                } case this.direction.Right: {
+                    slingShotPosX = this.slingshotDistanceFromPlayerX;
+                    break;
+                }
+            }
+        }
+
+        this.slingShot.pos = new Vector(slingShotPosX, slingShotPosY);
     }
 
 
@@ -144,14 +185,13 @@ export class Player extends Character {
 
     moveUp() {
         this.vel.y = -this.velocity;
-        console.log(this.vel);
         this.directionFacing = this.direction.Up;
         this.animating = true;
         this.graphics.use(this.backAnimation);
     }
 
     moveLeft() {
-        this.vel.x = -1 * this.velocity;
+        this.vel.x = -this.velocity;
         this.directionFacing = this.direction.Left;
         this.animating = true;
         this.graphics.use(this.leftAnimation);
@@ -188,15 +228,14 @@ export class Player extends Character {
 
     //adds the slingshot to the player when it is picked up
     playerSlingshot() {
-        if (localStorage.getItem('slingshot') === "true") {
-            this.addChild(this.slingShot);
-        }
+        this.slingShot = new SlingShot();
+        this.addChild(this.slingShot);
         this.slingShot.pos = new Vector(0, -80);
         this.slingShot.scale = new Vector(0.3, 0.3);
     }
 
     screenExit() {
-        this.on("exitviewport", (event) => {
+        this.on("exitviewport", () => {
             this.vel = new Vector(0, 0);
         })
     }

@@ -21,10 +21,12 @@ export class GameScene extends Scene {
     nextScene;
     bunnySpawn;
     rockSpawn;
+    inventory
 
     constructor(player, nextScene, inventory) {
         super()
         this.player = player;
+        this.inventory = inventory;
 
         let backgroundAxisX = [-1000, 0, 1000];
         let backgroundAxisY = [-700, 0, 700];
@@ -77,16 +79,11 @@ export class GameScene extends Scene {
             this.add(new AppleCollectable('rock', new Vector(this.random.integer(-1300, 1300), this.random.integer(-950, 950)), 60, 60, 1, 1, Resources.Apple, CollisionType.Passive));
         }
 
-        this.add(inventory);
         this.nextScene = nextScene;
     }
 
     onInitialize(engine) {
         this.game = engine;
-       // engine.add(this.game.player);
-
-        
-
         this.initSpawns(engine);
     }
 
@@ -114,6 +111,7 @@ export class GameScene extends Scene {
             1050
         )
         this.camera.strategy.limitCameraBounds(boundingBox);
+        this.add(this.inventory);
     }
 
     onDeactivate(ctx) {
@@ -162,8 +160,6 @@ export class GameScene extends Scene {
         return new ActionSequence(item, ctx => {
             ctx.delay(delay * 1000);
             this.add(item);
-
-            console.log(item.name, item.pos);
         })
     }
 

@@ -2,21 +2,26 @@ import {Enemy} from "./Enemy.js";
 import {Resources} from "../../../resources.js";
 import {ActionSequence} from "excalibur";
 import {BunnyJumpAttackPattern} from "./AttackPatterns/Bunny/BunnyJumpAttackPattern.js";
-import {Player} from "../Player.js";
-import {Character} from "../Character.js";
 
 export class Bunny extends Enemy {
     actionSequence;
     jumpAttackPattern;
     sprites;
     distance = 300;
-    actionSequenceHasStarted
+    actionSequenceHasStarted;
+    directionFacing;
+    direction;
 
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
         this.sprites = [Resources.RunningBunny1, Resources.RunningBunny2, Resources.RunningBunny3, Resources.RunningBunny4, Resources.RunningBunny5, Resources.RunningBunny6, Resources.RunningBunny7];
-
+        this.direction = {
+            Up: 1,
+            Down: 2,
+            Left: 3,
+            Right: 4,
+        };
     }
 
     onInitialize(_engine) {
@@ -25,13 +30,6 @@ export class Bunny extends Enemy {
         super.onInitialize(_engine);
         this.on('collisionstart', (event) => this.hitSomething(event))
 
-    }
-
-    hitSomething(event){
-        if (event.other instanceof Player) {
-            event.other.hp -= 1;
-            console.log(event.other.hp)
-        }
     }
 
 
@@ -66,6 +64,18 @@ export class Bunny extends Enemy {
             this.actions.runAction(this.actionSequence);
 
         } else if (!this.isPlayerClose(this.pos, _engine.player.pos) && this.actionSequenceHasStarted && this.actionSequence.isComplete()) {
+
+            if (this.vel.x < 0) {
+                this.directionFacing = this.direction.Left;
+            } else if (this.vel.x > 0) {
+                this.directionFacing = this.direction.Right;
+            }
+
+            if (this.directionFacing === this.direction.Left) {
+                Resources.CalmBunny.toSprite().flipHorizontal = true;
+            } else if (this.directionFacing === this.direction.Right) {
+                Resources.CalmBunny.toSprite().flipHorizontal = false;
+            }
             this.graphics.use(Resources.CalmBunny.toSprite());
         }
     }
