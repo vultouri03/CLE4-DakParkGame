@@ -18,10 +18,12 @@ export class GameScene extends Scene {
     nextScene;
     bunnySpawn;
     rockSpawn;
+    inventory
 
     constructor(player, nextScene, inventory) {
         super()
         this.player = player;
+        this.inventory = inventory;
 
         let backgroundAxisX = [-1000, 0, 1000];
         let backgroundAxisY = [-700, 0, 700];
@@ -52,13 +54,13 @@ export class GameScene extends Scene {
             this.add(new AppleCollectable('rock', new Vector(this.random.integer(-1300, 1300), this.random.integer(-950, 950)), 60, 60, 1, 1, Resources.Apple, CollisionType.Passive));
         }
 
-        this.add(inventory);
         this.nextScene = nextScene;
     }
 
     onInitialize(engine) {
         this.game = engine;
         engine.add(this.player);
+        this.add(this.inventory);
 
         this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
         let boundingBox = new BoundingBox(
