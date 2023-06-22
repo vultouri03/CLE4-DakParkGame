@@ -2,8 +2,9 @@ import {Input, Vector, CollisionType, clamp} from "excalibur";
 import {Resources} from "../../resources";
 
 import {Character} from "./Character";
-import {Shooter} from "../Items/Shooter/Shooter";
 import {SlingShot} from "../Items/Shooter/SlingShot";
+import {Shooter} from "../Items/Shooter/Shooter";
+
 
 export class Player extends Character {
     game;
@@ -76,11 +77,12 @@ export class Player extends Character {
         if (controllerIsNotConnected) {
             this.keyBoardMovement(_engine);
         }
-        this.animatingCheck();
-        this.death();
 
+        this.animatingCheck();
         this.playerAttacks(_engine);
         this.slingShot.graphics.visible = localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4";
+        this.death();
+
         this.pos.x = clamp(this.pos.x, -1450, 1450);
         this.pos.y = clamp(this.pos.y, -1000, 1000);
     }

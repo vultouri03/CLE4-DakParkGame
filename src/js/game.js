@@ -1,5 +1,5 @@
 import '../css/style.css'
-import {CollisionType, DisplayMode, Engine, Vector} from "excalibur"
+import {CollisionType, Engine, Vector} from "excalibur"
 import {ResourceLoader, Resources} from './resources.js'
 import { Arcade } from "arcade-game"
 
@@ -9,6 +9,7 @@ import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
 import {StartScene} from "./ObjectClasses/Scenes/StartScene.js";
 import {WinnerScene} from "./ObjectClasses/Scenes/WinnerScene.js";
 
+import { IntroductionScene } from './ObjectClasses/Scenes/IntroductionScene';
 import {Player} from "./ObjectClasses/Characters/Player.js";
 import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 import {Inventory} from "./ObjectClasses/Items/Inventory/Inventory.js";
@@ -60,6 +61,7 @@ export class Game extends Engine {
         this.addScene('startScene', new StartScene());
         this.addScene('gameScene', new GameScene(this.player, 'BossScene', this.inventory));
         this.addScene('BossScene', new BossScene(this.player, 'gameScene', this.inventory));
+        this.addScene('introductionScene', new IntroductionScene())
         this.addScene('endScene', new EndScene());
         this.addScene('winScene', new WinnerScene());
 
@@ -67,6 +69,8 @@ export class Game extends Engine {
             this.goToScene('BossScene');
         } else if (testScene === "gameScene") {
             this.goToScene('gameScene');
+        } else if(testScene === "Intro") {
+            this.goToScene('introductionScene')
         } else {
             this.goToScene('startScene');
         }
