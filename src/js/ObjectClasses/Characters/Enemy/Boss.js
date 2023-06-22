@@ -3,6 +3,7 @@ import {EggDropAttackPattern} from "./AttackPatterns/Boss/EggDropAttackPattern.j
 import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";
 import {Enemy} from "./Enemy.js";
+import {Player} from "../Player.js";
 
 
 export class Boss extends Enemy {
@@ -27,33 +28,37 @@ export class Boss extends Enemy {
 
         super.onInitialize(_engine);
 
-        this.actions.delay(1000);
-
-        this.initAnimations(_engine);
+        this.initAnimations(_engine, 1);
         this.actions.runAction(this.actionSequence);
     }
 
-    initAnimations(_engine) {
+    initAnimations(_engine, rand) {
         this.actionSequence = new ActionSequence(this, ctx => {
-            let rand = randomIntInRange(1, 3);
 
             // rand = 2;
             if (rand === 1) {
                 this.idleAttackPattern.start(this);
-                ctx.delay(this.idleAttackPattern.duration);
+                ctx.delay(200);
             } else if (rand === 2) {
                 this.eggDropAttackPattern.start(this, _engine);
-                ctx.delay(this.eggDropAttackPattern.duration);
+                ctx.delay(200);
             } else {
                 this.jumpAttackPattern.start(this);
-                ctx.delay(this.jumpAttackPattern.duration);
+                ctx.delay(200);
             }
         })
     }
 
+    hitSomething(event){
+        if (event.other instanceof Player) {
+            event.other.hp -= 3;
+            event.other.actions.blink(200, 200, 3);
+        }
+    }
+
     movement(_engine) {
         if (this.actionSequence.isComplete()) {
-            this.initAnimations(_engine);
+            this.initAnimations(_engine, randomIntInRange(1, 3));
             this.actions.runAction(this.actionSequence);
         }
     }

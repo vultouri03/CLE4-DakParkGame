@@ -2,13 +2,22 @@ import {Resources} from "../../../../../resources.js";
 import {ActionSequence, Animation, EasingFunctions, Vector} from "excalibur";
 import {AttackPattern} from "../AttackPattern.js";
 
-const SPRITE_DURATION = 500
+const SPRITE_DURATION = 350
 
 export class BunnyJumpAttackPattern extends AttackPattern {
 
     sprites_amount = 7
+    directionFacing;
+    direction;
+
     constructor(enemy) {
         super(enemy);
+        this.direction = {
+            Up: 1,
+            Down: 2,
+            Left: 3,
+            Right: 4,
+        };
     }
 
     initGraphics() {
@@ -56,10 +65,24 @@ export class BunnyJumpAttackPattern extends AttackPattern {
             ctx.delay(SPRITE_DURATION);
 
             let movingDirection = new Vector(_engine.player.pos.x - enemy.pos.x, _engine.player.pos.y - enemy.pos.y);
-            let distanceToCover = _engine.player.velocity / (enemy.distance * this.sprites_amount);
+            let distanceToCover = 200 / (enemy.distance * this.sprites_amount);
+
             for (let i = 0; i < this.sprites_amount; i++) {
                 ctx.easeTo(new Vector( i * movingDirection.x * distanceToCover + enemy.pos.x, i * movingDirection.y * distanceToCover + enemy.pos.y), SPRITE_DURATION, EasingFunctions.EaseInQuad);
             }
+
+            if (movingDirection.x < 0) {
+                this.directionFacing = this.direction.Left;
+            } else if (movingDirection.x > 0) {
+                this.directionFacing = this.direction.Right;
+            }
+
+            if (this.directionFacing === this.direction.Left) {
+            this.bossAnimation.flipHorizontal = true;
+            } else if (this.directionFacing === this.direction.Right) {
+                this.bossAnimation.flipHorizontal = false;
+            }
+
             this.duration = SPRITE_DURATION * 8;
         })
     }

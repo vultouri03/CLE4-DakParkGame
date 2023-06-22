@@ -11,7 +11,6 @@ export class RockCollectable extends Collectable {
         }
         if (_engine.player.ammunitionAmount < 9) {
             _engine.player.ammunitionAmount++;
-            console.log(_engine.player.ammunitionAmount)
             this.kill();
         }
     }
