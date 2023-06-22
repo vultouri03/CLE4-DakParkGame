@@ -1,3 +1,4 @@
+import {Input, Vector, CollisionType, clamp} from "excalibur";
 import {Input, Vector, CollisionType} from "excalibur";
 import {Character} from "./Character";
 import {SlingShot} from "../Items/Shooter/SlingShot";
@@ -41,6 +42,7 @@ export class Player extends Character {
         this.game = engine
         this.playerSlingshot();
         this.initGraphics();
+        this.screenExit();
 
         if (engine.input.gamepads.at(0).connected) {
             document.addEventListener("joystick0up", () => this.moveUp());
@@ -78,6 +80,8 @@ export class Player extends Character {
 
         this.playerAttacks(_engine);
         this.slingShot.graphics.visible = localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4";
+        this.pos.x = clamp(this.pos.x, -1450, 1450);
+        this.pos.y = clamp(this.pos.y, -1000, 1000);
     }
 
     movement(_engine) {
@@ -210,6 +214,7 @@ export class Player extends Character {
 
     setNeutral() {
         this.vel = new Vector(0, 0);
+        this.animating = false;
     }
 
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
@@ -228,6 +233,12 @@ export class Player extends Character {
         this.addChild(this.slingShot);
         this.slingShot.pos = new Vector(0, -80);
         this.slingShot.scale = new Vector(0.3, 0.3);
+    }
+
+    screenExit() {
+        this.on("exitviewport", () => {
+            this.vel = new Vector(0, 0);
+        })
     }
 
     animatingCheck() {

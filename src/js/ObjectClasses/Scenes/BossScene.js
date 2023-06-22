@@ -3,6 +3,7 @@ import {Boss} from "../Characters/Enemy/Boss.js";
 import {Resources} from "../../resources.js";
 import {RockCollectable} from "../Items/Collectables/RockCollectable.js";
 import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.js";
+import { BackGround } from "../StaticComponents/background.js";
 
 export class BossScene extends Scene {
     player;
@@ -13,6 +14,7 @@ export class BossScene extends Scene {
 
     constructor(player, nextScene, inventory) {
         super()
+        this.add(new BackGround('BossBackGround' , new Vector(700,350), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision))
         this.boss = new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
 
