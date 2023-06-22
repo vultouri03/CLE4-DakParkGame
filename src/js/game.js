@@ -1,22 +1,17 @@
 import '../css/style.css'
 import {CollisionType, Engine, Vector} from "excalibur"
 import {ResourceLoader, Resources} from './resources.js'
-import {StartScene} from "./ObjectClasses/Scenes/StartScene.js";
-import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
-import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
-import {Player} from "./ObjectClasses/Characters/Player.js";
-import {EndScene} from "./ObjectClasses/Scenes/EndScene.js";
-import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 import { Arcade } from "arcade-game"
-import {WinnerScene} from "./ObjectClasses/Scenes/WinnerScene.js";
-import {Inventory} from "./ObjectClasses/Items/Inventory/Inventory.js";
-import { Engine, Input } from "excalibur"
-import { ResourceLoader, Resources } from './resources.js'
-import { GameScene } from './ObjectClasses/Scenes/GameScene'
-import { BossScene} from './ObjectClasses/Scenes/BossScene'
-import {Shooter} from "./Shooter.js";
-import {SlingShot} from "./SlingShot.js";
 
+import {BossScene} from "./ObjectClasses/Scenes/BossScene.js";
+import {EndScene} from "./ObjectClasses/Scenes/EndScene.js";
+import {GameScene} from './ObjectClasses/Scenes/GameScene.js'
+import {StartScene} from "./ObjectClasses/Scenes/StartScene.js";
+import {WinnerScene} from "./ObjectClasses/Scenes/WinnerScene.js";
+
+import {Player} from "./ObjectClasses/Characters/Player.js";
+import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
+import {Inventory} from "./ObjectClasses/Items/Inventory/Inventory.js";
 
 
 export class Game extends Engine {

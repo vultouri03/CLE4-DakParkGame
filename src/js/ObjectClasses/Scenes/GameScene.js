@@ -130,8 +130,6 @@ export class GameScene extends Scene {
         return new ActionSequence(item, ctx => {
             ctx.delay(delay * 1000);
             this.add(item);
-
-            console.log(item.name, item.pos);
         })
     }
 
