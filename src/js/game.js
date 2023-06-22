@@ -10,22 +10,30 @@ import {Boss} from "./ObjectClasses/Characters/Enemy/Boss.js";
 import { Arcade } from "arcade-game"
 import {WinnerScene} from "./ObjectClasses/Scenes/WinnerScene.js";
 import {Inventory} from "./ObjectClasses/Items/Inventory/Inventory.js";
+import { Engine, Input } from "excalibur"
+import { ResourceLoader, Resources } from './resources.js'
+import { GameScene } from './ObjectClasses/Scenes/GameScene'
+import { BossScene} from './ObjectClasses/Scenes/BossScene'
+import {Shooter} from "./Shooter.js";
+import {SlingShot} from "./SlingShot.js";
 
 
 
 export class Game extends Engine {
     player;
-    scene;
     inventory;
+    scene;
 
     #arcade;
     #joystickListener;
+
     constructor() {
         super({
             width: visualViewport.width,
             height: visualViewport.height,
         })
         this.start(ResourceLoader).then(() => this.startGame())
+        this.showDebug(false);
     }
 
     startGame() {
