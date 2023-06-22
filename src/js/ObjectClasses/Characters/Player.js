@@ -1,8 +1,9 @@
 import {Input, Vector, CollisionType, clamp} from "excalibur";
-import {Character} from "./Character";
-import {SlingShot} from "../Items/Shooter/SlingShot";
-import {Shooter} from "../Items/Shooter/Shooter";
 import {Resources} from "../../resources";
+
+import {Character} from "./Character";
+import {Shooter} from "../Items/Shooter/Shooter";
+import {SlingShot} from "../Items/Shooter/SlingShot";
 
 export class Player extends Character {
     game;
@@ -17,7 +18,7 @@ export class Player extends Character {
     frontAnimation;
     leftAnimation;
     rightAnimation;
-    animating;
+    isMoving;
     slingshotDistanceFromPlayerX;
     slingshotDistanceFromPlayerY;
 
@@ -31,19 +32,20 @@ export class Player extends Character {
             Right: 4,
 
         };
+
         this.velocity = 200;
         this.slingshotDistanceFromPlayerX = 40;
         this.slingshotDistanceFromPlayerY = 60;
-
     }
 
     onInitialize(engine) {
-        this.game = engine
+        this.game = engine;
         this.playerSlingshot();
         this.initGraphics();
         this.screenExit();
 
-        if (engine.input.gamepads.at(0).connected) {
+        let controllerIsCollected = engine.input.gamepads.at(0).connected;
+        if (controllerIsCollected) {
             document.addEventListener("joystick0up", () => this.moveUp());
             document.addEventListener("joystick0left", () => this.moveLeft());
             document.addEventListener("joystick0right", () => this.moveRight());
@@ -62,17 +64,17 @@ export class Player extends Character {
         this.leftAnimation = this.animation;
         this.animationHandler(Resources.PlayerRightAnimation, 1, 4, this.width, this.height, 100);
         this.rightAnimation = this.animation;
-        this.animating = false;
+        this.isMoving = false;
 
         if(this.hp <= 0) {
             this.kill();
         }
-
     }
 
     onPostUpdate(_engine, _delta) {
-        if (!_engine.input.gamepads.at(0).connected) {
-            super.onPostUpdate(_engine, _delta)
+        let controllerIsNotConnected = !_engine.input.gamepads.at(0).connected;
+        if (controllerIsNotConnected) {
+            this.keyBoardMovement(_engine);
         }
         this.animatingCheck();
         this.death();
@@ -83,7 +85,7 @@ export class Player extends Character {
         this.pos.y = clamp(this.pos.y, -1000, 1000);
     }
 
-    movement(_engine) {
+    keyBoardMovement(_engine) {
         this.horizontalMovement(_engine);
         this.verticalMovement(_engine);
         this.setSlingShotPos();
@@ -93,17 +95,20 @@ export class Player extends Character {
     horizontalMovement(engine) {
         //sets the vars for movement
         let xSpeed = 0;
-        this.animating = false;
+        this.isMoving = false;
+
         //checks which key is pressed and sets the velocity to the right amount
-        if (engine.input.keyboard.isHeld(Input.Keys.Right) || engine.input.keyboard.isHeld(Input.Keys.D)) {
+        let walkingRightKeyIsHeld = engine.input.keyboard.isHeld(Input.Keys.Right)|| engine.input.keyboard.isHeld(Input.Keys.D);
+        let walkingLeftKeyIsHeld = engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A);
+        if (walkingRightKeyIsHeld) {
             xSpeed = this.velocity;
-            this.animating = true;
+            this.isMoving = true;
             this.directionFacing = this.direction.Right;
             this.graphics.use(this.rightAnimation);
 
-        } else if (engine.input.keyboard.isHeld(Input.Keys.Left) || engine.input.keyboard.isHeld(Input.Keys.A)) {
+        } else if (walkingLeftKeyIsHeld) {
             xSpeed = -this.velocity;
-            this.animating = true;
+            this.isMoving = true;
             this.directionFacing = this.direction.Left;
             this.graphics.use(this.leftAnimation)
 
@@ -119,44 +124,54 @@ export class Player extends Character {
         let ySpeed = 0;
 
         //checks which key is pressed and sets the velocity to the right amount
-
-        if (engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W)) {
+        let walkingUpKeyIsHeld = engine.input.keyboard.isHeld(Input.Keys.Up) || engine.input.keyboard.isHeld(Input.Keys.W);
+        let walkingDownKeyIsHeld = engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S);
+        if (walkingUpKeyIsHeld) {
             this.directionFacing = this.direction.Up;
             ySpeed = -this.velocity;
-            this.animating = true;
+            this.isMoving = true;
             this.graphics.use(this.backAnimation);
 
-        } else if (engine.input.keyboard.isHeld(Input.Keys.Down) || engine.input.keyboard.isHeld(Input.Keys.S)) {
+        } else if (walkingDownKeyIsHeld) {
             ySpeed = this.velocity;
-            this.animating = true;
+            this.isMoving = true;
             this.directionFacing = this.direction.Down;
             this.graphics.use(this.frontAnimation);
 
         }
+
         //applies the speed to the object
         this.vel.y = ySpeed;
     }
 
     setSlingShotPos() {
         let slingShotPosX;
-        if (this.vel.x < 0) {
+        let playerIsWalkingLeft = this.vel.x < 0;
+        let playerIsWalkingRight = this.vel.x > 0;
+
+        if (playerIsWalkingLeft) {
             slingShotPosX = -this.slingshotDistanceFromPlayerX;
-        } else if (this.vel.x > 0) {
+        } else if (playerIsWalkingRight) {
             slingShotPosX = this.slingshotDistanceFromPlayerX;
         } else {
             slingShotPosX = 0;
         }
 
+
         let slingShotPosY;
-        if (this.vel.y < 0) {
+        let playerIsWalkingUp = this.vel.y < 0;
+        let playerIsWalkingDown = this.vel.y > 0;
+
+        if (playerIsWalkingUp) {
             slingShotPosY = -this.slingshotDistanceFromPlayerY;
-        } else if (this.vel.y > 0) {
+        } else if (playerIsWalkingDown) {
             slingShotPosY = this.slingshotDistanceFromPlayerY;
         } else {
             slingShotPosY = 0;
         }
 
-        if (this.vel.x === 0 && this.vel.y === 0) {
+        let playerIsStandingStill = this.vel.x === 0 && this.vel.y === 0;
+        if (playerIsStandingStill) {
             switch (this.directionFacing) {
                 case this.direction.Up: {
                     slingShotPosY = -this.slingshotDistanceFromPlayerY;
@@ -186,41 +201,44 @@ export class Player extends Character {
     moveUp() {
         this.vel.y = -this.velocity;
         this.directionFacing = this.direction.Up;
-        this.animating = true;
+        this.isMoving = true;
         this.graphics.use(this.backAnimation);
     }
 
     moveLeft() {
         this.vel.x = -this.velocity;
         this.directionFacing = this.direction.Left;
-        this.animating = true;
+        this.isMoving = true;
         this.graphics.use(this.leftAnimation);
     }
 
     moveDown() {
         this.vel.y = this.velocity;
         this.directionFacing = this.direction.Down;
-        this.animating = true;
+        this.isMoving = true;
         this.graphics.use(this.frontAnimation);
     }
 
     moveRight() {
         this.vel.x = this.velocity;
         this.directionFacing = this.direction.Right;
-        this.animating = true;
+        this.isMoving = true;
         this.graphics.use(this.rightAnimation);
     }
 
     setNeutral() {
         this.vel = new Vector(0, 0);
-        this.animating = false;
+        this.isMoving = false;
     }
 
     // allows the player to attack whenever the space bar is pressed and the player is currently wielding a slingshot.
     playerAttacks(engine) {
         let isPressingShooterKey = engine.input.keyboard.wasPressed(Input.Keys.Space);
         let isPressingShooterButton = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face4);
-        if ((isPressingShooterKey || isPressingShooterButton) && localStorage.getItem('slingshot') === "true" && localStorage.getItem('inventorySlot') === "4" && this.ammunitionAmount > 0) {
+        let playerHasSlingshot = localStorage.getItem('slingshot') === "true";
+        let currentInventorySlotSelectedIsSlingShotSlot = localStorage.getItem('inventorySlot') === "4";
+
+        if ((isPressingShooterKey || isPressingShooterButton) && playerHasSlingshot && currentInventorySlotSelectedIsSlingShotSlot && this.ammunitionAmount > 0) {
             this.game.currentScene.add(new Shooter('Shooter', this.pos, Resources.Rock.height, Resources.Rock.width, 1, 1, Resources.Rock, "Passive", this.directionFacing));
             this.ammunitionAmount--;
         }
@@ -228,10 +246,8 @@ export class Player extends Character {
 
     //adds the slingshot to the player when it is picked up
     playerSlingshot() {
-        this.slingShot = new SlingShot();
+        this.slingShot = new SlingShot(new Vector(0, -80), new Vector(0.3, 0.3));
         this.addChild(this.slingShot);
-        this.slingShot.pos = new Vector(0, -80);
-        this.slingShot.scale = new Vector(0.3, 0.3);
     }
 
     screenExit() {
@@ -241,7 +257,7 @@ export class Player extends Character {
     }
 
     animatingCheck() {
-        if (this.animating === false) {
+        if (this.isMoving === false) {
             switch (this.directionFacing) {
                 case this.game.player.direction.Right:
                     this.graphics.use(Resources.PlayerRight.toSprite())

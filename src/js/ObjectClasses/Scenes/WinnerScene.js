@@ -1,21 +1,24 @@
 import {Scene, Vector, Label, Font, FontUnit, Color, Input} from "excalibur";
-import {Resources} from "../../resources.js";
-import {WinnerSceneBackground} from "../StaticComponents/winnerSceneBackground.js";
 
+import {StartAndEndSceneBackground} from "../StaticComponents/Background/StartAndEndSceneBackground.js";
+import {Resources} from "../../resources.js";
 
 
 export class WinnerScene extends Scene {
     game
     constructor() {
-        super({ width: visualViewport.width,
-            height: visualViewport.height,})
-
+        super({
+            width: visualViewport.width,
+            height: visualViewport.height,
+        })
     }
+
     onInitialize(engine) {
         super.onInitialize(engine);
+
         this.game = engine;
-        const background = new WinnerSceneBackground()
-        this.add(background)
+        const background = new StartAndEndSceneBackground(Resources.WinScene);
+        this.add(background);
 
         this.subtitle = new Label({
             text: 'Druk op ENTER om te spelen!',
@@ -33,15 +36,14 @@ export class WinnerScene extends Scene {
     }
 
     onActivate(ctx) {
-        if(this.game.scene === "game") {
-        }
+        this.game.scene = "gameScene";
+        localStorage.clear();
     }
 
     onPreUpdate(engine, delta) {
-        if (
-            engine.input.keyboard.wasPressed(
-                Input.Keys.Enter)) {
-            engine.goToScene('startScene')
+        let buttonToRestartHasBeenPressed = engine.input.keyboard.wasPressed(Input.Keys.Enter);
+        if (buttonToRestartHasBeenPressed) {
+            engine.goToScene('startScene');
         }
     }
 

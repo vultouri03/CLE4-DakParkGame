@@ -8,6 +8,7 @@ import {
     CollisionType,
     ParallelActions
 } from "excalibur";
+
 import {AttackPattern} from "../AttackPattern.js";
 import {Entity} from "../../../../Entity.js";
 import {BossWeapon} from "../../../../Items/Shooter/BossWeapon.js";
@@ -100,6 +101,7 @@ export class EggDropAttackPattern extends AttackPattern {
 
             shadow = new Entity('eggShadow', shadowPosition, 40, 40, 1, 1, Resources.Target, CollisionType.Passive);
             _engine.add(shadow);
+
             let rotateShadowSequence = new ActionSequence(shadow, ctx => {
                 ctx.rotateTo(1/6, 500);
             });

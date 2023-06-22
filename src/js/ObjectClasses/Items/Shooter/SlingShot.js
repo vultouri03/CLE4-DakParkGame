@@ -3,8 +3,11 @@ import { Resources } from '../../../resources.js'
 
 export class SlingShot extends Actor {
 
-    constructor() {
-        super();
+    constructor(position, scale) {
+        super({
+            pos: position,
+            scale: scale,
+        });
     }
 
     onInitialize(engine) {

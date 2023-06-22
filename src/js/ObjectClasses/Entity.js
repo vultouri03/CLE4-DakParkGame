@@ -16,29 +16,27 @@ export class Entity extends Actor {
         this.pos = position;
     }
 
-    animationHandler = (image, rows, collumns, width, heigth, length) => {
+    animationHandler = (image, rows, columns, width, height, length) => {
         this.image = image;
-        
+
         const spriteSheet = SpriteSheet.fromImageSource({
-          image: this.image,
-          grid: {
-            rows: rows,
-            columns: collumns,
-            spriteWidth: width,
-            spriteHeight: heigth,
-          },
+            image: this.image,
+            grid: {
+                rows: rows,
+                columns: columns,
+                spriteWidth: width,
+                spriteHeight: height,
+            },
         });
         spriteSheet.sprites.forEach((sprite) => {
-          sprite.width = width;
-          sprite.height = heigth;
+            sprite.width = width;
+            sprite.height = height;
         });
-    
+
         this.animation = Animation.fromSpriteSheet(
-          spriteSheet,
-          [0, 1, 2,3,4,5,6,7],
-          length,
-          
+            spriteSheet,
+            [0, 1, 2, 3, 4, 5, 6, 7],
+            length,
         );
-      
-      };
+    };
 }

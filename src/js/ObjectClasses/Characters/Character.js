@@ -6,7 +6,7 @@ export class Character extends Entity {
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
         super(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
-    this.hp = hp;
+        this.hp = hp;
     }
 
     movement(_engine) {
@@ -14,8 +14,8 @@ export class Character extends Entity {
     }
 
     death() {
-        if(this.hp <= 0) {
-            this.kill()
+        if (this.hp <= 0) {
+            this.kill();
         }
     }
 

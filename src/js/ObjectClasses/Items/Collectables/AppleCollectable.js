@@ -1,5 +1,6 @@
-import {Collectable} from "./Collectable.js";
 import {Input} from "excalibur";
+
+import {Collectable} from "./Collectable.js";
 import {Player} from "../../Characters/Player.js";
 
 export class AppleCollectable extends Collectable {
@@ -9,6 +10,7 @@ export class AppleCollectable extends Collectable {
 
     onInitialize(engine) {
         this.on('precollision', (event) => {
+
             let isPressingInteractionKey = engine.input.keyboard.wasPressed(Input.Keys.E);
             let isPressingInterActionButton = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face1);
             if ((isPressingInteractionKey || isPressingInterActionButton) && event.other instanceof Player) {

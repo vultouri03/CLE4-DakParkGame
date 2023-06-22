@@ -4,13 +4,14 @@ import {ActionSequence} from "excalibur";
 import {BunnyJumpAttackPattern} from "./AttackPatterns/Bunny/BunnyJumpAttackPattern.js";
 
 export class Bunny extends Enemy {
-    actionSequence;
-    jumpAttackPattern;
-    sprites;
-    distance = 300;
-    actionSequenceHasStarted;
-    directionFacing;
     direction;
+    distance = 300;
+    directionFacing;
+
+    sprites;
+    actionSequence;
+    actionSequenceHasStarted;
+    jumpAttackPattern;
 
 
     constructor(name, hp, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {
@@ -29,23 +30,18 @@ export class Bunny extends Enemy {
         this.actionSequenceHasStarted = false;
         super.onInitialize(_engine);
         this.on('collisionstart', (event) => this.hitSomething(event))
-
     }
-
 
     onPostUpdate(_engine, _delta) {
         if (this.isPlayerClose(this.pos, _engine.player.pos) && !this.actionSequenceHasStarted) {
             this.actionSequenceHasStarted = true;
             this.initAnimations(_engine);
             this.actions.runAction(this.actionSequence);
-
-
         }
 
         super.onPostUpdate(_engine, _delta)
         this.death();
     }
-
 
     initAnimations(_engine) {
         this.actionSequence = new ActionSequence(this, ctx => {

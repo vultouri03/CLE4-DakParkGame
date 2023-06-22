@@ -1,4 +1,5 @@
 import {ActionSequence, randomIntInRange, Vector} from "excalibur";
+
 import {EggDropAttackPattern} from "./AttackPatterns/Boss/EggDropAttackPattern.js";
 import {IdleAttackPattern} from "./AttackPatterns/Boss/IdleAttackPattern.js";
 import {JumpAttackPattern} from "./AttackPatterns/Boss/JumpAttackPattern.js";

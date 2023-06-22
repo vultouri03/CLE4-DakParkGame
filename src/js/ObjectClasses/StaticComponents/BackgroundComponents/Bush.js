@@ -1,5 +1,4 @@
-import { CollisionType } from "excalibur";
-import { StaticComponent } from "./StaticComponent";
+import { StaticComponent } from "./StaticComponent.js";
 
 export class Bush extends StaticComponent {
     constructor(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType) {

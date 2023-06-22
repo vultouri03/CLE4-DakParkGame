@@ -1,4 +1,4 @@
-import {ScreenElement, Vector, GraphicsGroup, Rectangle, Color} from "excalibur";
+import {ScreenElement, Vector} from "excalibur";
 
 export class UIElement extends ScreenElement {
     name;

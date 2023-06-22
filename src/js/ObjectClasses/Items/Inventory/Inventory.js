@@ -1,5 +1,6 @@
 import {CollisionType, SpriteSheet, Input, Vector, ScreenElement} from "excalibur";
 import {Resources} from "../../../resources.js";
+
 import {InventoryItem} from "./InventoryItem.js";
 import {RockInventoryItem} from "./RockInventoryItem.js";
 
@@ -41,6 +42,7 @@ export class Inventory extends ScreenElement {
         this.nailInventoryItem = new InventoryItem("nail", new Vector(48, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Nail, CollisionType.Passive);
         this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(144, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
         this.woodInventoryItem = new InventoryItem('wood', new Vector(192, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
+        this.rockInventoryItem = new RockInventoryItem("rock", new Vector(96, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock1, CollisionType.Passive);
 
         this.initGraphics();
         this.graphics.use(this.inventorySlots[0]);
@@ -66,13 +68,15 @@ export class Inventory extends ScreenElement {
         }
 
 
-
         let justPressedUp = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face3);
         let justPressedDown = engine.input.gamepads.at(0).isButtonPressed(Input.Buttons.Face2);
         let currentSlot = Number(localStorage.getItem("inventorySlot"));
 
-        if (engine.input.gamepads.at(0).connected) {
-            if (!justPressedUp && this.lastPressedUp) {
+        let controllerIsConnected = engine.input.gamepads.at(0).connected;
+        if (controllerIsConnected) {
+
+            let buttonUpWasJustReleased = !justPressedUp && this.lastPressedUp;
+            if (buttonUpWasJustReleased) {
                 if (currentSlot === 5) {
                     localStorage.setItem("inventorySlot", "1");
                     this.graphics.use(this.inventorySlots[0]);
@@ -82,9 +86,9 @@ export class Inventory extends ScreenElement {
                 }
             }
 
-            if (!justPressedDown && this.lastPressedDown) {
+            let buttonDownWasJustReleased = !justPressedDown && this.lastPressedDown;
+            if (buttonDownWasJustReleased) {
                 if (currentSlot === 1) {
-                    console.log("hello")
                     localStorage.setItem("inventorySlot", "5");
                     this.graphics.use(this.inventorySlots[4]);
                 } else {
@@ -99,17 +103,18 @@ export class Inventory extends ScreenElement {
 
 
         for (let i = 0; i < this.inventory.length; i++) {
-            if (i === 2 && localStorage.getItem(this.inventory[i][0]) && !this.inventory[i][1]) {
-                this.inventory[i][1] = true;
-                this.rockInventoryItem = new RockInventoryItem("rock", new Vector(96, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock1, CollisionType.Passive);
-                this.addChild(this.rockInventoryItem);
-            } else if (localStorage.getItem(this.inventory[i][0]) === "true" && !this.inventory[i][1]) {
+
+            let playerHasItem = localStorage.getItem(this.inventory[i][0]) === "true";
+            let inventoryDoesNotHaveItem = !this.inventory[i][1];
+            if (playerHasItem && inventoryDoesNotHaveItem) {
                 this.inventory[i][1] = true;
                 this.addChild(this.inventoryActors[i]);
             }
         }
 
-        if (engine.player.ammunitionAmount === 0 && localStorage.getItem("rock")) {
+        let playerHasNoAmmunition = engine.player.ammunitionAmount === 0;
+        let playerHadRocks = localStorage.getItem("rock");
+        if (playerHasNoAmmunition && playerHadRocks) {
             this.removeChild(this.rockInventoryItem);
             localStorage.setItem("rock", "false");
             this.inventory[2][1] = false;

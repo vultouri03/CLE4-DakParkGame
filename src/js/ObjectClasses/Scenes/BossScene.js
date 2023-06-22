@@ -1,34 +1,32 @@
 import {ActionSequence, CollisionType, Scene, Vector} from "excalibur"
-import {Boss} from "../Characters/Enemy/Boss.js";
 import {Resources} from "../../resources.js";
+
+import {Boss} from "../Characters/Enemy/Boss.js";
 import {RockCollectable} from "../Items/Collectables/RockCollectable.js";
 import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.js";
-import { BackGround } from "../StaticComponents/background.js";
+import {Background} from "../StaticComponents/Background/Background.js";
 
 export class BossScene extends Scene {
     player;
     boss;
     rockSpawn;
+    inventory;
 
     minimumDistanceBetweenRockAndBoss = this.distanceBetweenObjects(200, 200, 50, 50);
 
     constructor(player, nextScene, inventory) {
         super()
-        this.add(new BackGround('BossBackGround' , new Vector(700,350), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision))
+        this.add(new Background('BossBackGround', new Vector(700, 350), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision))
         this.boss = new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
+        this.inventory = inventory;
 
-        this.add(inventory);
         this.initSpawns(this.game);
     }
 
     onInitialize(engine) {
         this.game = engine;
         this.game.scene = "Boss";
-
-        if (localStorage.getItem("slingshot") !== "true") {
-            this.add(new SlingshotCollectable('slingshot', new Vector(this.player.pos.x + 50, this.player.pos.y + 150), 75, 75, 1, 1, Resources.Slingshot, CollisionType.Passive));
-        }
     }
 
     onPostUpdate(_engine, _delta) {
@@ -40,10 +38,11 @@ export class BossScene extends Scene {
         this.game.player.pos = new Vector(0, 0);
 
         if (localStorage.getItem("slingshot") !== "true") {
-            // als er geen slingshot is dan
             this.add(new SlingshotCollectable('slingshot', new Vector(this.game.player.pos.x + 50, this.game.player.pos.y + 150), 75, 75, 1, 1, Resources.Slingshot, CollisionType.Passive));
+        }
+
+        this.add(this.inventory);
     }
-}
 
     movement(_engine) {
         if (this.rockSpawn.isComplete()) {
@@ -60,10 +59,10 @@ export class BossScene extends Scene {
 
         let rock = new RockCollectable('rock', rockPosition, 60, 60, 1, 1, Resources.Rock, CollisionType.Passive);
 
-        let delay = this.getRandomInt(20, 30);
+        let delay = this.getRandomInt(10, 20);
 
-        this.rockSpawn =  new ActionSequence(rock, ctx => {
-            ctx.delay(delay*1000);
+        this.rockSpawn = new ActionSequence(rock, ctx => {
+            ctx.delay(delay * 1000);
             this.add(rock);
         })
 

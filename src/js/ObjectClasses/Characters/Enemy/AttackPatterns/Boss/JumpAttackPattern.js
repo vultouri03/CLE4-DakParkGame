@@ -1,5 +1,6 @@
 import {Resources} from "../../../../../resources.js";
 import {ActionSequence, EasingFunctions, randomIntInRange, Vector} from "excalibur";
+
 import {AttackPattern} from "../AttackPattern.js";
 
 export class JumpAttackPattern extends AttackPattern {
