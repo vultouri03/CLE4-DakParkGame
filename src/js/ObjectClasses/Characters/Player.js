@@ -82,9 +82,13 @@ export class Player extends Character {
         this.playerAttacks(_engine);
         this.slingShot.graphics.visible = localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4";
         this.death();
-
+        if(this.game.scene === "gameScene") {
         this.pos.x = clamp(this.pos.x, -1450, 1450);
         this.pos.y = clamp(this.pos.y, -1000, 1000);
+        } else {
+            this.pos.x = clamp(this.pos.x, 0, visualViewport.width);
+            this.pos.y = clamp(this.pos.y, 0, visualViewport.height);
+        }
     }
 
     keyBoardMovement(_engine) {
