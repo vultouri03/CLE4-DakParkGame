@@ -43,7 +43,7 @@ export class Inventory extends ScreenElement {
         this.slingShotInventoryItem = new InventoryItem("slingshot", new Vector(144, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Slingshot, CollisionType.Passive);
         this.woodInventoryItem = new InventoryItem('wood', new Vector(192, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Wood, CollisionType.Passive);
         this.rockInventoryItem = new RockInventoryItem("rock", new Vector(96, 0), INVENTORY_SLOT_WIDTH, INVENTORY_HEIGHT, 1, 1, Resources.Rock1, CollisionType.Passive);
-
+        this.z = 10;
         this.initGraphics();
         this.graphics.use(this.inventorySlots[0]);
         localStorage.setItem("inventorySlot", "1");
