@@ -44,13 +44,16 @@ export class StartScene extends Scene {
 
     selectCorrectScene() {
         let nextSceneIsGameScene = this.game.scene === "gameScene";
+        let nextSceneIsIntro = this.game.scene === "introScene";
 
         if (nextSceneIsGameScene) {
             this.game.player.pos = new Vector(150, 150);
             this.game.goToScene('gameScene');
+        } else if(nextSceneIsIntro){
+            this.game.goToScene('introScene');
         } else {
             this.game.player.pos = new Vector(100, 300);
-            this.game.goToScene('BossScene')
+            this.game.goToScene('BossScene');
         }
     }
 }

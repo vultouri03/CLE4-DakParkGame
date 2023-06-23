@@ -36,8 +36,8 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-        this.scene = "gameScene";
-        let testScene = "Boss";
+        this.scene = "introScene";
+        let testScene = "";
 
         this.#arcade = new Arcade(this, false, true);
 
@@ -61,7 +61,7 @@ export class Game extends Engine {
         this.addScene('startScene', new StartScene());
         this.addScene('gameScene', new GameScene(this.player, 'BossScene', this.inventory));
         this.addScene('BossScene', new BossScene(this.player, 'gameScene', this.inventory));
-        this.addScene('introductionScene', new IntroductionScene())
+        this.addScene('introScene', new IntroductionScene())
         this.addScene('endScene', new EndScene());
         this.addScene('winScene', new WinnerScene());
 
