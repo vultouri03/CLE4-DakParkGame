@@ -37,7 +37,7 @@ export class Game extends Engine {
     startGame() {
         localStorage.clear();
         this.scene = "introScene";
-        let testScene = "Bos";
+        let testScene = "Boss";
 
         this.#arcade = new Arcade(this, false, false);
 

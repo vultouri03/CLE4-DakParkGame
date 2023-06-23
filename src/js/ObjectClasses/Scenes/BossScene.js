@@ -1,4 +1,4 @@
-import {ActionSequence, CollisionType, Scene, Vector} from "excalibur"
+import {ActionSequence, CollisionType, Scene, Timer, Vector} from "excalibur"
 import {Resources} from "../../resources.js";
 
 import {Boss} from "../Characters/Enemy/Boss.js";
@@ -21,12 +21,14 @@ export class BossScene extends Scene {
         this.add(this.boss);
         this.inventory = inventory;
 
-        this.initSpawns(this.game);
+        //this.initSpawns(this.game);
+        
     }
 
     onInitialize(engine) {
         this.game = engine;
         this.game.scene = "Boss";
+        this.rockTimer(engine);
     }
 
     onPostUpdate(_engine, _delta) {
@@ -45,9 +47,9 @@ export class BossScene extends Scene {
     }
 
     movement(_engine) {
-        if (this.rockSpawn.isComplete()) {
-            this.initSpawns(_engine);
-        }
+        //if (this.rockSpawn.isComplete()) {
+           // this.initSpawns(_engine);
+        //}
     }
 
     initSpawns(_engine) {
@@ -68,6 +70,24 @@ export class BossScene extends Scene {
 
         rock.actions.runAction(this.rockSpawn);
     }
+
+    rockTimer(engine) {
+        this.timer = new Timer({
+            fcn: () => this.spawn(engine),
+            interval: 10000,
+            repeats: true
+        })
+        engine.currentScene.add(this.timer)
+        this.timer.start()
+    }
+
+    spawn(engine) {
+        let rockPosition = new Vector(this.getRandomInt(0, visualViewport.width- 100), this.getRandomInt(0, visualViewport.height- 100));
+        const rock = new RockCollectable('rock', rockPosition, 60, 60, 1, 1, Resources.Rock, CollisionType.Passive);
+        this.add(rock);
+
+    }
+    
 
     getRandomInt(min, max) {
         min = Math.ceil(min);
