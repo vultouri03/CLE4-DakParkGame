@@ -17,7 +17,7 @@ export class BossScene extends Scene {
     constructor(player, nextScene, inventory) {
         super()
         this.add(new Background('BossBackGround' , new Vector(visualViewport.width/2, visualViewport.height/2), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision));
-        this.boss = new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
+        this.boss = new Boss("chicken boss", 30, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
         this.inventory = inventory;
 
@@ -51,7 +51,7 @@ export class BossScene extends Scene {
     }
 
     initSpawns(_engine) {
-        let rockPosition = new Vector(this.getRandomInt(0, this.boss.pos.x), this.getRandomInt(0, visualViewport.height));
+        let rockPosition = new Vector(this.getRandomInt(0, visualViewport.width- 100), this.getRandomInt(0, visualViewport.height- 100));
 
         while (this.areObjectsTooClose(rockPosition, this.boss.pos, this.minimumDistanceBetweenRockAndBoss)) {
             rockPosition = new Vector(this.getRandomInt(0, this.boss.pos.x), this.getRandomInt(0, visualViewport.height));
@@ -62,7 +62,7 @@ export class BossScene extends Scene {
         let delay = this.getRandomInt(10, 20);
 
         this.rockSpawn = new ActionSequence(rock, ctx => {
-            ctx.delay(delay * 1000);
+            ctx.delay(delay * 800);
             this.add(rock);
         })
 

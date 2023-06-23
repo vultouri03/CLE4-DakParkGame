@@ -33,6 +33,10 @@ export class Boss extends Enemy {
         this.actions.runAction(this.actionSequence);
     }
 
+    onPostUpdate(engine) {
+        this.death();
+    }
+
     initAnimations(_engine, rand) {
         this.actionSequence = new ActionSequence(this, ctx => {
 
