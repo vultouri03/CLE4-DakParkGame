@@ -13,6 +13,7 @@ import {RockCollectable} from "../Items/Collectables/RockCollectable.js";
 import {NailCollectable} from "../Items/Collectables/NailCollectable.js";
 import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.js";
 import {AppleCollectable} from "../Items/Collectables/AppleCollectable.js";
+import {Clouds} from "../StaticComponents/BackgroundComponents/Clouds.js";
 
 const BUNNY_WIDTH = 80;
 const BUNNY_HEIGHT = 80;
@@ -45,7 +46,7 @@ export class GameScene extends Scene {
         }
 
         for (let i = 0; i < 5; i++) {
-            this.add(new NailCollectable('nail', new Vector(this.random.integer(-1500, -500), this.random.integer(350, 1050)), 25, 25, 1, 1, Resources.Nail, CollisionType.Passive));
+            this.add(new NailCollectable('nail', new Vector(this.random.integer(-1500, -500), this.random.integer(350, 900)), 25, 25, 1, 1, Resources.Nail, CollisionType.Passive));
         }
 
         for (let i = 0; i < 3; i++) {
@@ -79,7 +80,7 @@ export class GameScene extends Scene {
         this.camera.strategy.elasticToActor(this.game.player, 0.1, 0.3);
         let boundingBox = new BoundingBox(
             -1500,
-            -1050,
+            -1500,
             1500,
             1050
         )
@@ -186,7 +187,7 @@ export class GameScene extends Scene {
         this.add(new Bush('bush', new Vector(500,980), 200,200,1,1,Resources.Bush,CollisionType.Passive));
         this.add(new Bush('bush', new Vector(-130,900), 200,200,1,1,Resources.Bush,CollisionType.Passive));
         this.add(new Bush('bush', new Vector(0,980), 200,200,1,1,Resources.Bush,CollisionType.Passive));
-        this.add(new SlingshotCollectable('slingshot', new Vector(140, 800), 75, 75, 1, 1, Resources.Slingshot, CollisionType.Passive));
+        this.add(new SlingshotCollectable('slingshot', new Vector(160, 800), 75, 75, 1, 1, Resources.Slingshot, CollisionType.Passive));
         this.add(new Bush('bush', new Vector(50,800), 200,200,1,1,Resources.Bush,CollisionType.Passive));
         this.add(new Bush('bush', new Vector(1250,850), 200,200,1,1,Resources.Bush,CollisionType.Passive));
         this.add(new Bush('bush', new Vector(1000,800), 200,200,1,1,Resources.Bush,CollisionType.Passive));
@@ -207,12 +208,19 @@ export class GameScene extends Scene {
                 }
             }
         }
+
+        this.add(new Clouds('clouds', new Vector(-1600,-1200), 150,150,1,1,Resources.Clouds));
+        this.add(new Clouds('clouds', new Vector(0,-1200), 150,150,1,1,Resources.Clouds));
+        this.add(new Clouds('clouds', new Vector(900,-1200), 150,150,1,1,Resources.Clouds));
+        this.add(new Clouds('clouds', new Vector(-1200,-1200), 150,150,1,1,Resources.Clouds));
+
+
     }
 
     addFencesToScene() {
         let xPosFence = -1450;
         for (let i = 0; i < 32; i++) {
-            this.add(new Fence('fence', new Vector(xPosFence,-1010), 100,100,1,1,Resources.Fence));
+            this.add(new Fence('fence', new Vector(xPosFence,-1060), 100,100,1,1,Resources.Fence));
             xPosFence += 94;
         }
         xPosFence = -1450;
