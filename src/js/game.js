@@ -39,7 +39,7 @@ export class Game extends Engine {
         this.scene = "introScene";
         let testScene = "";
 
-        this.#arcade = new Arcade(this, false, true);
+        this.#arcade = new Arcade(this, false, false);
 
         this.#joystickListener = (e) => this.#joyStickFound(e)
         document.addEventListener("joystickcreated",  this.#joystickListener)
