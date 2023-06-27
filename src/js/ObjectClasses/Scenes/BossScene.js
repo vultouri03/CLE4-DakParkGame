@@ -17,7 +17,7 @@ export class BossScene extends Scene {
     constructor(player, nextScene, inventory) {
         super()
         this.add(new Background('BossBackGround' , new Vector(visualViewport.width/2, visualViewport.height/2), visualViewport.width + 100, visualViewport.height + 50, 1, 1, Resources.BossBackGround, CollisionType.PreventCollision));
-        this.boss = new Boss("chicken boss", 10, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
+        this.boss = new Boss("chicken boss", 50, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
         this.inventory = inventory;
 

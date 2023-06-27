@@ -31,7 +31,6 @@ export class Player extends Character {
             Down: 2,
             Left: 3,
             Right: 4,
-
         };
 
         this.velocity = 200;
@@ -52,7 +51,6 @@ export class Player extends Character {
             document.addEventListener("joystick0right", () => this.moveRight());
             document.addEventListener("joystick0down", () => this.moveDown());
             document.addEventListener("joystick0neutral", () => this.setNeutral());
-            this.setSlingShotPos()
         }
     }
 
@@ -77,6 +75,7 @@ export class Player extends Character {
         if (controllerIsNotConnected) {
             this.keyBoardMovement(_engine);
         }
+        this.setSlingShotPos();
 
         this.animatingCheck();
         this.playerAttacks(_engine);
@@ -90,7 +89,6 @@ export class Player extends Character {
     keyBoardMovement(_engine) {
         this.horizontalMovement(_engine);
         this.verticalMovement(_engine);
-        this.setSlingShotPos();
     }
 
     //handles horizontal movement

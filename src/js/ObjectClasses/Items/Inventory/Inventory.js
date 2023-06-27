@@ -82,7 +82,7 @@ export class Inventory extends ScreenElement {
                     this.graphics.use(this.inventorySlots[0]);
                 } else {
                     localStorage.setItem("inventorySlot", (++currentSlot).toString());
-                    this.graphics.use(this.inventorySlots[currentSlot]);
+                    this.graphics.use(this.inventorySlots[currentSlot - 1]);
                 }
             }
 
@@ -93,7 +93,7 @@ export class Inventory extends ScreenElement {
                     this.graphics.use(this.inventorySlots[4]);
                 } else {
                     localStorage.setItem("inventorySlot", (--currentSlot).toString());
-                    this.graphics.use(this.inventorySlots[currentSlot - 2]);
+                    this.graphics.use(this.inventorySlots[currentSlot - 1]);
                 }
             }
         }
