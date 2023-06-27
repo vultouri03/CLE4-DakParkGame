@@ -7,6 +7,7 @@ import bossImage from '../images/chicken.png'
 import boulderImage from '../images/boulder.png'
 import bushImage from '../images/bush.png'
 import calmBunnyImage from '../images/calm bnuy.png'
+import cloudsImage from'../images/clouds.png'
 import eggImage from '../images/egg.png'
 import eggPositionBossImage from '../images/egg drop attack.png'
 import endSceneImage from '../images/endscene.png'
@@ -62,6 +63,7 @@ const Resources = {
     Boulder: new ImageSource(boulderImage),
     Bush: new ImageSource(bushImage),
     CalmBunny: new ImageSource(calmBunnyImage),
+    Clouds: new ImageSource(cloudsImage),
     Egg: new ImageSource(eggImage),
     EggPositionBoss: new ImageSource(eggPositionBossImage),
     EndScene: new ImageSource(endSceneImage),
