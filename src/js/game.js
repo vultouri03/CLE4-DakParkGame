@@ -44,9 +44,9 @@ export class Game extends Engine {
         this.#joystickListener = (e) => this.#joyStickFound(e)
         document.addEventListener("joystickcreated",  this.#joystickListener)
 
-        this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+        this.player = new Player('player', 8, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
-        this.inventory = new Inventory(new Vector(visualViewport.width/2, (visualViewport.height - 100)));
+        this.inventory = new Inventory(new Vector(visualViewport.width/2 - Resources.ToolBar.width/2, (visualViewport.height - 100)));
 
         if (testScene === "Boss") {
             localStorage.setItem("wood", "true");

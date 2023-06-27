@@ -5,6 +5,7 @@ import {Boss} from "../Characters/Enemy/Boss.js";
 import {RockCollectable} from "../Items/Collectables/RockCollectable.js";
 import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.js";
 import {Background} from "../StaticComponents/Background/Background.js";
+import { Hearths } from "../Items/Hearths.js";
 
 export class BossScene extends Scene {
     player;
@@ -20,6 +21,7 @@ export class BossScene extends Scene {
         this.boss = new Boss("chicken boss", 30, new Vector(500, 300), 200, 200, 1, 1, Resources.Boss, CollisionType.Passive, nextScene);
         this.add(this.boss);
         this.inventory = inventory;
+        this.add(new Hearths('hearths', new Vector(30,30), 241, 50, 1, 1, Resources.Heart4, CollisionType.PreventCollision));
 
         //this.initSpawns(this.game);
         

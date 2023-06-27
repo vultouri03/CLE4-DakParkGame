@@ -44,6 +44,7 @@ export class Player extends Character {
         this.playerSlingshot();
         this.initGraphics();
         this.screenExit();
+        this.z = 2;
 
         let controllerIsCollected = engine.input.gamepads.at(0).connected;
         if (controllerIsCollected) {
@@ -200,7 +201,7 @@ export class Player extends Character {
 
 
     onPreKill(_scene) {
-        this.game.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+        this.game.player = new Player('player', 8, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
         this.game.goToScene("endScene");
     }
 
