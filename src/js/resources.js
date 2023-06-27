@@ -1,4 +1,5 @@
 import {ImageSource, Loader} from 'excalibur'
+import arcadeImage from '../images/controller/cmgt arcade.png'
 import aggressiveBunnyImage from '../images/killkillkill.png'
 import appleImage from '../images/apple.png'
 import backGroundImage from '../images/background.png'
@@ -20,6 +21,7 @@ import hearth2Image from '../images/hearths/hearth2.png'
 import hearth3Image from '../images/hearths/hearth3.png'
 import hearth4Image from '../images/hearths/hearth4.png'
 import introduction from '../images/introduction.png'
+import keyboardImage from '../images/controller/keyboard.png'
 import nailImage from '../images/nail.png'
 import playerBackImage from '../images/player_back.png'
 import playerBackAnimation from '../images/player back animation.png'
@@ -55,6 +57,7 @@ import winnerSceneImage from '../images/winnerscene.png'
 import woodImage from '../images/wood.png'
 
 const Resources = {
+    Arcade: new ImageSource(arcadeImage),
     AggressiveBunny: new ImageSource(aggressiveBunnyImage),
     Apple: new ImageSource(appleImage),
     BackGround: new ImageSource(backGroundImage),
@@ -76,6 +79,7 @@ const Resources = {
     Heart3: new ImageSource(hearth3Image),
     Heart4: new ImageSource(hearth4Image),
     introduction: new ImageSource(introduction),
+    KeyBoard: new ImageSource(keyboardImage),
     Nail: new ImageSource(nailImage),
     PlayerBack: new ImageSource(playerBackImage),
     PlayerBackAnimation: new ImageSource(playerBackAnimation),
