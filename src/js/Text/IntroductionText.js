@@ -56,7 +56,10 @@ export class IntroductionText extends ScreenElement {
                 case 7:
                     this.dialogueText.text = "Good luck"
                     break;
-                case 8 :
+                case 8:
+                    this.dialogueText.text = ""
+                    break;
+                case 10 :
                     this.game.goToScene('gameScene')
             }
         }
