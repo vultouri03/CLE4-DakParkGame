@@ -14,6 +14,8 @@ import {NailCollectable} from "../Items/Collectables/NailCollectable.js";
 import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.js";
 import {AppleCollectable} from "../Items/Collectables/AppleCollectable.js";
 import {Clouds} from "../StaticComponents/BackgroundComponents/Clouds.js";
+import { Hearths } from "../Items/Hearths";
+
 
 const BUNNY_WIDTH = 80;
 const BUNNY_HEIGHT = 80;
@@ -30,7 +32,7 @@ export class GameScene extends Scene {
         super()
         this.player = player;
         this.inventory = inventory;
-
+        
         this.addBackGroundToScene();
         this.addBushesAndSlingShotToScene();
         this.addFencesToScene();
@@ -52,7 +54,7 @@ export class GameScene extends Scene {
         for (let i = 0; i < 3; i++) {
             this.add(new AppleCollectable('rock', new Vector(this.random.integer(-1300, 1300), this.random.integer(-950, 950)), 60, 60, 1, 1, Resources.Apple, CollisionType.Passive));
         }
-
+        this.add(new Hearths('hearths', new Vector(30,30), 241, 50, 1, 1, Resources.Heart4, CollisionType.PreventCollision));
         this.nextScene = nextScene;
     }
 
@@ -86,6 +88,7 @@ export class GameScene extends Scene {
         )
         this.camera.strategy.limitCameraBounds(boundingBox);
         this.add(this.inventory);
+
     }
 
     onDeactivate(ctx) {

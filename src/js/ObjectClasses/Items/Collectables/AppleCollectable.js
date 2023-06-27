@@ -20,7 +20,9 @@ export class AppleCollectable extends Collectable {
     }
 
     heal(engine, event){
+        if(event.other.hp <= 6) {
         event.other.hp += 2;
         this.kill();
+        }
     }
 }

@@ -15,6 +15,10 @@ import fenceImage from '../images/fence.png'
 import fishImage from '../images/fish.png'
 import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
+import hearth1Image from '../images/hearths/hearth1.png'
+import hearth2Image from '../images/hearths/hearth2.png'
+import hearth3Image from '../images/hearths/hearth3.png'
+import hearth4Image from '../images/hearths/hearth4.png'
 import introduction from '../images/introduction.png'
 import nailImage from '../images/nail.png'
 import playerBackImage from '../images/player_back.png'
@@ -67,6 +71,10 @@ const Resources = {
     Fish: new ImageSource(fishImage),
     Hammer: new ImageSource(hammerImage),
     Hay: new ImageSource(hayImage),
+    Heart1: new ImageSource(hearth1Image),
+    Heart2: new ImageSource(hearth2Image),
+    Heart3: new ImageSource(hearth3Image),
+    Heart4: new ImageSource(hearth4Image),
     introduction: new ImageSource(introduction),
     Nail: new ImageSource(nailImage),
     PlayerBack: new ImageSource(playerBackImage),
