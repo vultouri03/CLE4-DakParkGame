@@ -39,4 +39,10 @@ export class Entity extends Actor {
             length,
         );
     };
+
+    onInitialize(engine) {
+        if (this.name === "egg") {
+            this.on('collisionstart', (event) => this.hitSomething(event, engine))
+        }
+    }
 }
