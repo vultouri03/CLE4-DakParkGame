@@ -14,6 +14,7 @@ import eggPositionBossImage from '../images/egg drop attack.png'
 import endSceneImage from '../images/endscene.png'
 import fenceImage from '../images/fence.png'
 import fishImage from '../images/fish.png'
+import friedEggImage from '../images/fried egg.png'
 import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
 import hearth1Image from '../images/hearths/hearth1.png'
@@ -72,6 +73,7 @@ const Resources = {
     EndScene: new ImageSource(endSceneImage),
     Fence: new ImageSource(fenceImage),
     Fish: new ImageSource(fishImage),
+    FriedEgg: new ImageSource(friedEggImage),
     Hammer: new ImageSource(hammerImage),
     Hay: new ImageSource(hayImage),
     Heart1: new ImageSource(hearth1Image),

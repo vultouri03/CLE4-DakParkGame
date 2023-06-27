@@ -3,7 +3,7 @@ import {ActionSequence, Animation, EasingFunctions, Vector} from "excalibur";
 
 import {AttackPattern} from "../AttackPattern.js";
 
-const SPRITE_DURATION = 350
+const SPRITE_DURATION = 250
 
 export class BunnyJumpAttackPattern extends AttackPattern {
 

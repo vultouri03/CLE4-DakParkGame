@@ -11,7 +11,7 @@ import {
 
 import {AttackPattern} from "../AttackPattern.js";
 import {Entity} from "../../../../Entity.js";
-import {BossWeapon} from "../../../../Items/Shooter/BossWeapon.js";
+import {Egg} from "../../../../Items/Shooter/Egg.js";
 
 const SPRITE_AMOUNT = 3;
 const SPRITE_DURATION = 500;
@@ -99,7 +99,7 @@ export class EggDropAttackPattern extends AttackPattern {
                     }
                 }
 
-            shadow = new Entity('eggShadow', shadowPosition, 40, 40, 1, 1, Resources.Target, CollisionType.Passive);
+            shadow = new Entity('eggShadow' + i, shadowPosition, 40, 40, 1, 1, Resources.Target, CollisionType.Passive);
             _engine.add(shadow);
 
             let rotateShadowSequence = new ActionSequence(shadow, ctx => {
@@ -115,7 +115,7 @@ export class EggDropAttackPattern extends AttackPattern {
         }
 
         for (let i = 0; i < 5; i++) {
-            egg = new BossWeapon('egg', new Vector(this.shadows[i].pos.x, 0), EGG_SIZE, EGG_SIZE, 1, 1, Resources.Egg, CollisionType.Passive);
+            egg = new Egg('egg', new Vector(this.shadows[i].pos.x, 0), EGG_SIZE, EGG_SIZE, 1, 1, Resources.Egg, CollisionType.Passive, this.shadows[i]);
             this.eggs[i] = egg;
             _engine.add(egg);
             egg.actions.runAction(this.eggActionSequence(egg, this.shadows[i].pos, EGG_FALL_DURATION));
@@ -133,5 +133,4 @@ export class EggDropAttackPattern extends AttackPattern {
     areObjectsTooClose(egg, other, size) {
         return Math.abs(egg.x - other.x) < size && Math.abs(egg.y - other.y) < size;
     }
-
 }

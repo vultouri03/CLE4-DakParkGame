@@ -40,7 +40,7 @@ export class Boss extends Enemy {
     initAnimations(_engine, rand) {
         this.actionSequence = new ActionSequence(this, ctx => {
 
-            // rand = 2;
+            rand = 2;
             if (rand === 1) {
                 this.idleAttackPattern.start(this);
                 ctx.delay(200);

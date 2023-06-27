@@ -6,7 +6,7 @@ export class BossWeapon extends Weapon {
         super(name, position, width, height, horizontalSpriteAmount, verticalSpriteAmount, resource, collisionType);
     }
 
-    hitSomething(event){
+    hitSomething(event, engine){
         if (event.other instanceof Player) {
             event.other.hp -= 1;
             event.other.actions.blink(200, 200, 3)
