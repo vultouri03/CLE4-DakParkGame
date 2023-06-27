@@ -7,6 +7,7 @@ import bossImage from '../images/chicken.png'
 import boulderImage from '../images/boulder.png'
 import bushImage from '../images/bush.png'
 import calmBunnyImage from '../images/calm bnuy.png'
+import cloudsImage from'../images/clouds.png'
 import eggImage from '../images/egg.png'
 import eggPositionBossImage from '../images/egg drop attack.png'
 import endSceneImage from '../images/endscene.png'
@@ -15,6 +16,10 @@ import fishImage from '../images/fish.png'
 import friedEggImage from '../images/fried egg.png'
 import hammerImage from '../images/hammer.png'
 import hayImage from '../images/hay.png'
+import hearth1Image from '../images/hearths/hearth1.png'
+import hearth2Image from '../images/hearths/hearth2.png'
+import hearth3Image from '../images/hearths/hearth3.png'
+import hearth4Image from '../images/hearths/hearth4.png'
 import introduction from '../images/introduction.png'
 import nailImage from '../images/nail.png'
 import playerBackImage from '../images/player_back.png'
@@ -59,6 +64,7 @@ const Resources = {
     Boulder: new ImageSource(boulderImage),
     Bush: new ImageSource(bushImage),
     CalmBunny: new ImageSource(calmBunnyImage),
+    Clouds: new ImageSource(cloudsImage),
     Egg: new ImageSource(eggImage),
     EggPositionBoss: new ImageSource(eggPositionBossImage),
     EndScene: new ImageSource(endSceneImage),
@@ -67,6 +73,10 @@ const Resources = {
     FriedEgg: new ImageSource(friedEggImage),
     Hammer: new ImageSource(hammerImage),
     Hay: new ImageSource(hayImage),
+    Heart1: new ImageSource(hearth1Image),
+    Heart2: new ImageSource(hearth2Image),
+    Heart3: new ImageSource(hearth3Image),
+    Heart4: new ImageSource(hearth4Image),
     introduction: new ImageSource(introduction),
     Nail: new ImageSource(nailImage),
     PlayerBack: new ImageSource(playerBackImage),

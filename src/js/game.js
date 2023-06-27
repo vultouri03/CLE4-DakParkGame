@@ -36,17 +36,17 @@ export class Game extends Engine {
 
     startGame() {
         localStorage.clear();
-        this.scene = "gameScene";
-        let testScene = "Boss";
+        this.scene = "introScene";
+        let testScene = "Henk";
 
-        this.#arcade = new Arcade(this, false, true);
+        this.#arcade = new Arcade(this, false, false);
 
         this.#joystickListener = (e) => this.#joyStickFound(e)
         document.addEventListener("joystickcreated",  this.#joystickListener)
 
-        this.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+        this.player = new Player('player', 8, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
 
-        this.inventory = new Inventory(new Vector(visualViewport.width/2, (visualViewport.height - 100)));
+        this.inventory = new Inventory(new Vector(visualViewport.width/2 - Resources.ToolBar.width/2, (visualViewport.height - 100)));
 
         if (testScene === "Boss") {
             localStorage.setItem("wood", "true");
@@ -61,7 +61,7 @@ export class Game extends Engine {
         this.addScene('startScene', new StartScene());
         this.addScene('gameScene', new GameScene(this.player, 'BossScene', this.inventory));
         this.addScene('BossScene', new BossScene(this.player, 'gameScene', this.inventory));
-        this.addScene('introductionScene', new IntroductionScene())
+        this.addScene('introScene', new IntroductionScene())
         this.addScene('endScene', new EndScene());
         this.addScene('winScene', new WinnerScene());
 

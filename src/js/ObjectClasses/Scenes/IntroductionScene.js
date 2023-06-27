@@ -1,7 +1,7 @@
 import { CollisionType, Scene, Vector } from "excalibur";
 import { IntroductionText } from "../../Text/IntroductionText";
-import { Background } from "../StaticComponents/Background/Background.js";
 import { Resources } from "../../resources";
+import { Background } from "../StaticComponents/Background/Background";
 
 export class IntroductionScene extends Scene {
 

@@ -14,9 +14,6 @@ export class UIElement extends ScreenElement {
         this.scale = new Vector(width / (resource.width / horizontalSpriteAmount), height / (resource.height / verticalSpriteAmount));
         this.graphics.use(resource.toSprite());
         this.pos = position;
-
-
-
-
+        this.z = 10
     }
 }

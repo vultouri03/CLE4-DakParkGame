@@ -43,6 +43,7 @@ export class Player extends Character {
         this.playerSlingshot();
         this.initGraphics();
         this.screenExit();
+        this.z = 2;
 
         let controllerIsCollected = engine.input.gamepads.at(0).connected;
         if (controllerIsCollected) {
@@ -81,9 +82,13 @@ export class Player extends Character {
         this.playerAttacks(_engine);
         this.slingShot.graphics.visible = localStorage.getItem("slingshot") === "true" && localStorage.getItem("inventorySlot") === "4";
         this.death();
-
+        if(this.game.scene === "gameScene") {
         this.pos.x = clamp(this.pos.x, -1450, 1450);
         this.pos.y = clamp(this.pos.y, -1000, 1000);
+        } else {
+            this.pos.x = clamp(this.pos.x, 0, visualViewport.width);
+            this.pos.y = clamp(this.pos.y, 0, visualViewport.height);
+        }
     }
 
     keyBoardMovement(_engine) {
@@ -194,7 +199,7 @@ export class Player extends Character {
 
 
     onPreKill(_scene) {
-        this.game.player = new Player('player', 10, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
+        this.game.player = new Player('player', 8, new Vector(150, 150), 100, 130, 1, 1, Resources.PlayerFront, CollisionType.Active);
         this.game.goToScene("endScene");
     }
 
