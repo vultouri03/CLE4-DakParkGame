@@ -56,7 +56,7 @@ export class Boss extends Enemy {
 
     hitSomething(event){
         if (event.other instanceof Player) {
-            event.other.hp -= 3;
+            event.other.hp -= 2;
             event.other.actions.blink(200, 200, 3);
         }
     }

@@ -15,6 +15,8 @@ import {SlingshotCollectable} from "../Items/Collectables/SlingshotCollectable.j
 import {AppleCollectable} from "../Items/Collectables/AppleCollectable.js";
 import {Clouds} from "../StaticComponents/BackgroundComponents/Clouds.js";
 import { Hearths } from "../Items/Hearths";
+import { Tree } from "../StaticComponents/BackgroundComponents/Tree";
+import { Boulder } from "../StaticComponents/BackgroundComponents/Boulder";
 
 
 const BUNNY_WIDTH = 80;
@@ -36,7 +38,7 @@ export class GameScene extends Scene {
         this.addBackGroundToScene();
         this.addBushesAndSlingShotToScene();
         this.addFencesToScene();
-        this.add(new WoodCollectable('wood', new Vector(300, 500), 50, 50, 1, 1, Resources.Wood, CollisionType.Passive));
+        this.add(new WoodCollectable('wood', new Vector(1000, -600), 50, 50, 1, 1, Resources.Wood, CollisionType.Passive));
 
         let hammer = new HammerCollectable('hammer', new Vector(-750, -500), 75, 75, 1, 1, Resources.Hammer, CollisionType.Passive);
         this.add(hammer);
@@ -54,6 +56,18 @@ export class GameScene extends Scene {
         for (let i = 0; i < 3; i++) {
             this.add(new AppleCollectable('rock', new Vector(this.random.integer(-1300, 1300), this.random.integer(-950, 950)), 60, 60, 1, 1, Resources.Apple, CollisionType.Passive));
         }
+        this.add(new Tree('tree', new Vector(700, -500), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(900, -400), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(780, -300), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(600, -600), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(1300, -500), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(1400, -400), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(1180, -300), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Tree('tree', new Vector(1100, -600), 250, 600, 1, 1, Resources.Tree, CollisionType.Fixed))
+        this.add(new Boulder('boulder', new Vector(0, 0), 100, 150, 1, 1, Resources.Boulder, CollisionType.Fixed))
+        this.add(new Boulder('boulder', new Vector(500, 100), 100, 150, 1, 1, Resources.Boulder, CollisionType.Fixed))
+        this.add(new Boulder('boulder', new Vector(300, -300), 100, 150, 1, 1, Resources.Boulder, CollisionType.Fixed))
+        this.add(new Boulder('boulder', new Vector(-500, 200), 100, 150, 1, 1, Resources.Boulder, CollisionType.Fixed))
         this.add(new Hearths('hearths', new Vector(30,30), 241, 50, 1, 1, Resources.Heart4, CollisionType.PreventCollision));
         this.nextScene = nextScene;
     }
